@@ -2,7 +2,7 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import viewsReducer from 'views/redux';
 import navigationReducer from 'views/App/Navigation/redux';
 import appReducer from 'views/App/redux';
-import importColsReducer from 'views/App/ImportCols/redux';
+import dataSheetReducer from 'views/App/DataSheet/redux';
 
 export interface AppState {
   loggedIn: boolean,
@@ -39,7 +39,7 @@ export const store = configureStore({
     views: viewsReducer,
     navigation: navigationReducer,
     app: appReducer,
-    importCols: importColsReducer,
+    dataSheet: dataSheetReducer,
   },
 });
 

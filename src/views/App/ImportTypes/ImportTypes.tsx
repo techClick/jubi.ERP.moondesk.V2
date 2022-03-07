@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
 import { getCurrentTab, getImportType } from 'views/App/utils/utils';
-import { selectShowSheetBuilder } from '../ImportCols/redux';
+import { selectShowSheetBuilder } from '../DataSheet/redux';
 import * as S from './ImportTypes.styled';
 import { importOptions } from './utils/utils';
 
