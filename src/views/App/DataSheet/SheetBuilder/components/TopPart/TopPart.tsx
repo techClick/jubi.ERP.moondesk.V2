@@ -1,7 +1,6 @@
 import React from 'react';
 import { getCurrentTab } from 'views/App/utils/utils';
 import * as S from './TopPart.styled';
-import DateSection from '../DateSection/DateSection';
 
 const TopPart = function TopPart() {
   const thisTab = getCurrentTab();
@@ -15,7 +14,6 @@ const TopPart = function TopPart() {
             {` ${thisTab} `}
             sheet
           </S.TILPTopPart>
-          <DateSection />
         </S.TILeftPart>
         <S.TIRightPart />
       </S.TopInfo>

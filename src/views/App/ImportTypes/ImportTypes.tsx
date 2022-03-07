@@ -1,18 +1,16 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
-import { getCurrentTab, getImportType } from 'views/App/utils/utils';
-import { selectShowSheetBuilder } from '../DataSheet/redux';
+import { selectShowSheet } from '../DataSheet/redux';
 import * as S from './ImportTypes.styled';
 import { importOptions } from './utils/utils';
 
 const ImportTypes = function ImportTypes() {
   const history = useHistory();
-  const showSheetBuilder = useAppSelector(selectShowSheetBuilder);
-  const thisTab = getCurrentTab();
+  const showSheet = useAppSelector(selectShowSheet);
 
-  if (showSheetBuilder[thisTab]) {
-    history.replace(`/app/${thisTab}/importcols/${getImportType()}`);
+  if (showSheet) {
+    history.replace('/app/datasheet');
     return null;
   }
 
@@ -21,7 +19,7 @@ const ImportTypes = function ImportTypes() {
       <S.Container>
         <S.WhiteCard>
           <S.Header1>
-            {`IMPORT NEW ${thisTab.toUpperCase()} SHEET`}
+            IMPORT NEW DATA SHEET
           </S.Header1>
           <S.Line />
           <S.Header>
