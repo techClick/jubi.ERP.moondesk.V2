@@ -2,13 +2,14 @@ import React from 'react';
 import { Sheet } from 'types/types';
 import { useAppSelector } from 'redux/hooks';
 import { getStorageItem } from 'views/App/utils/utils';
-import { selectSheet } from 'views/App/DataSheet/redux';
+import { selectSheets } from 'views/App/DataSheet/redux';
 import { getProject } from 'views/App/utils/GlobalUtils';
 import { FormattedNumber } from 'react-intl';
 import * as S from './TableBody.styled';
 
 const TableBody = function TableBody() {
-  const sheet: Sheet = useAppSelector(selectSheet);
+  // const selectedSheet: number = useAppSelector(selectSelectedSheet)?.[getCurrentTab()] || 0;
+  const sheet: Sheet = useAppSelector(selectSheets)[0];
   const currency = getStorageItem(`${getProject()}_currency`) || '$';
 
   return (

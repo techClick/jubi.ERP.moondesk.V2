@@ -1,12 +1,13 @@
 import React from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Sheet } from 'types/types';
-import { selectSheet } from 'views/App/DataSheet/redux';
+import { selectSheets } from 'views/App/DataSheet/redux';
 import * as S from './Table.styled';
 import TableBody from './TableBody/TableBody';
 
 const Table = function Table() {
-  const sheet: Sheet = useAppSelector(selectSheet);
+  // const selectedSheet: number = useAppSelector(selectSelectedSheet)?.[getCurrentTab()] || 0;
+  const sheet: Sheet = useAppSelector(selectSheets)[0];
 
   return (
     <S.Container innerWidth={window.innerWidth} innerHeight={window.innerHeight} id="tableCont">

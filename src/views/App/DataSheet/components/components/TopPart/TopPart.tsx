@@ -1,18 +1,13 @@
 import React from 'react';
-import { getCurrentTab } from 'views/App/utils/utils';
 import * as S from './TopPart.styled';
 
 const TopPart = function TopPart() {
-  const thisTab = getCurrentTab();
-
   return (
     <S.Container>
       <S.TopInfo>
         <S.TILeftPart>
           <S.TILPTopPart>
-            New
-            {` ${thisTab} `}
-            sheet
+            New data sheet
           </S.TILPTopPart>
         </S.TILeftPart>
         <S.TIRightPart />

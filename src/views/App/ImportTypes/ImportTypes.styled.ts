@@ -1,5 +1,4 @@
 import Color from 'color';
-import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { panelBorderColor, textColor } from '../styles';
 
@@ -19,7 +18,7 @@ export const WhiteCard = styled.div<any>`
   width: max-content;
   width: 90%;
   max-width: 500px;
-  height: 236px;
+  height: 234px;
   position: absolute;
   text-align: center;
   animation-name: ${breatheAnimation};
@@ -41,27 +40,28 @@ export const Header1 = styled.div<any>`
 `;
 
 export const Header = styled.div<any>`
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 13px;
+  width: max-content;
   margin: auto;
   margin-top: 60px;
-  margin-left: -310px;
-  color: ${Color(textColor).lighten(0.7).toString()};
+  color: ${Color(textColor).lighten(0.5).toString()};
 `;
 
 export const IconCont = styled.div<any>`
   width: 100%;
   height: 100px;
   padding: 0 10px;
-  margin-top: 7px;
+  margin-top: 9px;
   display: flex;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
 `;
 
-export const IconCont2 = styled<any>(Link)`
+export const IconCont2 = styled.div`
   background: ${Color(panelBorderColor).lighten(0.17).toString()};
+  outline: 1px solid ${Color(panelBorderColor).lighten(0.075).toString()};
   border-radius: 4px;
   padding-bottom: 5px;
   width: calc(25% - 19px);
@@ -76,6 +76,7 @@ export const IconCont2 = styled<any>(Link)`
   cursor: pointer;
   &:hover {
     background: ${Color(panelBorderColor).lighten(0).toString()};
+    outline: 1px solid ${Color(panelBorderColor).darken(0.12).toString()};
   }
 `;
 
@@ -106,7 +107,11 @@ export const Line = styled.hr`
   width: 100%;
   position:absolute;
   border: 0;
-  background-color: ${Color(panelBorderColor).lighten(0.17).toString()};
+  background-color: ${Color(panelBorderColor).lighten(0.13).toString()};
   top: 60.4px;
   left: 0;
+`;
+
+export const Input = styled.input`
+  display: none;
 `;

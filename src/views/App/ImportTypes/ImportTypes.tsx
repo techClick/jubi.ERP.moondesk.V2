@@ -1,13 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
-import { selectShowSheet } from '../DataSheet/redux';
+import { selectSheets } from '../DataSheet/redux';
 import * as S from './ImportTypes.styled';
-import { importOptions } from './utils/utils';
+import { getDataFromCSV } from './utils/UploadUtils';
+import { uploadStart } from './utils/utils';
+import { importOptions } from './utils/VarUtils';
 
 const ImportTypes = function ImportTypes() {
   const history = useHistory();
-  const showSheet = useAppSelector(selectShowSheet);
+  const showSheet = useAppSelector(selectSheets).length > 0;
+  const dispatch = useDispatch();
 
   if (showSheet) {
     history.replace('/app/datasheet');
@@ -28,9 +32,21 @@ const ImportTypes = function ImportTypes() {
           <S.IconCont>
             {
               importOptions.map((option, index) => (
-                <S.IconCont2 to={option.path()} key={`importoptions${index}`}>
+                <S.IconCont2 key={`importoptions${index}`}>
                   <S.IconContMain>
-                    <S.IconDiv color={option.color} biggerX={index < 2}>
+                    <S.Input
+                      type="file"
+                      id="uploadSheet"
+                      onChange={(e) => {
+                        dispatch(getDataFromCSV(e.target.files));
+                        e.target.value = '';
+                      }}
+                    />
+                    <S.IconDiv
+                      color={option.color}
+                      biggerX={index < 2}
+                      onClick={() => dispatch(uploadStart())}
+                    >
                       {option.icon}
                     </S.IconDiv>
                   </S.IconContMain>
