@@ -32,7 +32,7 @@ const ImportTypes = function ImportTypes() {
           <S.IconCont>
             {
               importOptions.map((option, index) => (
-                <S.IconCont2 key={`importoptions${index}`}>
+                <S.IconCont2 onClick={() => dispatch(uploadStart())} key={`importoptions${index}`}>
                   <S.IconContMain>
                     <S.Input
                       type="file"
@@ -42,11 +42,7 @@ const ImportTypes = function ImportTypes() {
                         e.target.value = '';
                       }}
                     />
-                    <S.IconDiv
-                      color={option.color}
-                      biggerX={index < 2}
-                      onClick={() => dispatch(uploadStart())}
-                    >
+                    <S.IconDiv color={option.color} biggerX={index < 2}>
                       {option.icon}
                     </S.IconDiv>
                   </S.IconContMain>

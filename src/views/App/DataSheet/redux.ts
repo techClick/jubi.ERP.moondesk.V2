@@ -11,7 +11,7 @@ export interface AppState {
 
 const initialState: AppState = {
   sheets: JSON.parse(getStorageItem('sheets')
-    || JSON.stringify([{}])),
+    || JSON.stringify([])),
   selectedSheet: Number(getStorageItem('selectedsheet') || 0),
   showPopup: {},
 };

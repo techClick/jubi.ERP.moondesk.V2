@@ -8,7 +8,7 @@ import SheetParts from './components/SheetParts';
 
 const ImportCols = function ImportCols() {
   const showPopup = useAppSelector(selectShowPopup);
-  const showSheets = useAppSelector(selectSheets).length > 1;
+  const showSheet = useAppSelector(selectSheets).length > 0;
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,14 +18,14 @@ const ImportCols = function ImportCols() {
     dispatch(setShowPopup({}));
   }, []);
 
-  if (!showSheets) {
+  if (!showSheet) {
     history.replace('/app/importtypes');
     return null;
   }
 
   return (
     <>
-      {showPopup && !initialLoad
+      {showPopup.component && !initialLoad
         && (
           <>
             <Background onClick={() => (

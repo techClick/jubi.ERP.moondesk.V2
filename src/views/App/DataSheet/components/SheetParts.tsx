@@ -1,14 +1,14 @@
 import React from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { selectSheets } from 'views/App/DataSheet/redux';
+import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
 import { Sheet } from 'types/types';
 import * as S from './SheetParts.styled';
 import TopPart from './components/TopPart/TopPart';
 import BottomPart from './components/BottomPart/BottomPart';
 
 const SheetParts = function SheetParts() {
-  // const selectedSheet: number = useAppSelector(selectSelectedSheet)?.[getCurrentTab()] || 0;
-  const sheet: Sheet = useAppSelector(selectSheets)[0];
+  const selectedSheet: number = useAppSelector(selectSelectedSheet);
+  const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
 
   return (
     <S.Container>
