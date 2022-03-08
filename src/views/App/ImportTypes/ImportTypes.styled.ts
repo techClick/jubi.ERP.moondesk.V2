@@ -1,14 +1,16 @@
 import Color from 'color';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { containerPadding, panelBorderColor, textColor } from '../styles';
+import { panelBorderColor, textColor } from '../styles';
 
 const breatheAnimation = keyframes`
  0% { opacity: 0 }
  100% { opacity: 1 }`;
 
 export const Container = styled.div`
-  padding-top: ${containerPadding};
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const WhiteCard = styled.div<any>`
@@ -18,8 +20,7 @@ export const WhiteCard = styled.div<any>`
   width: 90%;
   max-width: 500px;
   height: 236px;
-  position: relative;
-  margin: auto;
+  position: absolute;
   text-align: center;
   animation-name: ${breatheAnimation};
   animation-duration: 0.1s;
@@ -27,6 +28,9 @@ export const WhiteCard = styled.div<any>`
   animation: all 0.05 ease-in;
   padding-bottom: 20px;
   border: 1px solid ${Color('white').darken(0.09).toString()};
+  right: 50%;
+  bottom: 75%;
+  transform: translate(50%, 75%);
 `;
 
 export const Header1 = styled.div<any>`

@@ -2,11 +2,11 @@ import React from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { selectSheet } from 'views/App/DataSheet/redux';
 import { Sheet } from 'types/types';
-import * as S from './SheetBuilder.styled';
+import * as S from './SheetParts.styled';
 import TopPart from './components/TopPart/TopPart';
 import BottomPart from './components/BottomPart/BottomPart';
 
-const SheetBuilder = function SheetBuilder() {
+const SheetParts = function SheetParts() {
   const sheet: Sheet = useAppSelector(selectSheet);
 
   return (
@@ -23,4 +23,4 @@ const SheetBuilder = function SheetBuilder() {
   );
 };
 
-export default SheetBuilder;
+export default SheetParts;
