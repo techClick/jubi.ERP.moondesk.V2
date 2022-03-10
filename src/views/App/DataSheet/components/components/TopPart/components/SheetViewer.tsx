@@ -1,6 +1,6 @@
 import { faFileLines, faFile, faSquarePlus } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
@@ -14,7 +14,20 @@ const TopPart = function TopPart() {
   const sheets: Sheet[] = useAppSelector(selectSheets);
   const history = useHistory();
   const dispatch = useDispatch();
-  // const sheets = [sheets1[0]];
+  // const sheets = [sheets1[0], sheets1[0], sheets1[0]];
+
+  function isScrollableX(element: any) {
+    return element.scrollWidth > element.offsetWidth;
+  }
+
+  useEffect(() => {
+    const scrollCont = document.getElementById('scrollcontainer');
+    const rightBorder = document.getElementById('rightborder');
+    if (scrollCont && rightBorder && !isScrollableX(scrollCont)) {
+      rightBorder.style.background = 'white';
+      scrollCont.style.paddingRight = '1px';
+    }
+  }, []);
 
   return (
     <S.MainContainer>
@@ -40,7 +53,7 @@ const TopPart = function TopPart() {
             ))
           }
         </S.Container>
-        <S.Line2 />
+        <S.Line2 id="rightborder" />
       </S.RelativeContainer>
       <S.SheetContainer2 onClick={() => history.push('/app/datasheets/importtypes')}>
         <S.IconContainer>

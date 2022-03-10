@@ -22,7 +22,7 @@ export const Container = styled.div`
   display: flex;
   text-align: left;
   overflow-x: hidden;
-  padding-right: 0px;
+  padding-right: 10px;
   padding-bottom: 8px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
@@ -40,19 +40,19 @@ export const Container = styled.div`
 export const Line = styled.div`
   width: 1px;
   height: 71px;
-  background: ${Color('white').darken(0.1).toString()};
+  background: ${Color('white').darken(0.075).toString()};
   position: absolute;
   top: 0px;
-  left: -1px;
+  left: 0px;
 `;
 
 export const Line2 = styled.div`
   width: 1px;
   height: 71px;
-  background: ${Color('white').darken(0.1).toString()};
+  background: ${Color('white').darken(0.075).toString()};
   position: absolute;
   top: 0px;
-  right: -1px;
+  right: -0.5px;
 `;
 
 export const SheetContainer = styled.div<any>`
@@ -95,10 +95,11 @@ export const IconCont1 = styled.div`
 `;
 
 export const SheetName = styled.div`
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 400;
   margin: auto;
-  margin-top: -5px;
+  margin-top: -4px;
+  transform: scaleX(0.925);
   height: max-content;
   width: max-content;
 `;

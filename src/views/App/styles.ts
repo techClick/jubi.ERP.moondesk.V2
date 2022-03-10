@@ -7,7 +7,7 @@ export const topBarHeight = '60px';
 export const panelBorderColor = '#c9c9c9';
 export const tableBorderColor = '#dadada';
 export const containerPadding = '40px';
-export const textColor = Color(panelBorderColor).darken(0.45).toString();
+export const textColor = Color(panelBorderColor).darken(0.6).toString();
 export const sideBarColor = '#1c3f5f';
 export const sheetViewerRes = 1099.9999;
 

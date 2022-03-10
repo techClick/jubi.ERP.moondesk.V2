@@ -8,7 +8,7 @@ export const Container = styled.div<any>`
   max-height: 100%;
   display: flex;
   overflow: auto;
-  background: white;
+  background: ${Color('white').darken(0.05).toString()};
   padding: 0 0px;
   position: relative;
   z-index: 2;
@@ -38,7 +38,7 @@ export const TH = styled.th<any>`
     ${(props) => { return props.isIndex ? '6px' : '13px'; }} 
     12px ${(props) => { return props.isIndex ? '27px' : '13px'; }};
   color: ${Color(textColor).darken(0.1).toString()};
-  font-size: 15px;
+  font-size: 14px;
 `;
 
 export const TR = styled.tr<any>`
