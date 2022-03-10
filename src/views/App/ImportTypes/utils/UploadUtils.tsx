@@ -23,16 +23,26 @@ const sendToast = function sendToast(): void {
   );
 };
 
+let sheetName = '';
+let history;
 const saveUploadDatatoSheet = () => (dispatch: Function) => {
-  const sheets: Sheet[] = JSON.parse(getStorageItem('sheets') || '{}');
-  const sheet: Sheet = parserData;
-  setStorageItem('sheets', JSON.stringify({ ...sheets, sheet }));
+  const sheets: Sheet[] = JSON.parse(getStorageItem('sheets') || '[]');
+  const sheet: Sheet = { name: sheetName, data: parserData };
+  sheets.push(sheet);
+  setStorageItem('sheets', JSON.stringify(sheets));
   dispatch(setSheets(sheets));
   dispatch(setShowPopup({}));
+  history.push('/app/datasheets');
   sendToast();
 };
 
-export const getDataFromCSV = (files: any) => (dispatch: Function) => {
+export const getDataFromCSV = (
+  newSheetName: string,
+  historyHere: any,
+  files: any,
+) => (dispatch: Function) => {
+  sheetName = newSheetName;
+  history = historyHere;
   dispatch(setShowPopup({ component: <LoadingDialogue text="Parsing CSV" /> }));
   Papa.parse(files[0], {
     complete: (result) => {

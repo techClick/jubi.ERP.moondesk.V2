@@ -1,44 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
-import { selectSheets } from '../DataSheet/redux';
+import { Background } from 'views/styles';
+import { selectSheets, selectShowPopup, setShowPopup } from '../DataSheet/redux';
 import * as S from './ImportTypes.styled';
 import { getDataFromCSV } from './utils/UploadUtils';
-import { uploadStart } from './utils/utils';
+import { ImportInput, startUpload } from './utils/utils';
 import { importOptions } from './utils/VarUtils';
 
 const ImportTypes = function ImportTypes() {
+  const showPopup = useAppSelector(selectShowPopup);
+  const [initialLoad, setInitialLoad] = useState<boolean>(true);
+  const [inputError, setInputError] = useState<ImportInput>({});
+  const [input, setInput] = useState<ImportInput>({ name: '' });
   const history = useHistory();
-  const showSheet = useAppSelector(selectSheets).length > 0;
+  const sheets = useAppSelector(selectSheets);
   const dispatch = useDispatch();
 
-  if (showSheet) {
-    history.replace('/app/datasheet');
-    return null;
-  }
+  useEffect(() => {
+    dispatch(setShowPopup({}));
+    setInitialLoad(false);
+  }, []);
 
   return (
     <>
+      {showPopup.component && !initialLoad
+        && (
+          <>
+            <Background onClick={() => (
+              showPopup.exitOnBgClick && dispatch(setShowPopup({}))
+            )}
+            />
+            {showPopup.component}
+          </>
+        )}
       <S.Container>
         <S.WhiteCard>
-          <S.Header1>
-            IMPORT NEW DATA SHEET
-          </S.Header1>
-          <S.Line />
           <S.Header>
-            Select import method
+            IMPORT NEW DATA SHEET
           </S.Header>
+          <S.Line />
+          <S.NamePart>
+            <S.InputDiv isError={Boolean(inputError.name)}>
+              <S.Input1
+                placeholder="Enter sheet name *"
+                value={input.name}
+                onChange={(e: any) => {
+                  setInputError({});
+                  setInput({ name: e.target.value });
+                }}
+                isError={Boolean(inputError.name)}
+              />
+              { inputError.name && <S.Required>{inputError.name}</S.Required>}
+            </S.InputDiv>
+          </S.NamePart>
+          <S.Header1>
+            Import method *
+          </S.Header1>
           <S.IconCont>
             {
               importOptions.map((option, index) => (
-                <S.IconCont2 onClick={() => dispatch(uploadStart())} key={`importoptions${index}`}>
+                <S.IconCont2
+                  onClick={() => startUpload(sheets, input, setInputError)}
+                  key={`importoptions${index}`}
+                >
                   <S.IconContMain>
                     <S.Input
                       type="file"
                       id="uploadSheet"
                       onChange={(e) => {
-                        dispatch(getDataFromCSV(e.target.files));
+                        dispatch(getDataFromCSV(input.name || '', history, e.target.files));
                         e.target.value = '';
                       }}
                     />

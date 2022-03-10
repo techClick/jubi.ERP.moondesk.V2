@@ -18,7 +18,7 @@ export const WhiteCard = styled.div<any>`
   width: max-content;
   width: 90%;
   max-width: 500px;
-  height: 234px;
+  height: 282px;
   position: absolute;
   text-align: center;
   animation-name: ${breatheAnimation};
@@ -32,27 +32,74 @@ export const WhiteCard = styled.div<any>`
   transform: translate(50%, 75%);
 `;
 
-export const Header1 = styled.div<any>`
+export const Header = styled.div<any>`
   font-weight: 700;
   font-size: 19px;
   margin: 20px auto;
   color: ${Color(textColor).lighten(0.2).toString()};
 `;
 
-export const Header = styled.div<any>`
+export const NamePart = styled.div<any>`
+  width: 40%;
+  text-align: left;
+  margin: auto;
+`;
+
+export const InputDiv = styled.div<any>`
+  position: relative;
+  border-left: ${(props) => props.isError && '1px solid red'};
+  margin-top: 42px;
+  height: max-content;
+  border-radius: 2px;
+`;
+
+export const Input1 = styled.input<any>`
+  width: 100%;
+  height: 32px;
+  border-radius: 2px;
+  padding-left: 8px;
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+  border: .5px solid ${Color(panelBorderColor).darken(0.05).toString()};
+  border: ${(props) => props.isError && '1px solid red'};
+`;
+
+export const Required = styled.div`
+  display: flex;
+  font-size: 12px;
+  height: 14px;
+  position: absolute;
+  bottom: -15px;
+  left: -2px;
+  color: red;
+  width: 150%;
+`;
+
+export const Name = styled.div<any>`
   font-weight: 400;
   font-size: 13px;
   width: max-content;
-  margin: auto;
-  margin-top: 60px;
+  margin-top: 37px;
   color: ${Color(textColor).lighten(0.5).toString()};
+`;
+
+export const Header1 = styled.div<any>`
+  font-weight: 400;
+  font-size: 12px;
+  width: max-content;
+  // margin: auto;
+  padding-left: 30px;
+  // transform: translateX(.vw);
+  margin-top: 35px;
+  color: ${Color(textColor).lighten(0.55).toString()};
 `;
 
 export const IconCont = styled.div<any>`
   width: 100%;
   height: 100px;
-  padding: 0 10px;
-  margin-top: 9px;
+  padding: 0 5px;
+  margin-top: 12px;
   display: flex;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box; 
@@ -108,7 +155,7 @@ export const Line = styled.hr`
   position:absolute;
   border: 0;
   background-color: ${Color(panelBorderColor).lighten(0.13).toString()};
-  top: 60.4px;
+  top: 59px;
   left: 0;
 `;
 

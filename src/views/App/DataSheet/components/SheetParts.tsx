@@ -14,7 +14,7 @@ const SheetParts = function SheetParts() {
     <S.Container>
       <S.ScrollDiv>
         <S.FlexDiv>
-          <S.WhiteCard hasTable>
+          <S.WhiteCard>
             <TopPart />
             { sheet && <BottomPart /> }
           </S.WhiteCard>

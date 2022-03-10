@@ -2,7 +2,7 @@ import React from 'react';
 import { setShowSheetBuilder } from 'views/App/redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faWallet, faFileWaveform, faDatabase, faChartLine, faGear,
+  faFileWaveform, faDatabase, faChartLine, faGear,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const tabOptions = [
@@ -13,15 +13,9 @@ export const tabOptions = [
     icon: <FontAwesomeIcon icon={faChartLine} />,
   },
   {
-    label: 'Income',
-    route: '/app/income',
-    path: 'income',
-    icon: <FontAwesomeIcon icon={faWallet} />,
-  },
-  {
-    label: 'Resources',
-    route: '/app/resources',
-    path: 'resources',
+    label: 'Sheets',
+    route: '/app/datasheets',
+    path: 'sheets',
     icon: <FontAwesomeIcon icon={faDatabase} />,
   },
   {

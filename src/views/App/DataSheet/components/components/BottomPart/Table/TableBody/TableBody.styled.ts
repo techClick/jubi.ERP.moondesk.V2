@@ -4,18 +4,19 @@ import { panelBorderColor, textColor } from 'views/App/styles';
 
 const tableBorderColor = Color(panelBorderColor).lighten(0.1).toString();
 export const TR = styled.tr<any>`
-  border-top: .75px solid ${Color(tableBorderColor).lighten(0.055).toString()};
+  border-top: .75px solid ${Color(tableBorderColor).darken(0.005).toString()};
   position: relative;
+  background: ${Color('white').darken(0.05).toString()};
 `;
 
 export const TD = styled.td<any>`
   color: #525252;
-  padding: 11px 
+  padding: 4px 
     ${(props) => {
     const tenary1 = props.isAmount ? '33px' : '13px';
     return props.isIndex ? '10px' : tenary1;
   }} 
-    11px ${(props) => { return props.isIndex ? '27px' : '10px'; }};
+    5px ${(props) => { return props.isIndex ? '27px' : '13px'; }};
   font-size: 14.5px;
   position: relative;
   overflow: hidden;

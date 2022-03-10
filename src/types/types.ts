@@ -26,6 +26,12 @@ export type ShowPopup = {
   exitOnBgClick?: boolean,
 };
 
-export type Sheet = {
+export type SheetEntry = {
   [key: string]: string | number | null | undefined
 }
+
+export type Sheet = {
+  [key: string]: string | Array<SheetEntry>
+  name: string,
+  data: Array<SheetEntry>,
+};

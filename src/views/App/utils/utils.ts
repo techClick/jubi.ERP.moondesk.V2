@@ -2,7 +2,7 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-export const getTodaysDate = function getTodaysDate(datePicked?: Date): string {
+export const getDaysDate = function getDaysDate(datePicked?: Date): string {
   let date = new Date();
   if (datePicked) date = new Date(datePicked);
   return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
@@ -49,23 +49,6 @@ export const getIsToday = function getIsToday(inputDate: Date): boolean {
   return false;
 };
 
-export const getDateIsFar = function getDateIsFar(inputDate: Date): boolean {
-  inputDate = new Date(inputDate);
-  const sixMonthsBack = new Date();
-  sixMonthsBack.setDate(sixMonthsBack.getDate() - 180);
-  if (inputDate.setHours(0, 0, 0, 0) <= sixMonthsBack.setHours(0, 0, 0, 0)) {
-    return true;
-  }
-  return false;
-};
-
-export const getDateLimit = function getDateLimit(): Date {
-  const sixMonthsBack = new Date();
-  sixMonthsBack.setHours(0, 0, 0, 0);
-  sixMonthsBack.setDate(sixMonthsBack.getDate() - 180);
-  return sixMonthsBack;
-};
-
 export const getIsSameDay = function getIsSameDay(date1: Date, date2: Date): boolean {
   date1 = new Date(date1);
   date2 = new Date(date2);
@@ -95,4 +78,11 @@ export const getDateIsNewer = function getDateIsNewer(date1: Date, date2: Date):
     return true;
   }
   return false;
+};
+
+export const getIsANumber = function getIsANumber(amount: string | null): boolean {
+  if (!amount) return false;
+  if (isNaN(Number(amount)) || amount?.includes('-')
+    || amount?.includes('+') || amount?.includes('e')) return false;
+  return true;
 };

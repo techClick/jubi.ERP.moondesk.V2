@@ -1,42 +1,23 @@
 import styled from 'styled-components';
-import { textColor } from 'views/App/styles';
+import { tableBorderColor, textColor } from 'views/App/styles';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-export const TopInfo = styled.div`
-  padding-top: 19px;
-  padding-left: 25px;
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-  box-sizing: border-box;
-`;
-
-export const InfoBottom = styled.div`
-  width: 100%;
-  display: flex;
-  padding-left: 12px;
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-  box-sizing: border-box;
-  position: relative;
-`;
-
-export const TILeftPart = styled.div`
-  float: left;
-  display: flex;
-  flex-direction: column;
   text-align: left;
+  background: white;
+  width: 100%;
+  border-bottom: 1px solid ${tableBorderColor};
 `;
 
-export const TIRightPart = styled.div`
-  float: right;
-`;
-
-export const TILPTopPart = styled.div`
-  font-size: 24px;
-  font-weight: 700;
+export const SheetName = styled.div`
+  padding-top: 10px;
+  padding-left: 18px;
+  padding-bottom: 10px;
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 500;
   color: ${textColor};
 `;

@@ -25,7 +25,7 @@ const Routing = function Routing() {
             <Route exact path="/">
               <HomePage />
             </Route>
-            <Route exact path="/app/income">
+            <Route exact path="/app/datasheets">
               <>
                 <MediaQuery maxWidth={minRes}>
                   <DataSheet />
@@ -38,7 +38,7 @@ const Routing = function Routing() {
             <Route exact path="/app/settings">
               <Settings />
             </Route>
-            <Route exact path="/app/importtypes">
+            <Route exact path="/app/datasheets/importtypes">
               <ImportTypes />
             </Route>
           </Switch>

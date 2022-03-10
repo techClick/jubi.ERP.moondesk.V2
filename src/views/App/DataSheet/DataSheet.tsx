@@ -8,20 +8,21 @@ import SheetParts from './components/SheetParts';
 
 const ImportCols = function ImportCols() {
   const showPopup = useAppSelector(selectShowPopup);
-  const showSheet = useAppSelector(selectSheets).length > 0;
+  const sheets = useAppSelector(selectSheets);
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    setInitialLoad(false);
     dispatch(setShowPopup({}));
+    setInitialLoad(false);
   }, []);
 
-  if (!showSheet) {
-    history.replace('/app/importtypes');
-    return null;
-  }
+  useEffect(() => {
+    if (sheets.length === 0) {
+      history.replace('/app/datasheets/importtypes');
+    }
+  }, [sheets]);
 
   return (
     <>

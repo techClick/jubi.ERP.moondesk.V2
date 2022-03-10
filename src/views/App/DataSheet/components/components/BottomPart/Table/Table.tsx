@@ -8,16 +8,15 @@ import TableBody from './TableBody/TableBody';
 const Table = function Table() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
-
   return (
-    <S.Container innerWidth={window.innerWidth} innerHeight={window.innerHeight} id="tableCont">
+    <S.Container id="tableCont">
       <S.TableDiv>
         <S.Table>
           <thead>
             <tr>
-              <S.TH isIndex>#</S.TH>
-              <S.TH>GROUP</S.TH>
-              <S.TH>ITEM</S.TH>
+              { Object.entries(sheet.data[0]).map(([key]) => (
+                <S.TH>{key}</S.TH>
+              ))}
             </tr>
           </thead>
           <TableBody />
