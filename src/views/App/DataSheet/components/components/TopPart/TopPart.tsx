@@ -35,14 +35,14 @@ const TopPart = function TopPart() {
         { showOptions && (
           <>
             <S.IconContainer onClick={() => editSheet()}>
-              <S.Icon>
+              <S.Icon2>
                 <FontAwesomeIcon icon={faPenToSquare} size="1x" />
-              </S.Icon>
+              </S.Icon2>
             </S.IconContainer>
             <S.IconContainer2>
-              <S.Icon>
+              <S.Icon2>
                 <FontAwesomeIcon icon={faTrash} size="1x" />
-              </S.Icon>
+              </S.Icon2>
             </S.IconContainer2>
           </>
         )}

@@ -7,9 +7,9 @@ export const MainContainer = styled.div`
   width: 100%;
   border-bottom: 1px solid ${tableBorderColor};
   display: flex;
-  padding: 15px;
+  padding: 10px;
   position: relative;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
 `;
 
 export const RelativeContainer = styled.div`
@@ -22,8 +22,8 @@ export const Container = styled.div`
   display: flex;
   text-align: left;
   overflow-x: hidden;
-  padding-right: 10px;
-  padding-bottom: 8px;
+  padding-right: 6px;
+  padding-bottom: 4px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -39,36 +39,36 @@ export const Container = styled.div`
 
 export const Line = styled.div`
   width: 1px;
-  height: 71px;
+  height: 66px;
   background: ${Color('white').darken(0.075).toString()};
   position: absolute;
   top: 0px;
-  left: 0px;
+  left: -0.5px;
 `;
 
 export const Line2 = styled.div`
   width: 1px;
-  height: 71px;
+  height: 66px;
   background: ${Color('white').darken(0.075).toString()};
   position: absolute;
   top: 0px;
-  right: -0.5px;
+  right: 0px;
 `;
 
 export const SheetContainer = styled.div<any>`
-  margin-right: ${(props) => !props.isLast && '10px'};
+  margin-right: ${(props) => !props.isLast && '8px'};
   display: flex;
   flex-direction: column;
-  width: 90px;
-  min-width: 90px;
-  height: 71px;
-  padding-top: 4px;
+  width: 85px;
+  min-width: 85px;
+  height: 66px;
+  padding-top: 2px;
   border: 1px solid
     ${(props) => {
     return !props.isSelected ? Color('white').darken(0.075).toString()
       : Color(textColor).lighten(0.4).toString();
   }};
-  border-radius: 3px;
+  border-radius: 2px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -91,14 +91,14 @@ export const IconContainer = styled.div`
 `;
 
 export const IconCont1 = styled.div`
-  transform: scale(0.8);
+  transform: scale(0.7);
 `;
 
 export const SheetName = styled.div`
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 400;
   margin: auto;
-  margin-top: -4px;
+  margin-top: -6px;
   transform: scaleX(0.925);
   height: max-content;
   width: max-content;

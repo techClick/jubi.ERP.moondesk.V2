@@ -10,8 +10,8 @@ body {
 }
 
 div::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
 div::-webkit-scrollbar-track {

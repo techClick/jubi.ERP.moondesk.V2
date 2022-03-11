@@ -4,8 +4,9 @@ import { panelBorderColor, textColor } from 'views/App/styles';
 
 export const Container = styled.div`
   width: calc(100% - 20px);
-  max-width: 280px;
+  max-width: 275px;
   height: max-content;
+  padding-bottom: 12px;
   background: white;
   position: fixed;
   right: 50%;
@@ -16,30 +17,30 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div<any>`
-  padding: 15px;
+  padding: 12px;
   padding-top: 8px;
   padding-bottom: 6px;
-  padding-left: 15px;
+  padding-left: 12px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   border-bottom: 1px solid ${Color(panelBorderColor).lighten(0.1).toString()};
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
 `;
 
 export const SheetName = styled.div<any>`
-  margin-top: 18px;
-  margin-left: 15px;
-  font-size: 12.5px;
+  margin-top: 13px;
+  margin-left: 12px;
+  font-size: 11.5px;
   font-weight: 500;
 `;
 
 export const InputDiv = styled.div<any>`
   display: flex;
-  width: calc(100% - 30px);
-  margin-top: 1px;
-  margin-left: 14.5px;
+  width: calc(100% - 20px);
+  margin-top: 2px;
+  margin-left: 12px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -47,9 +48,17 @@ export const InputDiv = styled.div<any>`
   position: relative;
 `;
 
+export const MainButtonDiv = styled.div<any>`
+  height: 100%;
+  width: max-content;
+  margin-left: 12px;
+  margin-top: 7px;
+  margin-bottom: 12px;
+`;
+
 export const Input = styled.input<any>`
   width: 70%;
-  height: 32px;
+  height: 30px;
   border-radius: 2px;
   padding-left: 7px;
   -moz-box-sizing: border-box; 
@@ -70,24 +79,14 @@ export const Required = styled.div`
   width: 150%;
 `;
 
-export const MainButtonDiv = styled.div<any>`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  width: 140px;
-  margin: auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
-`;
-
 export const Header2 = styled.div<any>`
-  margin-top: 25px;
-  padding-left: 15px;
+  margin-top: 26px;
+  padding-left: 12px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   display: flex;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   position: relative;
 `;
@@ -99,14 +98,13 @@ export const Tools = styled.div<any>`
   height: 100%;
   display: flex;
   align-items: center;
-  margin-right: 15px;
+  margin-right: 12px;
 `;
 
 export const IconContainer = styled.div`
   padding: 0px 0px;
-  width: 23px;
-  height: 22px;
-  margin-left: 7.5px;
+  width: 20px;
+  height: 19px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -120,7 +118,7 @@ export const IconContainer = styled.div`
 `;
 
 export const Icon = styled.div`
-  margin-top: -4px;
+  margin-top: -4.75px;
   margin-left: -2.6px;
   transform: scale(0.355);
 `;
@@ -136,12 +134,12 @@ export const SearchDiv = styled.div<any>`
 `;
 
 export const Search = styled.input<any>`
-  width: 130px;
+  width: 125px;
   height: 100%;
-  height: 30px;
-  margin-left: 15px;
+  height: 27px;
+  margin-left: 12px;
   border-radius: 12px;
-  padding-left: 24px;
+  padding-left: 21px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -151,20 +149,20 @@ export const Search = styled.input<any>`
 
 export const IconContainer2 = styled.div`
   position: absolute;
-  left: 20px;
+  left: 15px;
   bottom: 50%;
   transform: translateY(50%);
   color: ${Color(panelBorderColor).darken(0.1).toString()};
 `;
 
 export const SearchIcon = styled.div<any>`
-  transform: scale(0.85);
+  transform: scale(0.8);
 `;
 
 export const RowsContainer = styled.div<any>`
-  margin-left: 15px;
+  margin-left: 12px;
   margin-top: 5px;
-  max-height: 220px;
+  max-height: 215px;
   overflow-y: auto;
   direction: rtl;
 `;
@@ -177,21 +175,30 @@ export const RowCont1 = styled.div<any>`
 `;
 
 export const CheckBoxDiv = styled.div<any>`
-  margin-left: 6px;
+  margin-left: 3px;
   display: flex;
   align-items: center;
 `;
 
 export const CheckBox = styled.input<any>`
-  width: 15.5px;
-  height: 15.5px;
+  width: 13px;
+  height: 13px;
   background: ${Color(panelBorderColor).darken(0.05).toString()};
 `;
 
 export const RowName = styled.div<any>`
-  margin-left: 6px;
+  margin-left: 3px;
   margin-top: 1px;
-  font-size: 12.2px;
+  font-size: 11.2px;
   font-weight: 400;
   color: ${Color(textColor).darken(0.3).toString()};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+  &:hover {
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
+  }
 `;

@@ -12,18 +12,18 @@ export const Container = styled.div`
 `;
 
 export const ThisSheet = styled.div`
-  padding-left: 15px;
+  padding-left: 10px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: 35px;
+  height: 30px;
   width: 100%;
 `;
 
 export const SheetName = styled.div`
-  font-size: 14px;
+  font-size: 12.075px;
   font-weight: 400;
   max-width: 60%;
   margin-top: -1px;
@@ -32,7 +32,7 @@ export const SheetName = styled.div`
 
 export const IconContainer = styled.div`
   margin-left: 2px;
-  padding: 1px 6px;
+  padding: 1px 5px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -46,7 +46,7 @@ export const IconContainer = styled.div`
 
 export const IconContainer2 = styled.div`
   margin-left: 2px;
-  padding: 1px 6px;
+  padding: 1px 5px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -60,5 +60,9 @@ export const IconContainer2 = styled.div`
 `;
 
 export const Icon = styled.div`
-  transform: scaleY(0.85) scaleX(0.9);
+  transform: scaleY(0.75) scaleX(0.8);
+`;
+
+export const Icon2 = styled.div`
+  transform: scale(0.75);
 `;

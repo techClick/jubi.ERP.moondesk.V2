@@ -11,13 +11,14 @@ export const TR = styled.tr<any>`
 
 export const TD = styled.td<any>`
   color: ${Color(textColor).lighten(0.1).toString()};
-  padding: 4px 
-    ${(props) => {
-    const tenary1 = props.isAmount ? '33px' : '13px';
-    return props.isIndex ? '10px' : tenary1;
-  }} 
-    5px ${(props) => { return props.isIndex ? '27px' : '13px'; }};
-  font-size: 12.3px;
+  padding: 5px 
+    /* ${(props) => {
+    const tenary1 = props.isAmount ? '32px' : '12px';
+    return props.isIndex ? '9px' : tenary1;
+  }}  */
+    ${(props) => { return props.isIndex ? '6px' : '9px'; }} 
+    4px ${(props) => { return props.isIndex ? '23px' : '9px'; }};
+  font-size: 11px;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -15,12 +15,7 @@ const EditSheet = function EditSheet() {
   const [isSearching] = useState<boolean>(false);
   const [inputError, setInputError] = useState<string | false>(false);
 
-  const data = { date: '', time: '', value: '', way: '', froo: '', bar: '', yit: '',
-    reed: '', ghin: '', datey: '', timey: '', valuey: '', wayy: '', frooy: '', bary: '',
-    ghinoghinoghinoghinoghinoghinoghinoghinoghino: '',
-    dateyo: '', timeyo: '', valueyo: '', wayyo: '', frooyo: '', baryo: '' };
-
-  const headers = Object.entries(data).map(([key]) => key); // sheet.data[0];
+  const headers = Object.entries(sheet.data[0]).map(([key]) => key);
   headers.sort();
 
   return (
@@ -32,6 +27,11 @@ const EditSheet = function EditSheet() {
         { inputError
           && <S.Required>{inputError}</S.Required>}
       </S.InputDiv>
+      <S.MainButtonDiv>
+        <MainButton>
+          Save
+        </MainButton>
+      </S.MainButtonDiv>
       <S.Header2>
         Filter rows
         <S.Tools>
@@ -66,11 +66,6 @@ const EditSheet = function EditSheet() {
           </S.RowCont1>
         ))}
       </S.RowsContainer>
-      <S.MainButtonDiv>
-        <MainButton>
-          Save
-        </MainButton>
-      </S.MainButtonDiv>
     </S.Container>
   );
 };

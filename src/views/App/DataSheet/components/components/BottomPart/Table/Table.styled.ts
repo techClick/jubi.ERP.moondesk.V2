@@ -34,11 +34,11 @@ export const TH = styled.th<any>`
   background: ${Color('white').darken(0.1).toString()};
   border-bottom: .75px solid ${tableBorderColor};
   border-left: .75px solid ${Color('white').darken(0.15).toString()};
-  padding: 9px 
-    ${(props) => { return props.isIndex ? '6px' : '13px'; }} 
-    12px ${(props) => { return props.isIndex ? '27px' : '13px'; }};
+  padding: 5px 
+    ${(props) => { return props.isIndex ? '6px' : '9px'; }} 
+    4px ${(props) => { return props.isIndex ? '23px' : '9px'; }};
   color: ${Color(textColor).darken(0.1).toString()};
-  font-size: 14px;
+  font-size: 11.8px;
 `;
 
 export const TR = styled.tr<any>`
