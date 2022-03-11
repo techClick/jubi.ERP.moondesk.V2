@@ -15,6 +15,7 @@ const ImportTypes = lazy(() => import('views/App/ImportTypes/ImportTypes'));
 const DataSheet = lazy(() => import('views/App/DataSheet/DataSheet'));
 // localStorage.clear();
 localStorage.setItem('projectId', '1');
+(document.body.style as any).zoom = '100%';
 
 const Routing = function Routing() {
   return (

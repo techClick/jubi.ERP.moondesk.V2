@@ -2,7 +2,7 @@ import React from 'react';
 import { setShowSheetBuilder } from 'views/App/redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faFileWaveform, faDatabase, faChartLine, faGear,
+  faFileWaveform, faChartLine, faGear, faFolderTree,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const tabOptions = [
@@ -16,7 +16,7 @@ export const tabOptions = [
     label: 'Sheets',
     route: '/app/datasheets',
     path: 'sheets',
-    icon: <FontAwesomeIcon icon={faDatabase} />,
+    icon: <FontAwesomeIcon icon={faFolderTree} />,
   },
   {
     label: 'Reports',
