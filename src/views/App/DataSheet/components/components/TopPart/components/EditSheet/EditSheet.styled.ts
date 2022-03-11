@@ -1,6 +1,6 @@
 import Color from 'color';
 import styled from 'styled-components';
-import { panelBorderColor } from 'views/App/styles';
+import { panelBorderColor, textColor } from 'views/App/styles';
 
 export const Container = styled.div`
   width: calc(100% - 20px);
@@ -37,7 +37,7 @@ export const SheetName = styled.div<any>`
 
 export const InputDiv = styled.div<any>`
   display: flex;
-  width: 80%;
+  width: calc(100% - 30px);
   margin-top: 0px;
   margin-left: 15px;
   -moz-box-sizing: border-box; 
@@ -84,7 +84,7 @@ export const Header2 = styled.div<any>`
   margin-top: 17px;
   padding: 7px;
   padding-left: 15px;
-  padding-bottom: 6px;
+  padding-bottom: 0px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
@@ -93,4 +93,39 @@ export const Header2 = styled.div<any>`
   // background: ${Color(panelBorderColor).lighten(0.15).toString()};
   font-size: 14px;
   font-weight: 500;
+`;
+
+export const RowsContainer = styled.div<any>`
+  margin-left: 15px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  direction: rtl;
+`;
+
+export const RowCont1 = styled.div<any>`
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+  direction: ltr;
+`;
+
+export const CheckBoxDiv = styled.div<any>`
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+export const CheckBox = styled.input<any>`
+  width: 15.5px;
+  height: 15.5px;
+  background: ${Color(panelBorderColor).darken(0.05).toString()};
+`;
+
+export const RowName = styled.div<any>`
+  margin-left: 6px;
+  margin-top: 1px;
+  font-size: 12.2px;
+  font-weight: 400;
+  color: ${Color(textColor).darken(0.3).toString()};
 `;

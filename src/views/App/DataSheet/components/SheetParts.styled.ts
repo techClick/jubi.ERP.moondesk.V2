@@ -35,7 +35,6 @@ export const FlexDiv = styled.div`
 
 export const WhiteCard = styled.div<any>`
   background: ${Color(panelBorderColor).darken(0.1).toString()};
-  border-radius: 4px;
   width: 100%;
   height: 100%;
   text-align: center;
