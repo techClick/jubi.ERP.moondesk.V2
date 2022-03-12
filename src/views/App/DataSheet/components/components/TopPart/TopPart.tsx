@@ -4,10 +4,11 @@ import { Sheet } from 'types/types';
 import { selectSelectedSheet, selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faMagnifyingGlass, faPenToSquare, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import * as S from './TopPart.styled';
-import SheetViewer from './components/SheetViewer';
+import SheetViewer from './components/SheetViewer/SheetViewer';
 import EditSheet from './components/EditSheet/EditSheet';
+import SearchBox from './components/SearchBox/SearchBox';
 
 const TopPart = function TopPart() {
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -46,21 +47,7 @@ const TopPart = function TopPart() {
             </S.IconContainer3>
           </>
         )}
-        <S.AbsoluteDiv>
-          <S.SearchDiv>
-            <S.Search placeholder={`Search ${sheet.name}`} />
-            <S.SearchIconCont>
-              <S.SearchIcon>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </S.SearchIcon>
-            </S.SearchIconCont>
-            <S.ClearIconCont>
-              <S.ClearIcon>
-                <FontAwesomeIcon icon={faXmark} />
-              </S.ClearIcon>
-            </S.ClearIconCont>
-          </S.SearchDiv>
-        </S.AbsoluteDiv>
+        <SearchBox />
       </S.ThisSheet>
     </S.Container>
   );

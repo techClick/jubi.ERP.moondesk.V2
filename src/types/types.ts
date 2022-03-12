@@ -30,6 +30,12 @@ export type SheetEntry = {
   [key: string]: string | number | null | undefined
 }
 
+export type SearchState = {
+  [key: string]: string | boolean | undefined
+  text?: string,
+  showResult?: boolean,
+}
+
 export type Sheet = {
   [key: string]: string | Array<SheetEntry>
   name: string,
