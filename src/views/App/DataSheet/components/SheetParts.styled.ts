@@ -1,6 +1,7 @@
 import Color from 'color';
 import styled, { keyframes } from 'styled-components';
 import { containerPadding, panelBorderColor } from 'views/App/styles';
+import { minRes } from 'views/styles';
 
 const breatheAnimation = keyframes`
  0% { opacity: 0 }
@@ -35,7 +36,7 @@ export const FlexDiv = styled.div`
 
 export const WhiteCard = styled.div<any>`
   background: ${Color(panelBorderColor).darken(0.1).toString()};
-  width: 100%;
+  width: 75%;
   height: 100%;
   text-align: center;
   position: relative;
@@ -46,4 +47,7 @@ export const WhiteCard = styled.div<any>`
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
+  @media(max-width: ${`${minRes}px`}) {
+    width: 100%;
+  }
 `;

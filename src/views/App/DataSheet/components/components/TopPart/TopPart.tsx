@@ -4,7 +4,7 @@ import { Sheet } from 'types/types';
 import { selectSelectedSheet, selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faMagnifyingGlass, faPenToSquare, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
 import * as S from './TopPart.styled';
 import SheetViewer from './components/SheetViewer';
 import EditSheet from './components/EditSheet/EditSheet';
@@ -25,7 +25,7 @@ const TopPart = function TopPart() {
       <SheetViewer />
       <S.ThisSheet>
         <S.SheetName>
-          {sheet?.name}
+          {sheet.name}
         </S.SheetName>
         <S.IconContainer onClick={() => setShowOptions(!showOptions)}>
           <S.Icon>
@@ -34,18 +34,33 @@ const TopPart = function TopPart() {
         </S.IconContainer>
         { showOptions && (
           <>
-            <S.IconContainer onClick={() => editSheet()}>
+            <S.IconContainer2 onClick={() => editSheet()}>
               <S.Icon2>
                 <FontAwesomeIcon icon={faPenToSquare} size="1x" />
               </S.Icon2>
-            </S.IconContainer>
-            <S.IconContainer2>
+            </S.IconContainer2>
+            <S.IconContainer3>
               <S.Icon2>
                 <FontAwesomeIcon icon={faTrash} size="1x" />
               </S.Icon2>
-            </S.IconContainer2>
+            </S.IconContainer3>
           </>
         )}
+        <S.AbsoluteDiv>
+          <S.SearchDiv>
+            <S.Search placeholder={`Search ${sheet.name}`} />
+            <S.SearchIconCont>
+              <S.SearchIcon>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </S.SearchIcon>
+            </S.SearchIconCont>
+            <S.ClearIconCont>
+              <S.ClearIcon>
+                <FontAwesomeIcon icon={faXmark} />
+              </S.ClearIcon>
+            </S.ClearIconCont>
+          </S.SearchDiv>
+        </S.AbsoluteDiv>
       </S.ThisSheet>
     </S.Container>
   );

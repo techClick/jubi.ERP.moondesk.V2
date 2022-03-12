@@ -1,4 +1,4 @@
-import { faFilter, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
@@ -12,7 +12,6 @@ const EditSheet = function EditSheet() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const [sheetName, setSheetName] = useState<string>(sheet.name);
-  const [isSearching] = useState<boolean>(false);
   const [inputError, setInputError] = useState<string | false>(false);
 
   const headers = Object.entries(sheet.data[0]).map(([key]) => key);
@@ -45,16 +44,6 @@ const EditSheet = function EditSheet() {
           </S.IconContainer>
         </S.Tools>
       </S.Header2>
-      { isSearching && (
-        <S.SearchDiv>
-          <S.Search placeholder="Search" />
-          <S.IconContainer2>
-            <S.SearchIcon>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </S.SearchIcon>
-          </S.IconContainer2>
-        </S.SearchDiv>
-      )}
       <S.RowsContainer id="rowscontainer">
         { headers.map((header) => (
           // <S.RowCont1 key={`row_${header}`}>

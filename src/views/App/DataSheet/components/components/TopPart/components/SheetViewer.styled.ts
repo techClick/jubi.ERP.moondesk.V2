@@ -22,7 +22,7 @@ export const Container = styled.div`
   display: flex;
   text-align: left;
   overflow-x: hidden;
-  padding-right: 6px;
+  padding-right: 8px;
   padding-bottom: 4px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
@@ -107,10 +107,10 @@ export const SheetName = styled.div`
 export const SheetContainer2 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 65px;
-  height: 71px;
-  padding-top: 5px;
-  margin-left: 10px;
+  width: 60px;
+  height: 66px;
+  padding-top: 2px;
+  margin-left: 8px;
   border-radius: 4px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 

@@ -129,36 +129,6 @@ export const SelectSearchIcon = styled.div`
   transform: scale(0.405);
 `;
 
-export const SearchDiv = styled.div<any>`
-  position: relative;
-`;
-
-export const Search = styled.input<any>`
-  width: 125px;
-  height: 100%;
-  height: 27px;
-  margin-left: 12px;
-  border-radius: 12px;
-  padding-left: 21px;
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-  box-sizing: border-box;
-  border: 1px solid ${Color(panelBorderColor).lighten(0.1).toString()};
-  border: ${(props) => props.isError && '1px solid red'};
-`;
-
-export const IconContainer2 = styled.div`
-  position: absolute;
-  left: 15px;
-  bottom: 50%;
-  transform: translateY(50%);
-  color: ${Color(panelBorderColor).darken(0.1).toString()};
-`;
-
-export const SearchIcon = styled.div<any>`
-  transform: scale(0.8);
-`;
-
 export const RowsContainer = styled.div<any>`
   margin-left: 12px;
   margin-top: 5px;
