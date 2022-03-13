@@ -2,7 +2,7 @@ import React from 'react';
 import Papa from 'papaparse';
 import { toast } from 'react-toastify';
 import { Sheet } from 'types/types';
-import { getStorageItem, setStorageItem } from 'views/App/utils/utils';
+import { getStorageItem } from 'views/App/utils/utils';
 import { setSheets, setShowPopup } from 'views/App/DataSheet/redux';
 import LoadingDialogue from 'views/App/components/LoadingDialogue/Loading';
 
@@ -29,7 +29,6 @@ const saveUploadDatatoSheet = () => (dispatch: Function) => {
   const sheets: Sheet[] = JSON.parse(getStorageItem('sheets') || '[]');
   const sheet: Sheet = { name: sheetName, data: parserData };
   sheets.push(sheet);
-  setStorageItem('sheets', JSON.stringify(sheets));
   dispatch(setSheets(sheets));
   dispatch(setShowPopup({}));
   history.push('/app/datasheets');

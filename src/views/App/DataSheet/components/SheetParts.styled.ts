@@ -13,7 +13,7 @@ export const Container = styled.div<any>`
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
-  flex-direction: column;
+  display: flex;
 `;
 
 export const ButtonDiv = styled.div`
@@ -21,8 +21,7 @@ export const ButtonDiv = styled.div`
 `;
 
 export const ScrollDiv = styled.div`
-  width: 100%;
-  height: 100%;
+  flex: 1;
   overflow: auto;
 `;
 
@@ -36,7 +35,7 @@ export const FlexDiv = styled.div`
 
 export const WhiteCard = styled.div<any>`
   background: ${Color(panelBorderColor).darken(0.1).toString()};
-  width: 75%;
+  width: 100%;
   height: 100%;
   text-align: center;
   position: relative;
@@ -47,7 +46,19 @@ export const WhiteCard = styled.div<any>`
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
+`;
+
+export const FilterBoxContainer = styled.div<any>`
+  background: ${Color(panelBorderColor).darken(0.4).toString()};
+  width: 21%;
+  min-width: 210px;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  animation-name: ${breatheAnimation};
+  animation-duration: 0.1s;
+  animation-iteration-count: 1;
   @media(max-width: ${`${minRes}px`}) {
-    width: 100%;
+    display: none;
   }
 `;

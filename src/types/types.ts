@@ -20,36 +20,33 @@ export type CallArgs = {
   noContentType?: boolean;
 };
 
-export type ShowPopup = {
-  [key: string]: ReactElement | undefined | boolean
+type ShowPopupKeys = {
   component?: ReactElement | false,
   exitOnBgClick?: boolean,
+}
+export type ShowPopup = {
+  [key in keyof ShowPopupKeys]: ShowPopupKeys[key]
 };
+
+type SearchKeys = {
+  text?: string,
+  showResult?: boolean,
+}
+export type Search = {
+  [key in keyof SearchKeys]: SearchKeys[key]
+}
 
 export type SheetEntry = {
   [key: string]: string | null | undefined
 }
 
-export type Search = {
-  [key: string]: string | boolean | undefined
-  text?: string,
-  showResult?: boolean,
-}
-export interface SearchInterface {
-  text?: string,
-  showResult?: boolean,
+type SheetKeys = {
+  name: string,
+  data: Array<SheetEntry>,
 }
 
 export type Sheet = {
-  [key: string]: string | Array<SheetEntry> | undefined,
-  name: string,
-  data: Array<SheetEntry>,
-  displayData?: Array<SheetEntry>,
-  displayDataOrig?: Array<SheetEntry>,
+  [key in keyof SheetKeys]: SheetKeys[key]
 };
-export interface SheetInterface {
-  name: string,
-  data: Array<SheetEntry>,
-  displayData?: Array<SheetEntry>,
-  displayDataOrig?: Array<SheetEntry>,
-}
+
+export type DisplaySheet = Array<SheetEntry>;

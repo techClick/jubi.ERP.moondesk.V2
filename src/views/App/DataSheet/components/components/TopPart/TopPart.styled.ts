@@ -24,7 +24,7 @@ export const ThisSheet = styled.div`
 `;
 
 export const SheetName = styled.div`
-  font-size: 12.075px;
+  font-size: 11.5px;
   font-weight: 400;
   max-width: 60%;
   margin-top: 1px;

@@ -20,6 +20,9 @@ const SheetParts = function SheetParts() {
           </S.WhiteCard>
         </S.FlexDiv>
       </S.ScrollDiv>
+      <S.FilterBoxContainer>
+        {' '}
+      </S.FilterBoxContainer>
     </S.Container>
   );
 };

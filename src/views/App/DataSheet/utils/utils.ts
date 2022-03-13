@@ -1,26 +1,48 @@
-import { SearchInterface, Sheet, SheetInterface } from 'types/types';
+import { DisplaySheet, Search, Sheet } from 'types/types';
 import { store } from 'redux/store';
-import { setSheet } from '../redux';
+import { maxValuesinTable } from 'views/App/utils/GlobalUtils';
+import { setDisplaySheet } from '../redux';
 
-export const setSheetDataFromSearch = () => (dispatch: Function) => {
-  const { text: searchText }: SearchInterface = store.getState().dataSheet.search;
-  const { selectedSheet } = store.getState().dataSheet;
-  const sheet = store.getState().dataSheet.sheets[selectedSheet];
-  const { displayDataOrig: sheetDataOrig }: SheetInterface = sheet;
+export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
+  const displaySheet: DisplaySheet = [];
+  for (let i = 0; i < sheet.data.length; i += 1) {
+    if (i > maxValuesinTable - 1) break;
+    displaySheet.push(sheet.data[i]);
+  }
+  return displaySheet;
+};
+
+export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
+  const displaySheets: DisplaySheet[] = [];
+  sheets.map((sheet) => {
+    const displaySheetData: DisplaySheet = [];
+    for (let i = 0; i < sheet.data.length; i += 1) {
+      if (i > maxValuesinTable - 1) break;
+      displaySheetData.push(sheet.data[i]);
+    }
+    displaySheets.push(displaySheetData);
+  });
+  return displaySheets;
+};
+
+export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
+  const { text: searchText }: Search = store.getState().dataSheet.search;
+  const { selectedSheet, sheets } = store.getState().dataSheet;
+  const sheet: Sheet = sheets[selectedSheet];
   if (!searchText || [...searchText].length === 0) {
-    const sheetTmp: Sheet = { ...sheet };
-    sheetTmp.displayData = sheetDataOrig || [];
-    dispatch(setSheet(sheetTmp));
+    const displaySheet: DisplaySheet = getDisplaySheet(sheet);
+    dispatch(setDisplaySheet(displaySheet));
   } else {
-    let sortedSheetData = [...sheetDataOrig || []];
-    sortedSheetData = sortedSheetData.filter((entry) => (
-      // eslint-disable-next-line no-unused-vars
-      Object.entries(entry).find(([key, value]) => (
-        value?.includes(searchText)
-      ))
-    ));
-    const sheetTmp = { ...sheet };
-    sheetTmp.displayData = sortedSheetData;
-    dispatch(setSheet(sheetTmp));
+    const sortedSheet: Sheet = {
+      name: sheet.name,
+      data: sheet.data.filter((entry) => (
+        // eslint-disable-next-line no-unused-vars
+        Object.entries(entry).find(([key, value]) => (
+          value?.includes(searchText)
+        ))
+      )),
+    };
+    const displaySheet: DisplaySheet = getDisplaySheet(sortedSheet);
+    dispatch(setDisplaySheet(displaySheet));
   }
 };

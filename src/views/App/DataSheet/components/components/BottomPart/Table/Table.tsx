@@ -8,13 +8,14 @@ import TableBody from './TableBody/TableBody';
 const Table = function Table() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
+
   return (
     <S.Container id="tableCont">
       <S.TableDiv>
         <S.Table>
           <thead>
             <tr>
-              { Object.entries(sheet.data[0]).map(([key]) => (
+              { Object.keys(sheet.data[0]).map((key) => (
                 <S.TH key={`tableheader_${key}`}>{key}</S.TH>
               ))}
             </tr>

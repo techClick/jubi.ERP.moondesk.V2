@@ -1,36 +1,26 @@
 import React, { useEffect } from 'react';
-import { SearchInterface, Sheet, SheetInterface } from 'types/types';
+import { Search, DisplaySheet } from 'types/types';
 import { useAppSelector } from 'redux/hooks';
 import { getIsANumber } from 'views/App/utils/utils';
 import { useDispatch } from 'react-redux';
-import { setSheetDataFromSearch } from 'views/App/DataSheet/utils/utils';
-import { selectSearch, selectSelectedSheet, selectSheets, setSheet } from 'views/App/DataSheet/redux';
+import { setDisplaySheetFromSearch } from 'views/App/DataSheet/utils/utils';
+import { selectDisplaySheets, selectSearch, selectSelectedSheet } from 'views/App/DataSheet/redux';
 import { FormattedNumber } from 'react-intl';
 import * as S from './TableBody.styled';
 
 const TableBody = function TableBody() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
-  const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
-  const { displayData: sheetData }: SheetInterface = sheet;
-  const { text: searchText }: SearchInterface = useAppSelector(selectSearch);
+  const displaySheet: DisplaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
+  const { text: searchText }: Search = useAppSelector(selectSearch);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!sheetData) {
-      const sheetTmp: Sheet = { ...sheet };
-      sheetTmp.displayData = sheet.data;
-      sheetTmp.displayDataOrig = sheet.data;
-      dispatch(setSheet(sheetTmp));
-    }
-  }, []);
-
-  useEffect(() => {
-    dispatch(setSheetDataFromSearch());
-  }, [searchText]);
+    dispatch(setDisplaySheetFromSearch());
+  }, [searchText, selectedSheet]);
 
   return (
     <tbody>
-      { sheetData?.map((entry, i) => (
+      { displaySheet?.map((entry, i) => (
         <S.TR key={`tablebody${i}`}>
           { Object.entries(entry).map(([key, value]) => (
             <S.TD key={`sheettd${key}${i}`}>
