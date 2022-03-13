@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import { SearchState, Sheet, ShowPopup } from 'types/types';
+import { Search, Sheet, ShowPopup } from 'types/types';
 import { getStorageItem, setStorageItem } from '../utils/utils';
 
 export interface AppState {
   sheets: Sheet[],
   selectedSheet: number,
   showPopup: ShowPopup,
-  searchState: SearchState,
+  search: Search,
 }
 
 const initialState: AppState = {
@@ -15,13 +15,16 @@ const initialState: AppState = {
     || JSON.stringify([])),
   selectedSheet: Number(getStorageItem('selectedsheet') || 0),
   showPopup: {},
-  searchState: {},
+  search: {},
 };
 
 export const counterSlice = createSlice({
   name: 'dataSheet',
   initialState,
   reducers: {
+    setSheet: (state, action: PayloadAction<Sheet>) => {
+      state.sheets[state.selectedSheet] = action.payload;
+    },
     setSheets: (state, action: PayloadAction<Sheet[]>) => {
       state.sheets = action.payload;
     },
@@ -32,17 +35,19 @@ export const counterSlice = createSlice({
     setShowPopup: (state, action: PayloadAction<ShowPopup>) => {
       state.showPopup = action.payload;
     },
-    setSearchState: (state, action: PayloadAction<SearchState>) => {
-      state.searchState = action.payload;
+    setSearch: (state, action: PayloadAction<Search>) => {
+      state.search = action.payload;
     },
   },
 });
 
-export const { setSheets, setSelectedSheet, setShowPopup, setSearchState } = counterSlice.actions;
+export const {
+  setSheets, setSheet, setSelectedSheet, setShowPopup, setSearch,
+} = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;
 export const selectSelectedSheet = (state: RootState) => state.dataSheet.selectedSheet;
 export const selectShowPopup = (state: RootState) => state.dataSheet.showPopup;
-export const selectSearchState = (state: RootState) => state.dataSheet.searchState;
+export const selectSearch = (state: RootState) => state.dataSheet.search;
 
 export default counterSlice.reducer;

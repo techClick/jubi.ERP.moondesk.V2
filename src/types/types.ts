@@ -27,17 +27,29 @@ export type ShowPopup = {
 };
 
 export type SheetEntry = {
-  [key: string]: string | number | null | undefined
+  [key: string]: string | null | undefined
 }
 
-export type SearchState = {
+export type Search = {
   [key: string]: string | boolean | undefined
+  text?: string,
+  showResult?: boolean,
+}
+export interface SearchInterface {
   text?: string,
   showResult?: boolean,
 }
 
 export type Sheet = {
-  [key: string]: string | Array<SheetEntry>
+  [key: string]: string | Array<SheetEntry> | undefined,
   name: string,
   data: Array<SheetEntry>,
+  displayData?: Array<SheetEntry>,
+  displayDataOrig?: Array<SheetEntry>,
 };
+export interface SheetInterface {
+  name: string,
+  data: Array<SheetEntry>,
+  displayData?: Array<SheetEntry>,
+  displayDataOrig?: Array<SheetEntry>,
+}

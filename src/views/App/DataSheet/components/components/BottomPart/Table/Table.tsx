@@ -15,7 +15,7 @@ const Table = function Table() {
           <thead>
             <tr>
               { Object.entries(sheet.data[0]).map(([key]) => (
-                <S.TH>{key}</S.TH>
+                <S.TH key={`tableheader_${key}`}>{key}</S.TH>
               ))}
             </tr>
           </thead>

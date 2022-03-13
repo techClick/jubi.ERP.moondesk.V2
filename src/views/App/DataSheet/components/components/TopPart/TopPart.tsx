@@ -21,6 +21,8 @@ const TopPart = function TopPart() {
     dispatch(setShowPopup({ component: <EditSheet />, exitOnBgClick: true }));
   };
 
+  if (!sheet) return null;
+
   return (
     <S.Container id="toppart">
       <SheetViewer />

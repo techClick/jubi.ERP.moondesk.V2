@@ -19,7 +19,7 @@ export const ThisSheet = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: 30px;
+  height: 31px;
   width: 100%;
 `;
 

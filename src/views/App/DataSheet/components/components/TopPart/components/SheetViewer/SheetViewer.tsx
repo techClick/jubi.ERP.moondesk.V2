@@ -37,6 +37,7 @@ const TopPart = function TopPart() {
           {
             sheets.map((sheet, i) => (
               <S.SheetContainer
+                key={`sheet${i}`}
                 isLast={i === sheets.length - 1}
                 isSelected={i === selectedSheet}
                 onClick={() => dispatch(setSelectedSheet(i))}

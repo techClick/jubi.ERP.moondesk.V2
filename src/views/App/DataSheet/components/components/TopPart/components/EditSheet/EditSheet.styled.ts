@@ -58,9 +58,11 @@ export const MainButtonDiv = styled.div<any>`
 
 export const Input = styled.input<any>`
   width: 70%;
-  height: 30px;
+  height: 28.5px;
   border-radius: 2px;
   padding-left: 7px;
+  padding-bottom: 2.5px;
+  font-size: 12px;
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
