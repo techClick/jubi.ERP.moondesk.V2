@@ -15,12 +15,12 @@ export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
 export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
   const displaySheets: DisplaySheet[] = [];
   sheets.map((sheet) => {
-    const displaySheetData: DisplaySheet = [];
+    const displaySheet: DisplaySheet = [];
     for (let i = 0; i < sheet.data.length; i += 1) {
       if (i > maxValuesinTable - 1) break;
-      displaySheetData.push(sheet.data[i]);
+      displaySheet.push(sheet.data[i]);
     }
-    displaySheets.push(displaySheetData);
+    displaySheets.push(displaySheet);
   });
   return displaySheets;
 };
