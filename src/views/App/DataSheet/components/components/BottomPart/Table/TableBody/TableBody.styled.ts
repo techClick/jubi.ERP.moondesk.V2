@@ -1,86 +1,52 @@
 import Color from 'color';
 import styled from 'styled-components';
-import { panelBorderColor, textColor } from 'views/App/styles';
+import { highlightColor, panelBorderColor, textColor } from 'views/App/styles';
 
 const tableBorderColor = Color(panelBorderColor).lighten(0.1).toString();
 export const TR = styled.tr<any>`
   border-top: .75px solid ${Color(tableBorderColor).darken(0.005).toString()};
-  position: relative;
   background: ${Color('white').darken(0.05).toString()};
 `;
 
 export const TD = styled.td<any>`
   color: ${Color(textColor).lighten(0.1).toString()};
-  padding: 5px 
-    /* ${(props) => {
-    const tenary1 = props.isAmount ? '32px' : '12px';
-    return props.isIndex ? '9px' : tenary1;
-  }}  */
-    ${(props) => { return props.isIndex ? '6px' : '9px'; }} 
-    4px ${(props) => { return props.isIndex ? '23px' : '9px'; }};
+  padding-right: ${(props) => { return props.isIndex ? '6px' : '9px'; }};
+  padding-left: ${(props) => { return props.isIndex ? '23px' : '9px'; }};
+  height: 23px;
   font-size: 11px;
   position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   max-width: 132px;
-  &:hover {
-    text-overflow: clip;
-    white-space: normal;
-    word-break: break-all;
-  }
+  z-index: 2;
 `;
 
-export const IconsDiv = styled.div<any>`
+export const TDText = styled.div<any>`
+  z-index: 2;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5px;
+`;
+
+export const Highlight = styled.div`
   position: absolute;
   right: 0;
   bottom: 50%;
-  transform: translateY(50%);
-  display: flex;
-  color: ${Color(panelBorderColor).darken(0.2).toString()};
-  align-items: center;
-  background: white;
-  padding-left: 8px;
   height: 100%;
+  width: 100%;
+  z-index: 1;
+  transform: translateY(50%);
+  background: ${Color(highlightColor).lighten(0.4).toString()};
 `;
 
-export const TrashIcon = styled.div<any>`
-  border-radius: 4px;
-  transform: scale(0.9);
-  padding: 2px 5px;
-  margin-right: 1px;
-  margin-top: -2px;
-  height: max-content;
-  cursor: pointer;
-  &:hover {
-    background: ${Color('red').lighten(0.9).toString()};
-    color: ${Color('red').lighten(0.5).toString()};
-  }
-`;
-
-export const EditIcon = styled.div<any>`
-  border-radius: 4px;
-  transform: scale(0.9);
-  padding: 2px 5px;
-  margin-top: -2px;
-  margin-right: 5px;
-  height: max-content;
-  cursor: pointer;
-  &:hover {
-    background: ${Color(panelBorderColor).lighten(0.1).toString()};
-    color: ${textColor};
-  }
-`;
-
-export const MenuIcon = styled.div<any>`
-  border-radius: 4px;
-  transform: scale(0.65, 0.7);
-  padding: 6px 11px;
-  margin-right: 3px;
-  cursor: pointer;
-  color: ${Color(panelBorderColor).darken(0.13).toString()};
-  &:hover {
-    background: ${Color(panelBorderColor).lighten(0.1).toString()};
-    color: ${textColor};
-  }
+export const SearchHighlight = styled.div<any>`
+  display: inline-flex;
+  align-items: center;
+  height: calc(100% + 1.5px);
+  padding: 0 1px;
+  margin-left: ${(props) => props.leftMargin && '1.5px'};
+  margin-right: ${(props) => props.rightMargin && '1.5px'};
+  background: ${highlightColor};
+  color: ${Color(textColor).darken(0.2).toString()};
+  transform: translateY(0px);
 `;

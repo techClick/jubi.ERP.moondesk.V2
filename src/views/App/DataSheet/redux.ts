@@ -15,7 +15,7 @@ export interface AppState {
 const initialState: AppState = {
   sheets: JSON.parse(getStorageItem('sheets')
     || JSON.stringify([])),
-  selectedSheet: Number(getStorageItem('selectedsheet') || 0),
+  selectedSheet: 0,
   showPopup: {},
   search: {},
   displaySheets: getDisplaySheets(JSON.parse(getStorageItem('sheets') || JSON.stringify([]))),
@@ -34,7 +34,6 @@ export const counterSlice = createSlice({
       state.sheets = action.payload;
     },
     setSelectedSheet: (state, action: PayloadAction<number>) => {
-      setStorageItem('selectedsheet', action.payload);
       state.search = {};
       state.selectedSheet = action.payload;
     },
