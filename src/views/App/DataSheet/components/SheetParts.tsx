@@ -12,14 +12,10 @@ const SheetParts = function SheetParts() {
 
   return (
     <S.Container>
-      <S.ScrollDiv>
-        <S.FlexDiv>
-          <S.WhiteCard>
-            <TopPart />
-            { sheet && <BottomPart /> }
-          </S.WhiteCard>
-        </S.FlexDiv>
-      </S.ScrollDiv>
+      <S.DarkBG>
+        <TopPart />
+        { sheet && <BottomPart /> }
+      </S.DarkBG>
       <S.FilterBoxContainer>
         {' '}
       </S.FilterBoxContainer>

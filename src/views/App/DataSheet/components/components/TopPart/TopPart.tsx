@@ -1,56 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Sheet } from 'types/types';
-import { selectSelectedSheet, selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
-import { useDispatch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
 import * as S from './TopPart.styled';
-import SheetViewer from './components/SheetViewer/SheetViewer';
-import EditSheet from './components/EditSheet/EditSheet';
-import SearchBox from './components/SearchBox/SearchBox';
+import CreateTableTools from './components/CreateTable/CreateTable';
+import MyTableTools from './components/MyTable/MyTable';
+import ModifyTableTools from './components/ModifyTable/ModifyTable';
+// import SearchTable from './components/SearchTable/SearchTable';
 
 const TopPart = function TopPart() {
-  const [showOptions, setShowOptions] = useState<boolean>(false);
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
-  const dispatch = useDispatch();
-
-  const editSheet = () => {
-    setShowOptions(!showOptions);
-    dispatch(setShowPopup({ component: <EditSheet />, exitOnBgClick: true }));
-  };
 
   if (!sheet) return null;
 
   return (
     <S.Container id="toppart">
-      <SheetViewer />
-      <S.ThisSheet>
-        <S.SheetName>
-          {sheet.name}
-        </S.SheetName>
-        <S.IconContainer onClick={() => setShowOptions(!showOptions)}>
-          <S.Icon>
-            <FontAwesomeIcon icon={faEllipsisVertical} size="1x" />
-          </S.Icon>
-        </S.IconContainer>
-        { showOptions && (
-          <>
-            <S.IconContainer2 onClick={() => editSheet()}>
-              <S.Icon2>
-                <FontAwesomeIcon icon={faPenToSquare} size="1x" />
-              </S.Icon2>
-            </S.IconContainer2>
-            <S.IconContainer3>
-              <S.Icon2>
-                <FontAwesomeIcon icon={faTrash} size="1x" />
-              </S.Icon2>
-            </S.IconContainer3>
-          </>
-        )}
-        <SearchBox />
-      </S.ThisSheet>
+      <S.ToolSection>
+        <MyTableTools />
+        <S.Line />
+      </S.ToolSection>
+      <S.ToolSection2>
+        <ModifyTableTools />
+        <S.Line />
+      </S.ToolSection2>
+      <S.ToolSection2>
+        <CreateTableTools />
+        <S.Line />
+      </S.ToolSection2>
+      {/* <SearchTable /> */}
     </S.Container>
   );
 };

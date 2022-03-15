@@ -20,32 +20,12 @@ export const ButtonDiv = styled.div`
   margin-bottom: ${containerPadding};
 `;
 
-export const ScrollDiv = styled.div`
+export const DarkBG = styled.div`
+  background: ${Color(panelBorderColor).darken(0.1).toString()};
   flex: 1;
   overflow: auto;
-`;
-
-export const FlexDiv = styled.div`
-  height: 100%;
-  max-height: 100%;
-  width: 100%;
   display: flex;
-  margin: auto;
-`;
-
-export const WhiteCard = styled.div<any>`
-  background: ${Color(panelBorderColor).darken(0.1).toString()};
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  position: relative;
-  animation-name: ${breatheAnimation};
-  animation-duration: 0.1s;
-  animation-iteration-count: 1;
-  overflow: hidden;
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-  box-sizing: border-box;
+  flex-direction: column;
 `;
 
 export const FilterBoxContainer = styled.div<any>`
