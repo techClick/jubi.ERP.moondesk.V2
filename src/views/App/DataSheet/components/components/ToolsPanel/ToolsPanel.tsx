@@ -2,11 +2,11 @@ import React from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Sheet } from 'types/types';
 import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
-import * as S from './TopPart.styled';
+import * as S from './ToolsPanel.styled';
 import CreateTableTools from './components/CreateTable/CreateTable';
 import MyTableTools from './components/MyTable/MyTable';
 import ModifyTableTools from './components/ModifyTable/ModifyTable';
-// import SearchTable from './components/SearchTable/SearchTable';
+import SearchTable from './components/SearchTable/SearchTable';
 
 const TopPart = function TopPart() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
@@ -20,15 +20,17 @@ const TopPart = function TopPart() {
         <MyTableTools />
         <S.Line />
       </S.ToolSection>
-      <S.ToolSection2>
+      <S.ToolSection>
         <ModifyTableTools />
+        <S.Line />
+      </S.ToolSection>
+      <S.ToolSection2>
+        <SearchTable />
         <S.Line />
       </S.ToolSection2>
       <S.ToolSection2>
         <CreateTableTools />
-        <S.Line />
       </S.ToolSection2>
-      {/* <SearchTable /> */}
     </S.Container>
   );
 };

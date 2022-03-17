@@ -9,10 +9,12 @@ export const Container = styled.div`
   width: 100%;
   padding: 8px;
   border-bottom: 1px solid ${Color(textColor).lighten(1).toString()};
+  box-shadow: 0 7px 9px -9px rgba(0,0,0,0.4);
   -moz-box-sizing: border-box; 
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   position: relative;
+  z-index: 3;
 `;
 
 export const ToolSection = styled.div`
@@ -36,5 +38,5 @@ export const Line = styled.div`
   right: 0px;
   bottom: 50%;
   transform: translateY(calc(50% + .2px));
-  background: ${Color(textColor).lighten(1.6).toString()};
+  background: ${Color(textColor).lighten(1.8).toString()};// ${Color(textColor).lighten(1.6).toString()};
 `;

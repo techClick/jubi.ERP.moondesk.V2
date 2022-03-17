@@ -3,7 +3,7 @@ import { useAppSelector } from 'redux/hooks';
 import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
 import { Sheet } from 'types/types';
 import * as S from './SheetParts.styled';
-import TopPart from './components/TopPart/TopPart';
+import TopPart from './components/ToolsPanel/ToolsPanel';
 import BottomPart from './components/BottomPart/BottomPart';
 
 const SheetParts = function SheetParts() {

@@ -2,10 +2,11 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
 import { useHistory } from 'react-router-dom';
-import * as S from '../CreateTable/CreateTable.styled';
+import * as S from './CreateTable.styled';
+import './scrollBar.css';
 import { toolOptions } from './utils/utils';
 
-const ModifyTable = function ModifyTable() {
+const CreateTable = function CreateTable() {
   const history = useHistory();
 
   return (
@@ -13,11 +14,11 @@ const ModifyTable = function ModifyTable() {
       {
         toolOptions.map((toolOption, i) => (
           <S.ToolsContainer
-            key={`modifytooloption${i}`}
+            key={`createtooloption${i}`}
             onClick={() => history.push(toolOption.path)}
           >
             <S.IconContainer>
-              <S.Icon>
+              <S.Icon color={toolOption.color}>
                 {toolOption.icon}
               </S.Icon>
             </S.IconContainer>
@@ -33,4 +34,4 @@ const ModifyTable = function ModifyTable() {
   );
 };
 
-export default ModifyTable;
+export default CreateTable;

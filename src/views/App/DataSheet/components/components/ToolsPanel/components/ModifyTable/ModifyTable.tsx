@@ -1,20 +1,20 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
+import { faBorderAll } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
-import * as S from './CreateTable.styled';
-import './scrollBar.css';
+import * as S from '../CreateTable/CreateTable.styled';
+import * as X from './ModifyTable.styled';
 import { toolOptions } from './utils/utils';
 
-const CreateTable = function CreateTable() {
+const ModifyTable = function ModifyTable() {
   const history = useHistory();
 
   return (
-    <S.Container id="scrollcontainer">
+    <X.Container>
       {
         toolOptions.map((toolOption, i) => (
           <S.ToolsContainer
-            key={`createtooloption${i}`}
+            key={`modifytooloption${i}`}
             onClick={() => history.push(toolOption.path)}
           >
             <S.IconContainer>
@@ -23,15 +23,15 @@ const CreateTable = function CreateTable() {
               </S.Icon>
             </S.IconContainer>
             <S.ToolName>
-              <FontAwesomeIcon icon={faSquarePlus} />
+              <FontAwesomeIcon icon={faBorderAll} />
               {' '}
               {toolOption.name}
             </S.ToolName>
           </S.ToolsContainer>
         ))
       }
-    </S.Container>
+    </X.Container>
   );
 };
 
-export default CreateTable;
+export default ModifyTable;
