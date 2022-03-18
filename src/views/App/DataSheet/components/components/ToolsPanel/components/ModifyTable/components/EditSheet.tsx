@@ -19,8 +19,8 @@ const EditSheet = function EditSheet() {
 
   return (
     <S.Container>
-      <S.Header>EDIT TABLE NAME</S.Header>
-      <S.SheetName>Table name *</S.SheetName>
+      <S.Header>EDIT SHEET</S.Header>
+      <S.SheetName>Sheet name *</S.SheetName>
       <S.InputDiv>
         <S.Input value={sheetName} onChange={(e: any) => setSheetName(e.target.value)} />
         { inputError
@@ -31,6 +31,30 @@ const EditSheet = function EditSheet() {
           Save
         </MainButton>
       </S.MainButtonDiv>
+      <S.Header2>
+        Filter rows
+        <S.Tools>
+          {/* <S.IconContainer>
+            <S.SelectSearchIcon>
+              <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
+            </S.SelectSearchIcon>
+          </S.IconContainer> */}
+          <S.IconContainer>
+            <S.Icon><FontAwesomeIcon icon={faFilter} size="2x" /></S.Icon>
+          </S.IconContainer>
+        </S.Tools>
+      </S.Header2>
+      <S.RowsContainer id="rowscontainer">
+        { headers.map((header) => (
+          // <S.RowCont1 key={`row_${header}`}>
+          <S.RowCont1>
+            <S.CheckBoxDiv>
+              <S.CheckBox type="checkbox" />
+            </S.CheckBoxDiv>
+            <S.RowName>{header}</S.RowName>
+          </S.RowCont1>
+        ))}
+      </S.RowsContainer>
     </S.Container>
   );
 };

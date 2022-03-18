@@ -18,7 +18,12 @@ const ModifyTable = function ModifyTable() {
             onClick={() => history.push(toolOption.path)}
           >
             <S.IconContainer>
-              <S.Icon>
+              <S.Icon
+                color={toolOption.color}
+                scaleX={toolOption.scaleX}
+                scaleY={toolOption.scaleY}
+                yAdd={toolOption.yAdd}
+              >
                 {toolOption.icon}
               </S.Icon>
             </S.IconContainer>

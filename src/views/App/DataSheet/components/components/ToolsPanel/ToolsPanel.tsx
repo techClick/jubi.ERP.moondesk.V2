@@ -20,10 +20,10 @@ const TopPart = function TopPart() {
         <MyTableTools />
         <S.Line />
       </S.ToolSection>
-      <S.ToolSection>
+      <S.ToolSection2>
         <ModifyTableTools />
         <S.Line />
-      </S.ToolSection>
+      </S.ToolSection2>
       <S.ToolSection2>
         <SearchTable />
         <S.Line />

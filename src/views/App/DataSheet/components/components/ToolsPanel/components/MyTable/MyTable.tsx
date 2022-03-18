@@ -35,7 +35,7 @@ const MyTable = function MyTable() {
           </S.IconCont1>
         </S.IconContainer>
         <S.AbsoluteDiv>
-          <S.IconContainer2 onClick={() => editSheet()}>
+          <S.IconContainer2 onClick={() => { setShowOptions(false); editSheet(); }}>
             <S.Icon2>
               <FontAwesomeIcon icon={faPenToSquare} size="1x" />
             </S.Icon2>
@@ -43,9 +43,9 @@ const MyTable = function MyTable() {
           { showOptions && (
             <>
               <S.IconContainer3>
-                <S.Icon2>
+                <S.Icon3>
                   <FontAwesomeIcon icon={faTrash} size="1x" />
-                </S.Icon2>
+                </S.Icon3>
               </S.IconContainer3>
             </>
           )}

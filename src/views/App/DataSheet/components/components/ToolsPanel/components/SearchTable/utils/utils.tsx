@@ -1,5 +1,5 @@
 import React from 'react';
-import { faArrowsLeftRight, faDiagramNext, } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsLeftRight, faDiagramNext } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const toolOptions = [
@@ -8,11 +8,13 @@ export const toolOptions = [
     name2: 'rows',
     icon: <FontAwesomeIcon icon={faDiagramNext} size="3x" />,
     path: '/app/datasheets/importtypes',
+    color: '#DCB67A',
   },
   {
     name: 'Split',
     name2: '',
     icon: <FontAwesomeIcon icon={faArrowsLeftRight} size="3x" />,
     path: '/app/datasheets/importtypes',
+    color: '#9564CD',
   },
 ];

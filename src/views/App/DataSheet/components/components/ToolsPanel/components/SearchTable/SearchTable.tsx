@@ -28,7 +28,7 @@ const SearchTable = function SearchTable() {
               onClick={() => history.push(toolOption.path)}
             >
               <X.IconContainer>
-                <X.Icon>
+                <X.Icon color={toolOption.color}>
                   {toolOption.icon}
                 </X.Icon>
               </X.IconContainer>

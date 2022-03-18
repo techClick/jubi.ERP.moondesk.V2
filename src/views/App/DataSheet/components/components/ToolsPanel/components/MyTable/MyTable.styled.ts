@@ -18,7 +18,7 @@ export const SheetContainer = styled.div<any>`
   min-width: 40px;
   max-width: 150px;
   height: 26px;
-  transform: translateY(37px);
+  transform: translateY(30.5px);
   padding: 0 5px;
   padding-top: 1px;
   border: 1px solid ${Color('white').darken(0.6).toString()};
@@ -122,4 +122,8 @@ export const Icon = styled.div`
 
 export const Icon2 = styled.div`
   transform: scale(0.9);
+`;
+
+export const Icon3 = styled.div`
+  transform: scale(0.85);
 `;

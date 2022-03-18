@@ -9,13 +9,13 @@ export const Container = styled.div<any>`
   height: 100%;
   display: flex;
   align-items: center;
-  transform: translateY(37px);
+  transform: translateY(30.5px);
   margin-top: -0.25px;
 `;
 
 export const Search = styled.input<any>`
   width: 160px;
-  height: 26px;
+  height: 27px;
   margin-top: 0px;
   border-radius: 4px; // 12px;
   padding-left: 24px;
@@ -25,11 +25,8 @@ export const Search = styled.input<any>`
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   border: 1px solid ${Color(panelBorderColor).darken(0).toString()};
-  outline: ${(props) => props.isActive && `1px solid ${Color('grey').darken(0.6).toString()}`};
   &:focus{
     border: 1px solid ${Color('grey').darken(0.4).toString()};
-    outline: 1px solid ${Color('white').darken(0.1).toString()};
-    // border: 0;
   }
 `;
 
@@ -74,30 +71,29 @@ export const AbsoluteDiv = styled.div`
   right: 0;
   top: 0;
   border: 1px solid ${Color(panelBorderColor).darken(0).toString()};
-  height: 30px;
-  width: 30px;
-  transform: translateY(calc(-100% - 3.5px));
+  height: 26px;
+  width: 26px;
+  transform: translateY(calc(-100% - 3px));
   display: flex;
   align-items: center;
   border-radius: 4px;
   color: ${Color(panelBorderColor).darken(0.1).toString()};
-  // box-shadow: 0px 0.1px 2px 0.1px ${Color('white').darken(0.18).toString()};
   cursor: pointer;
   &:hover {
     background: ${Color(panelBorderColor).lighten(0.15).toString()};
     color: ${Color(textColor).lighten(0.2).toString()};
-    // box-shadow: 0px 0px 0px 0.55px ${Color('white').darken(0.28).toString()};
   }
 `;
 
 export const IconContainer = styled.div`
-  margin-left: 1px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 `;
 
 export const Icon = styled.div`
-  transform: scale(0.65);
-  margin-top: 1px;
+  transform: scale(0.575);
+  margin-top: .5px;
 `;

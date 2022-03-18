@@ -14,8 +14,8 @@ export const Container = styled.div`
 export const ToolsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 62px;
-  height: 62px;
+  width: 56px;
+  height: 56px;
   padding-top: 1px;
   margin-left: 8px;
   border-radius: 3px;
@@ -36,15 +36,18 @@ export const ToolsContainer = styled.div`
 export const IconContainer = styled.div`
   width: max-content;
   margin: auto;
+  margin-top: -4px;
 `;
 
 export const Icon = styled.div<any>`
-  transform: scale(0.6);
-  color: ${(props) => props.color && props.color}
+  transform: scaleX(${(props) => { return props.scaleX ? props.scaleX : 0.45; }})
+    scaleY(${(props) => { return props.scaleY ? props.scaleY : 0.45; }});
+  color: ${(props) => props.color && props.color};
+  margin-top: ${(props) => props.yAdd && props.yAdd};
 `;
 
 export const ToolName = styled.div`
-  font-size: 9.5px;
+  font-size: 9.2px;
   font-weight: 400;
   margin: auto;
   margin-top: -8px;

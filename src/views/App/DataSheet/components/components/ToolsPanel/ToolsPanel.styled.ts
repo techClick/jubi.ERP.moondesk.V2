@@ -8,6 +8,7 @@ export const Container = styled.div`
   background: white;
   width: 100%;
   padding: 8px;
+  padding-bottom: 6.75px;
   border-bottom: 1px solid ${Color(textColor).lighten(1).toString()};
   box-shadow: 0 7px 9px -9px rgba(0,0,0,0.4);
   -moz-box-sizing: border-box; 
@@ -33,10 +34,10 @@ export const ToolSection2 = styled.div`
 
 export const Line = styled.div`
   width: 1px;
-  height: calc(100% + 16px);
+  height: calc(100% + 15px);
   position: absolute;
   right: 0px;
   bottom: 50%;
-  transform: translateY(calc(50% + .2px));
+  transform: translateY(calc(50% - 1px));
   background: ${Color(textColor).lighten(1.8).toString()};// ${Color(textColor).lighten(1.6).toString()};
 `;
