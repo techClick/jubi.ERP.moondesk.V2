@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 import { toast } from 'react-toastify';
 import { Sheet } from 'types/types';
 import { getStorageItem } from 'views/App/utils/utils';
-import { setSheets, setShowPopup } from 'views/App/DataSheet/redux';
+import { setSelectedSheet, setSheets, setShowPopup } from 'views/App/DataSheet/redux';
 import LoadingDialogue from 'views/App/components/LoadingDialogue/Loading';
 
 export const importType: any = {
@@ -30,6 +30,7 @@ const saveUploadDatatoSheet = () => (dispatch: Function) => {
   const sheet: Sheet = { name: sheetName, data: parserData };
   sheets.push(sheet);
   dispatch(setSheets(sheets));
+  dispatch(setSelectedSheet(sheets.length - 1));
   dispatch(setShowPopup({}));
   history.push('/app/datasheets');
   sendToast();
