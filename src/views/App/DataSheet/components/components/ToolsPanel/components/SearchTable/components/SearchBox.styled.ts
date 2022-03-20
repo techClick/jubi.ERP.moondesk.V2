@@ -71,9 +71,9 @@ export const AbsoluteDiv = styled.div`
   right: 0;
   top: 0;
   border: 1px solid ${Color(panelBorderColor).darken(0).toString()};
-  height: 26px;
-  width: 26px;
-  transform: translateY(calc(-100% - 3px));
+  height: 25px;
+  width: 25px;
+  transform: translateY(calc(-100% - 4px));
   display: flex;
   align-items: center;
   border-radius: 4px;
@@ -94,6 +94,7 @@ export const IconContainer = styled.div`
 `;
 
 export const Icon = styled.div`
-  transform: scale(0.575);
+  transform: scale(0.525);
   margin-top: .5px;
+  margin-left: .5px;
 `;

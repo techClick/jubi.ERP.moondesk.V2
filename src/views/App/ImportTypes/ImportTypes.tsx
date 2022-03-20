@@ -62,7 +62,7 @@ const ImportTypes = function ImportTypes() {
             {
               importOptions.map((option, index) => (
                 <S.IconCont2
-                  onClick={() => startUpload(sheets, input, setInputError)}
+                  onClick={() => startUpload(input, setInputError)}
                   key={`importoptions${index}`}
                 >
                   <S.IconContMain>

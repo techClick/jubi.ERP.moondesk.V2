@@ -25,7 +25,7 @@ export const Header = styled.div<any>`
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   border-bottom: 1px solid ${Color(panelBorderColor).lighten(0.1).toString()};
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
 `;
 
@@ -38,6 +38,7 @@ export const SheetName = styled.div<any>`
 
 export const InputDiv = styled.div<any>`
   display: flex;
+  flex-direction: column;
   width: calc(100% - 20px);
   margin-top: 2px;
   margin-left: 12px;
@@ -52,7 +53,7 @@ export const MainButtonDiv = styled.div<any>`
   height: 100%;
   width: max-content;
   margin-left: 12px;
-  margin-top: 7px;
+  margin-top: 8px;
 `;
 
 export const Input = styled.input<any>`
@@ -71,11 +72,9 @@ export const Input = styled.input<any>`
 
 export const Required = styled.div`
   display: flex;
-  font-size: 11px;
+  font-size: 10px;
   height: 14px;
-  position: absolute;
-  bottom: -13px;
-  left: -2px;
+  margin-top: 1px;
   color: red;
-  width: 150%;
+  width: 80%;
 `;
