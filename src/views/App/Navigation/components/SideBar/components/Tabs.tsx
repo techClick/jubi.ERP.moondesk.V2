@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { bigRes, RelativeContainer } from 'views/styles';
 import MediaQuery from 'react-responsive';
-import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import * as S from './Tabs.styled';
-import { getInitialIndex, tabOptions, tabPressAction } from './utils/utils';
+import { getInitialIndex, tabOptions } from './utils/utils';
 import { moveSideBar } from '../../utils/utils';
 import TopTabs from './components/TopTabs';
 
 const Tabs = function Tabs() {
-  const dispatch = useDispatch();
   const history = useHistory();
   const [selectedTab, setSelectedTab] = useState<number>(getInitialIndex());
   const [mouseEnter, setMouseEnter] = useState<{ [id: string]: boolean }>({});
@@ -53,7 +51,6 @@ const Tabs = function Tabs() {
                   isSelected={i === selectedTab}
                   onClick={() => {
                     setTimeout(() => moveSideBar(true), 300);
-                    tabPressAction(dispatch);
                     setSelectedTab(i);
                   }}
                   onMouseEnter={() => setMouseEnter({ settings: true })}

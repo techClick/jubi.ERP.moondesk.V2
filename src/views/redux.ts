@@ -1,29 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { callEndpoint } from '../endPoint/endPoint';
 import { RootState } from '../redux/store';
-import { IResponse } from '../types/types';
+import { IResponse, Settings } from '../types/types';
 
 export interface ViewsState {
-  isProductInterest: boolean
+  settings: Settings;
 }
 
 const initialState: ViewsState = {
-  isProductInterest: false,
+  settings: { isSortRow: [] },
 };
+
+type SetSettings = {
+  key: string,
+  setting: any,
+}
 
 export const counterSlice = createSlice({
   name: 'views',
   initialState,
   reducers: {
-    setIsProductInterest: (state, action) => {
-      state.isProductInterest = action.payload;
+    setSettings2: (state, action: PayloadAction<SetSettings>) => {
+      state.settings = { ...state.settings, [action.payload.key]: action.payload.setting };
     },
   },
 });
 
-export const { setIsProductInterest } = counterSlice.actions;
+export const { setSettings2 } = counterSlice.actions;
 
-export const selectIsProductInterest = (state: RootState) => state.views.isProductInterest;
+export const selectSettings2 = (state: RootState) => state.views.settings;
 
 export default counterSlice.reducer;
 

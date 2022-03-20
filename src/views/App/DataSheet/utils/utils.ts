@@ -26,9 +26,9 @@ export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
 };
 
 export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
-  const { text: searchText }: Search = store.getState().dataSheet.search;
   const { selectedSheet, sheets } = store.getState().dataSheet;
   const sheet: Sheet = sheets[selectedSheet];
+  const { text: searchText }: Search = sheet.search?.plainSearch || {};
   if (!searchText || [...searchText].length === 0) {
     const displaySheet: DisplaySheet = getDisplaySheet(sheet);
     dispatch(setDisplaySheet(displaySheet));

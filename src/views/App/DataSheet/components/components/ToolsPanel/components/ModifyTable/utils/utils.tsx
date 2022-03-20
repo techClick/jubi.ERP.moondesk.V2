@@ -3,10 +3,10 @@ import { faArrowDownWideShort, faExpand, faTableColumns } from '@fortawesome/fre
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setShowPopup } from 'views/App/DataSheet/redux';
 import Color from 'color';
-import FilterDialogue from '../components/FilterDialogue';
+import FormatDialogue from '../components/FilterDialogue';
 
 const filterTable = () => (dispatch: Function) => {
-  dispatch(setShowPopup({ component: <FilterDialogue />, exitOnBgClick: true }));
+  dispatch(setShowPopup({ component: <FormatDialogue />, exitOnBgClick: true }));
 };
 
 export const toolOptions = [

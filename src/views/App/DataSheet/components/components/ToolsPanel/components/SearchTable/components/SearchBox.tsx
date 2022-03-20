@@ -3,7 +3,7 @@ import { useAppSelector } from 'redux/hooks';
 import { Search, Sheet } from 'types/types';
 import { useDispatch } from 'react-redux';
 import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
-import { selectSearch, selectSelectedSheet, selectSheets, setSearch } from 'views/App/DataSheet/redux';
+import { selectSelectedSheet, selectSheets, setSearch } from 'views/App/DataSheet/redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import * as S from './SearchBox.styled';
@@ -11,7 +11,7 @@ import * as S from './SearchBox.styled';
 const SearchBox = function SearchBox() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
-  const { text: searchText }: Search = useAppSelector(selectSearch);
+  const { text: searchText }: Search = sheet.search?.plainSearch || {};
   const dispatch = useDispatch();
 
   return (
@@ -22,7 +22,10 @@ const SearchBox = function SearchBox() {
         placeholder={`Search ${sheet.name}`}
         value={searchText || ''}
         onChange={(e: any) => {
-          dispatch(setSearch({ text: e.target.value, showResult: true }));
+          dispatch(setSearch(['plainSearch', {
+            text: e.target.value,
+            showResult: true,
+          }]));
         }}
       />
       <S.SearchIconCont>
@@ -30,7 +33,7 @@ const SearchBox = function SearchBox() {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </S.SearchIcon>
       </S.SearchIconCont>
-      <S.ClearIconCont onClick={() => dispatch(setSearch({}))}>
+      <S.ClearIconCont onClick={() => dispatch(setSearch(['plainSearch', {}]))}>
         <S.ClearIcon>
           <FontAwesomeIcon icon={faXmark} size="2x" />
         </S.ClearIcon>

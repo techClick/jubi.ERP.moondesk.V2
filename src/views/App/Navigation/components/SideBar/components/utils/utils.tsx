@@ -1,5 +1,4 @@
 import React from 'react';
-import { setShowSheetBuilder } from 'views/App/redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFileWaveform, faChartLine, faGear, faFolderTree,
@@ -38,9 +37,4 @@ export const getInitialIndex = function getInitialIndex() {
   ));
   if (initialTab) return tabOptions.indexOf(initialTab);
   return 0;
-};
-
-export const tabPressAction = function tabPressAction(dispatch: Function) {
-  const exitSheetBuilder = { income: false, resources: false };
-  dispatch(setShowSheetBuilder(exitSheetBuilder));
 };

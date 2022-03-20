@@ -5,20 +5,20 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
 import { Sheet } from 'types/types';
 import EscapeButton from 'views/App/components/EscapeButton/EscapeButton';
-import { selectSelectedSheet, selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
+import { selectSelectedSheet, selectSheets, setIsSortRow, setShowPopup } from 'views/App/DataSheet/redux';
 import { MainButton } from 'views/App/styles';
 import * as S from './FilterDialogue.styled';
 import NoResult from './NoResult';
 import './scrollBar.css';
 
-const EditSheet = function EditSheet() {
+const FormatDialogue = function FormatDialogue() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const [showFiltered, setShowFiltered] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const headers = Object.entries(sheet.data[0]).map(([key]) => key);
-  headers.sort();
+  const rowHeaders = Object.entries(sheet.data[0]).map(([key]) => key);
+  rowHeaders.sort();
 
   return (
     <S.Container>
@@ -41,19 +41,23 @@ const EditSheet = function EditSheet() {
       </S.Header2>
       <S.RowsContainer id="rowscontainer">
         {/* <NoResult /> */}
-        { headers.map((header) => (
+        { rowHeaders.map((rowHeader) => (
           <S.RowCont1>
             <S.CheckBoxDiv>
               <S.CheckBox type="checkbox" />
             </S.CheckBoxDiv>
-            <S.RowName>{header}</S.RowName>
+            <S.RowName>{rowHeader}</S.RowName>
           </S.RowCont1>
         ))}
       </S.RowsContainer>
       <S.UnSelect>Unselect all</S.UnSelect>
       <S.Header2>
         <S.CheckBoxDiv2>
-          <S.CheckBox2 type="checkbox" />
+          <S.CheckBox2
+            checked={sheet.isSortRow}
+            onChange={() => dispatch(setIsSortRow(!sheet.isSortRow))}
+            type="checkbox"
+          />
         </S.CheckBoxDiv2>
         Sort rows alphabetically
       </S.Header2>
@@ -66,4 +70,4 @@ const EditSheet = function EditSheet() {
   );
 };
 
-export default EditSheet;
+export default FormatDialogue;

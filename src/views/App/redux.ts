@@ -1,32 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-
-type ShowSheetBuilder = {
-  [key: string]: boolean | null
-  income: boolean | null,
-  resources: boolean | null,
-}
+import { Settings } from 'types/types';
 
 export interface AppState {
-  showSheetBuilder: ShowSheetBuilder,
+  settings: Settings;
 }
 
 const initialState: AppState = {
-  showSheetBuilder: { income: null, resources: null },
+  settings: { isSortRow: [] },
 };
+
+type SetSettings = {
+  key: string,
+  setting: any,
+}
 
 export const counterSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setShowSheetBuilder: (state, action: PayloadAction<ShowSheetBuilder>) => {
-      state.showSheetBuilder = action.payload;
+    setSettings3: (state, action: PayloadAction<SetSettings>) => {
+      state.settings = { ...state.settings, [action.payload.key]: action.payload.setting };
     },
   },
 });
 
-export const { setShowSheetBuilder } = counterSlice.actions;
+export const { setSettings3 } = counterSlice.actions;
 
-export const selectShowSheetBuilder = (state: RootState) => state.app.showSheetBuilder;
+export const selectSettings3 = (state: RootState) => state.app.settings;
 
 export default counterSlice.reducer;

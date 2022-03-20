@@ -38,15 +38,3 @@ export const Highlight = styled.div`
   transform: translateY(50%);
   background: ${Color(highlightColor).lighten(0.4).toString()};
 `;
-
-export const SearchHighlight = styled.div<any>`
-  display: inline-flex;
-  align-items: center;
-  height: calc(100% + 1.5px);
-  padding: 0 1px;
-  margin-left: ${(props) => props.leftMargin && '1.5px'};
-  margin-right: ${(props) => props.rightMargin && '1.5px'};
-  background: ${highlightColor};
-  color: ${Color(textColor).darken(0.2).toString()};
-  transform: translateY(0px);
-`;

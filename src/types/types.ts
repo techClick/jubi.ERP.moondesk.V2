@@ -32,8 +32,18 @@ type SearchKeys = {
   text?: string,
   showResult?: boolean,
 }
+
 export type Search = {
   [key in keyof SearchKeys]: SearchKeys[key]
+}
+
+type SearchTypesKeys = {
+  plainSearch?: Search,
+  dateSearch?: Search,
+}
+
+export type SearchTypes = {
+  [key in keyof SearchTypesKeys]: SearchTypesKeys[key]
 }
 
 export type SheetEntry = {
@@ -43,6 +53,8 @@ export type SheetEntry = {
 type SheetKeys = {
   name: string,
   data: Array<SheetEntry>,
+  isSortRow?: boolean,
+  search?: SearchTypes,
 }
 
 export type Sheet = {
@@ -50,3 +62,11 @@ export type Sheet = {
 };
 
 export type DisplaySheet = Array<SheetEntry>;
+
+type SettingsKeys = {
+  isSortRow: Array<boolean>,
+}
+
+export type Settings = {
+  [key in keyof SettingsKeys]: SettingsKeys[key]
+};
