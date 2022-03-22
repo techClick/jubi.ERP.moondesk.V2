@@ -18,6 +18,7 @@ const Navigation = function Navigation({ children }:{ children: any}) {
             <S.BottomPanel>
               <SideBar />
               <S.BottomRightPanel
+                id="workspace"
                 onClick={() => window.innerHeight <= bigRes && moveSideBar(true)}
               >
                 {children}

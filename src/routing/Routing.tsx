@@ -13,6 +13,7 @@ const HomePage = lazy(() => import('views/Public/HomePage/HomePage'));
 const Settings = lazy(() => import('views/App/Settings/Settings'));
 const ImportTypes = lazy(() => import('views/App/ImportTypes/ImportTypes'));
 const DataSheet = lazy(() => import('views/App/DataSheet/DataSheet'));
+const SelectSheet = lazy(() => import('views/App/SelectSheet/SelectSheet'));
 // localStorage.clear();
 localStorage.setItem('projectId', '1');
 (document.body.style as any).zoom = '100%';
@@ -41,6 +42,9 @@ const Routing = function Routing() {
             </Route>
             <Route exact path="/app/datasheets/importtypes">
               <ImportTypes />
+            </Route>
+            <Route exact path="/app/datasheets/selectsheet">
+              <SelectSheet />
             </Route>
           </Switch>
         </Suspense>

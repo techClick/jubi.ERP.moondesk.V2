@@ -18,7 +18,7 @@ const SearchTable = function SearchTable() {
   if (!sheet) return null;
 
   return (
-    <S.Container id="toppart">
+    <S.Container id="toolspanel">
       <SearchBox />
       <S.ToolsCont1>
         {

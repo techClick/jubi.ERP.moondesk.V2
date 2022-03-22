@@ -15,7 +15,7 @@ const TopPart = function TopPart() {
   if (!sheet) return null;
 
   return (
-    <S.Container id="toppart">
+    <S.Container id="toolspanel">
       <S.ToolSection>
         <MyTableTools />
         <S.Line />

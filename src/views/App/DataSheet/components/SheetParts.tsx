@@ -3,8 +3,8 @@ import { useAppSelector } from 'redux/hooks';
 import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
 import { Sheet } from 'types/types';
 import * as S from './SheetParts.styled';
-import TopPart from './components/ToolsPanel/ToolsPanel';
-import BottomPart from './components/BottomPart/BottomPart';
+import ToolsPanel from './components/ToolsPanel/ToolsPanel';
+import TableView from './components/TableView/TableView';
 
 const SheetParts = function SheetParts() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
@@ -13,8 +13,8 @@ const SheetParts = function SheetParts() {
   return (
     <S.Container>
       <S.DarkBG>
-        <TopPart />
-        { sheet && <BottomPart /> }
+        <ToolsPanel />
+        { sheet && <TableView />}
       </S.DarkBG>
       <S.FilterBoxContainer>
         {' '}

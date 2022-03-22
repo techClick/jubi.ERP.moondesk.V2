@@ -20,6 +20,7 @@ const ImportCols = function ImportCols() {
 
   return (
     <>
+      <SheetParts />
       {showPopup.component
         && (
           <>
@@ -30,7 +31,6 @@ const ImportCols = function ImportCols() {
             {showPopup.component}
           </>
         )}
-      <SheetParts />
     </>
   );
 };

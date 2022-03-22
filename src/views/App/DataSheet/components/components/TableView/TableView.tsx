@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { bigRes, minRes } from 'views/styles';
-import * as S from './BottomPart.styled';
+import * as S from './TableView.styled';
 import Table from './Table/Table';
 
 const BottomPart = function BottomPart() {
@@ -13,7 +13,7 @@ const BottomPart = function BottomPart() {
 
   return (
     <>
-      <S.Container initialLoad={initialLoad}>
+      <S.Container initialLoad={initialLoad} id="tableView">
         <MediaQuery minWidth={bigRes + 0.0001}>
           <Table />
         </MediaQuery>

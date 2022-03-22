@@ -7,6 +7,7 @@ import { Sheet } from 'types/types';
 import { selectSelectedSheet, selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
 import * as S from './MyTable.styled';
 import EditSheet from './EditSheet/EditSheet';
+import SelectSheetMini from './SelectSheetMini/SelectSheetMini';
 
 const MyTable = function MyTable() {
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -20,7 +21,11 @@ const MyTable = function MyTable() {
 
   return (
     <S.Container>
-      <S.SheetContainer>
+      <S.SheetContainer onClick={() => dispatch(setShowPopup({
+        component: <SelectSheetMini />,
+        exitOnBgClick: true,
+      }))}
+      >
         <S.IconContainer>
           <S.IconCont>
             <FontAwesomeIcon icon={faTable} size="1x" />
