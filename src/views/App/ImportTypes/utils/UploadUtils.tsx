@@ -27,7 +27,7 @@ let sheetName = '';
 let history;
 const saveUploadDatatoSheet = () => (dispatch: Function) => {
   const sheets: Sheet[] = JSON.parse(getStorageItem('sheets') || '[]');
-  const sheet: Sheet = { name: sheetName, data: parserData };
+  const sheet: Sheet = { name: sheetName, data: parserData, date: new Date() };
   sheets.push(sheet);
   dispatch(setSheets(sheets));
   dispatch(setSelectedSheet(sheets.length - 1));

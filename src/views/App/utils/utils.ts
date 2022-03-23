@@ -19,7 +19,8 @@ export const getDateFormatMobile = function getDateFormatMobile(datePicked?: Dat
   let date = new Date();
   if (datePicked) date = new Date(datePicked);
   const monthName = [...monthNames[date.getMonth()]].slice(0, 3).join('');
-  return `${monthName} ${date.getDate()}`;
+  return `${monthName} ${date.getDate()}${
+    date.getFullYear() !== new Date().getFullYear() ? `${date.getFullYear()}` : ''}`;
 };
 
 export const getStorageItem = function getStorageItem(type: string) {

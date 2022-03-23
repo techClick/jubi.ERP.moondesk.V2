@@ -41,6 +41,7 @@ export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
           value?.includes(searchText)
         ))
       )),
+      date: new Date(),
     };
     const displaySheet: DisplaySheet = getDisplaySheet(sortedSheet);
     dispatch(setDisplaySheet(displaySheet));

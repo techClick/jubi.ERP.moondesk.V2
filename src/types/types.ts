@@ -53,6 +53,7 @@ export type SheetEntry = {
 type SheetKeys = {
   name: string,
   data: Array<SheetEntry>,
+  date: Date,
   isSortRow?: boolean,
   search?: SearchTypes,
 }

@@ -1,45 +1,98 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
 import { Sheet } from 'types/types';
 import EscapeButton from 'views/App/components/EscapeButton/EscapeButton';
-import { selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
+import SortButton from 'views/App/components/SortButton/SortButton';
+import { selectSelectedSheet, selectSheets, setSelectedSheet, setShowPopup } from 'views/App/DataSheet/redux';
+import { getDateFormatMobile } from 'views/App/utils/utils';
 import * as S from './SelectSheetMini.styled';
+import { getIndex } from './utils/utils';
 
-const SelectSheet = function SelectSheet() {
-  const sheets1: Sheet[] = useAppSelector(selectSheets);
-  const [toolsPanelHeight, settoolsPanelHeight] = useState<string>();
-  const sheets = [...sheets1, ...sheets1, ...sheets1, ...sheets1, ...sheets1, ...sheets1, ...sheets1, ...sheets1];
-
-  const gettoolsPanelHeight = () => {
-    const toolsPanel = document.getElementById('toolspanel');
-    let toolsPanelHeight2 = '0px';
-    if (toolsPanel) {
-      toolsPanelHeight2 = window.getComputedStyle(toolsPanel).height;
-    }
-    return `${toolsPanelHeight2}`;
-  };
-
-  useEffect(() => {
-    settoolsPanelHeight(gettoolsPanelHeight());
-  }, []);
+const SelectSheetMini = function SelectSheetMini() {
+  const [sortSheetsByName, setSortSheetsByName] = useState<boolean>(false);
+  const [sortSheetsByDate, setSortSheetsByDate] = useState<boolean>(true);
+  const [sortButtonTrans, setSortButtonTrans] = useState<any>({});
+  const selectedSheet: number = useAppSelector(selectSelectedSheet);
+  const sheets: Sheet[] = useAppSelector(selectSheets);
+  const dispatch = useDispatch();
+  const sortedSheets: Sheet[] = [...sheets];
+  if (sortSheetsByName) {
+    sortedSheets.sort((a, b) => {
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
+      return 0;
+    });
+  }
+  if (sortSheetsByDate && !sortSheetsByName) sortedSheets.reverse();
 
   return (
-    <S.Container addHeight={toolsPanelHeight}>
+    <S.Container>
       <S.Header>
         SELECT TABLE
         <EscapeButton setShowPopup={setShowPopup} />
       </S.Header>
-      <S.SheetsContainer>
-        {
-          sheets.map((sheet) => (
-            <S.Sheet>
-              {sheet.name}
-            </S.Sheet>
-          ))
-        }
-      </S.SheetsContainer>
+      <S.SheetsSelect>
+        <S.Table>
+          <thead>
+            <S.TR>
+              <S.TH index={1}>
+                <S.THDiv>
+                  NAME
+                  <SortButton
+                    isSort={sortSheetsByName}
+                    noTrans={sortButtonTrans.sortSheetsByName}
+                    sortFunction={() => {
+                      setSortSheetsByDate(false);
+                      setSortSheetsByName(!sortSheetsByName);
+                      setSortButtonTrans({ sortSheetsByDate: true });
+                    }}
+                  />
+                </S.THDiv>
+              </S.TH>
+              <S.TH>
+                <S.THDiv>
+                  CREATED
+                  <SortButton
+                    isSort={sortSheetsByDate}
+                    noTrans={sortButtonTrans.sortSheetsByDate}
+                    sortFunction={() => {
+                      setSortSheetsByName(false);
+                      setSortSheetsByDate(!sortSheetsByDate);
+                      setSortButtonTrans({ sortSheetsByName: true });
+                    }}
+                  />
+                </S.THDiv>
+              </S.TH>
+            </S.TR>
+          </thead>
+        </S.Table>
+        <S.SheetsContainer>
+          {
+            sortedSheets.map((sheet, i) => {
+              return (
+                <S.Sheet
+                  key={`minisheet_${i}`}
+                  onClick={() => {
+                    setTimeout(() => dispatch(setShowPopup({})), 100);
+                    dispatch(setSelectedSheet(getIndex(sheet.name)));
+                  }}
+                  isSelected={getIndex(sheet.name) === selectedSheet}
+                  isDark={i % 2 !== 0}
+                  i={i}
+                >
+                  <S.NameCont>
+                    {sheet.name}
+                  </S.NameCont>
+                  <S.CreatedCont>{getDateFormatMobile(sheet.date)}</S.CreatedCont>
+                </S.Sheet>
+              );
+            })
+            }
+        </S.SheetsContainer>
+      </S.SheetsSelect>
     </S.Container>
   );
 };
 
-export default SelectSheet;
+export default SelectSheetMini;
