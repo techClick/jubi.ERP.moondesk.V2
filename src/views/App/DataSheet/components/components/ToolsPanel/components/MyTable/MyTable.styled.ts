@@ -4,8 +4,6 @@ import { textColor, topBarColor } from 'views/App/styles';
 
 export const Container = styled.div`
   position: relative;
-  width: max-content;
-  height: max-content;
   width: 130px;
   height: 100%;
 `;
