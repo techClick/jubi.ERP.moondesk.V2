@@ -5,7 +5,7 @@ import { tableBorderColor, textColor } from 'views/App/styles';
 export const Container = styled.div<any>`
   width: max-content;
   height: 100%;
-  max-height: 100%;
+  max-width: 100%;
   display: flex;
   overflow: auto;
   background: ${Color('white').darken(0.05).toString()};

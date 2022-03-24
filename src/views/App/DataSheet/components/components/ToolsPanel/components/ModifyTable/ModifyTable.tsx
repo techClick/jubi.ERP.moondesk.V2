@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBorderAll } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { setShowPopup } from 'views/App/DataSheet/redux';
 import * as S from '../CreateTable/CreateTable.styled';
 import * as X from './ModifyTable.styled';
 import { toolOptions } from './utils/utils';
 
-const ModifyTable = function ModifyTable() {
+const ModifyTable = function ModifyTable({ isMoreTools }:{ isMoreTools?: boolean }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -18,6 +19,7 @@ const ModifyTable = function ModifyTable() {
           <S.ToolsContainer
             key={`modifytooloption${i}`}
             onClick={() => {
+              if (isMoreTools) dispatch(setShowPopup({}));
               if (toolOption.action) {
                 dispatch(toolOption.action());
               } else {

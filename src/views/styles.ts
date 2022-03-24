@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const toolsRes1 = 1222.22;
 export const toolsRes2 = 801.6;
 export const toolsRes3 = 289.6;
+export const toolsRes4 = 217.6;
 export const bigRes = 899.9999;
 export const minRes = 599.9999;
 

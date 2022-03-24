@@ -4,16 +4,18 @@ import { Sheet } from 'types/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
-import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
+import { useDispatch } from 'react-redux';
+import { selectSelectedSheet, selectSheets, setShowPopup } from 'views/App/DataSheet/redux';
 import * as S from './SearchTable.styled';
 import * as X from '../CreateTable/CreateTable.styled';
 import SearchBox from './components/SearchBox';
 import { toolOptions } from './utils/utils';
 
-const SearchTable = function SearchTable() {
+const SearchTable = function SearchTable({ isMoreTools }:{ isMoreTools?: boolean }) {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const history = useHistory();
+  const dispatch = useDispatch();
 
   if (!sheet) return null;
 
@@ -25,7 +27,10 @@ const SearchTable = function SearchTable() {
           toolOptions.map((toolOption, i) => (
             <X.ToolsContainer
               key={`createtooloption${i}`}
-              onClick={() => history.push(toolOption.path)}
+              onClick={() => {
+                if (isMoreTools) dispatch(setShowPopup({}));
+                history.push(toolOption.path);
+              }}
             >
               <X.IconContainer>
                 <X.Icon color={toolOption.color}>

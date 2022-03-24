@@ -50,7 +50,7 @@ export const ToolName = styled.div`
   font-size: 9.2px;
   font-weight: 400;
   margin: auto;
-  margin-top: -8px;
+  margin-top: -8.5px;
   transform: scaleX(0.925);
   height: max-content;
   width: max-content;

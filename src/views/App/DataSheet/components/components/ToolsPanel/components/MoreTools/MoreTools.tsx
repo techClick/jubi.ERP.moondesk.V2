@@ -1,11 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as S from '../CreateTable/CreateTable.styled';
 import './scrollBar.css';
 import { toolOptions } from './utils/utils';
 
 const MoreTools = function MoreTools() {
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <S.Container id="scrollcontainer">
@@ -13,7 +13,7 @@ const MoreTools = function MoreTools() {
         toolOptions.map((toolOption, i) => (
           <S.ToolsContainer
             key={`createtooloption${i}`}
-            onClick={() => history.push(toolOption.path)}
+            onClick={() => dispatch(toolOption.action())}
           >
             <S.IconContainer>
               <S.Icon

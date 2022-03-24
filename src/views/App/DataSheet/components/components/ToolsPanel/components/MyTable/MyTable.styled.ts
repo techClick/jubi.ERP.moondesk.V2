@@ -1,11 +1,15 @@
 import Color from 'color';
 import styled from 'styled-components';
 import { textColor, topBarColor } from 'views/App/styles';
+import { toolsRes4 } from 'views/styles';
 
 export const Container = styled.div`
   position: relative;
   width: 130px;
   height: 100%;
+  @media(max-width: ${`${toolsRes4 + 0.01}px`}) {
+    width: 62px;
+  }
 `;
 
 export const SheetContainer = styled.div<any>`
@@ -54,6 +58,9 @@ export const SheetName = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 91px;
+  @media(max-width: ${`${toolsRes4 + 0.01}px`}) {
+    max-width: 22px;
+  }
 `;
 
 export const IconContainer0 = styled.div`
