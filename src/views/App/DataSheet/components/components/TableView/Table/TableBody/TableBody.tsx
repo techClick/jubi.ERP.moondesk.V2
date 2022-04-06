@@ -4,16 +4,18 @@ import { useAppSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
 import { setDisplaySheetFromSearch } from 'views/App/DataSheet/utils/utils';
 import {
-  selectDisplaySheets, selectSelectedSheet, selectSheets,
+  selectDisplaySheets, selectRowToHighlight, selectSelectedSheet, selectSheets, selectShowSearch,
 } from 'views/App/DataSheet/redux';
 import * as S from './TableBody.styled';
-import TDEntryText from './TDEntryText';
+import TDEntryText from './TDEntryText/TDEntryText';
 
 const TableBody = function TableBody() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const displaySheet: DisplaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
   const { text: searchText }: Search = sheet.search?.plainSearch || {};
+  const rowToHighlight: string = useAppSelector(selectRowToHighlight);
+  const showSearch: boolean = useAppSelector(selectShowSearch);
   const dispatch = useDispatch();
 
   const headersType1 = displaySheet[0] ? Object.keys(displaySheet[0]) : [];
@@ -28,12 +30,14 @@ const TableBody = function TableBody() {
     <tbody>
       { displaySheet?.map((entry, i) => (
         <S.TR key={`tablebody${i}`}>
-          { headers.map((key) => (
-            <S.TD key={`sheettd${key}${i}`}>
+          { headers.map((header) => (
+            <S.TD key={`sheettd${header}${i}`}>
               <S.TDText>
-                <TDEntryText value={entry[key]} />
+                <TDEntryText value={entry[header]} />
               </S.TDText>
-              {searchText && searchText !== '' && entry[key]?.includes(searchText || '') && <S.Highlight />}
+              {((searchText && searchText !== '' && entry[header]?.includes(searchText || '') && showSearch)
+                || rowToHighlight === header)
+                && <S.Highlight2 />}
             </S.TD>
           ))}
         </S.TR>

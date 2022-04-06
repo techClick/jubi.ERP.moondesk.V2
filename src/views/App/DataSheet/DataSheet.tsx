@@ -24,9 +24,12 @@ const ImportCols = function ImportCols() {
       {showPopup.component
         && (
           <>
-            <Background onClick={() => (
-              showPopup.exitOnBgClick && dispatch(setShowPopup({}))
-            )}
+            <Background onClick={() => {
+              if (showPopup.exitOnBgClick) {
+                if (showPopup.action) showPopup.action();
+                dispatch(setShowPopup({}));
+              }
+            }}
             />
             {showPopup.component}
           </>

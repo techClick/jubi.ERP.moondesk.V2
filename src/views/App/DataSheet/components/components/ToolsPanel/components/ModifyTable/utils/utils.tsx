@@ -1,7 +1,8 @@
 import React from 'react';
 import { faArrowDownWideShort, faExpand, faTableColumns } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setShowPopup } from 'views/App/DataSheet/redux';
+import { store } from 'redux/store';
+import { setIsSelectingCell, setShowPopup } from 'views/App/DataSheet/redux';
 import Color from 'color';
 import FormatDialogue from '../components/FilterDialogue';
 
@@ -19,6 +20,8 @@ export const toolOptions = [
     scaleX: 0.425,
     scaleY: 0.465,
     yAdd: '1px',
+    action: () => (dispatch: Function) => dispatch(setIsSelectingCell(!store
+      .getState().dataSheet.isSelectingCell)),
   },
   {
     name: 'Format',

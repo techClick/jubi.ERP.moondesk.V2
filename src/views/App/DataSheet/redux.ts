@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import { DisplaySheet, Search, Sheet, ShowPopup } from 'types/types';
+import { DisplaySheet, RowSearch, Search, Sheet, ShowPopup } from 'types/types';
 import { getStorageItem, setStorageItem } from '../utils/utils';
 import { getDisplaySheets } from './utils/utils';
 
@@ -9,6 +9,10 @@ export interface AppState {
   selectedSheet: number,
   showPopup: ShowPopup,
   displaySheets: DisplaySheet[],
+  isSelectingCell: boolean,
+  rowToHighlight: string,
+  showSearch: boolean,
+  selectedRow: string,
 }
 
 const initialState: AppState = {
@@ -20,6 +24,10 @@ const initialState: AppState = {
   selectedSheet: Number(getStorageItem('selectedsheet') || 0),
   showPopup: {},
   displaySheets: getDisplaySheets(JSON.parse(getStorageItem('sheets') || JSON.stringify([]))),
+  isSelectingCell: false,
+  rowToHighlight: '',
+  showSearch: true,
+  selectedRow: '',
 };
 
 export const counterSlice = createSlice({
@@ -45,7 +53,7 @@ export const counterSlice = createSlice({
     setShowPopup: (state, action: PayloadAction<ShowPopup>) => {
       state.showPopup = action.payload;
     },
-    setSearch: (state, action: PayloadAction<[string, Search]>) => {
+    setSearch: (state, action: PayloadAction<[string, Search | RowSearch]>) => {
       const thisSearch = state.sheets[state.selectedSheet].search;
       state.sheets[state.selectedSheet].search = {
         ...thisSearch,
@@ -53,16 +61,33 @@ export const counterSlice = createSlice({
       };
       setStorageItem('sheets', JSON.stringify(state.sheets));
     },
+    setIsSelectingCell: (state, action: PayloadAction<boolean>) => {
+      state.isSelectingCell = action.payload;
+    },
+    setRowToHighlight: (state, action: PayloadAction<string>) => {
+      state.rowToHighlight = action.payload;
+    },
+    setShowSearch: (state, action: PayloadAction<boolean>) => {
+      state.showSearch = action.payload;
+    },
+    setSelectedRow: (state, action: PayloadAction<string>) => {
+      state.selectedRow = action.payload;
+    },
   },
 });
 
 export const {
   setSheets, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch, setIsSortRow,
+  setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow,
 } = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;
 export const selectSelectedSheet = (state: RootState) => state.dataSheet.selectedSheet;
 export const selectShowPopup = (state: RootState) => state.dataSheet.showPopup;
 export const selectDisplaySheets = (state: RootState) => state.dataSheet.displaySheets;
+export const selectIsSelectingCell = (state: RootState) => state.dataSheet.isSelectingCell;
+export const selectRowToHighlight = (state: RootState) => state.dataSheet.rowToHighlight;
+export const selectShowSearch = (state: RootState) => state.dataSheet.showSearch;
+export const selectSelectedRow = (state: RootState) => state.dataSheet.selectedRow;
 
 export default counterSlice.reducer;

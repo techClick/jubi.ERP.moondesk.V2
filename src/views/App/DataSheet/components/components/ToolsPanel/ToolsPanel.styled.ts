@@ -15,7 +15,7 @@ export const Container = styled.div`
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const ToolSection = styled.div`

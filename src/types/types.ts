@@ -23,6 +23,7 @@ export type CallArgs = {
 type ShowPopupKeys = {
   component?: ReactElement | false,
   exitOnBgClick?: boolean,
+  action?: Function,
 }
 export type ShowPopup = {
   [key in keyof ShowPopupKeys]: ShowPopupKeys[key]
@@ -37,9 +38,14 @@ export type Search = {
   [key in keyof SearchKeys]: SearchKeys[key]
 }
 
+export type RowSearch = {
+  [key: string]: string,
+}
+
 type SearchTypesKeys = {
   plainSearch?: Search,
   dateSearch?: Search,
+  rowSearch?: RowSearch,
 }
 
 export type SearchTypes = {

@@ -11,7 +11,7 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const ToolsContainer = styled.div`
+export const ToolsContainer = styled.div<any>`
   display: flex;
   flex-direction: column;
   width: 56px;
@@ -26,6 +26,10 @@ export const ToolsContainer = styled.div`
   box-shadow: 0px 0px 2px 0.220px ${Color('white').darken(0.18).toString()};
   color: ${Color(textColor).lighten(0.3).toString()};
   display: inline-block;
+  background: ${(props) => props.isSelected && Color('white').darken(0.08).toString()};
+  box-shadow: ${(props) => props.isSelected && '0'};
+  outline: ${(props) => props.isSelected
+    && `1px solid ${Color('white').darken(0.48).toString()}`};
   &:hover {
     color: ${textColor};
     background: ${Color('white').darken(0.08).toString()};

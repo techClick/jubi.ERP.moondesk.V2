@@ -4,11 +4,20 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as S from './EscapeButton.styled';
 
-const EscapeButton = function EscapeButton({ setShowPopup }:{ setShowPopup: Function }) {
+const EscapeButton = function EscapeButton(
+  { setShowPopup, escapeAction }
+  :
+  { setShowPopup: Function, escapeAction?: Function },
+) {
   const dispatch = useDispatch();
 
   return (
-    <S.Container onClick={() => dispatch(setShowPopup({}))}>
+    <S.Container
+      onClick={() => {
+        if (escapeAction) escapeAction();
+        dispatch(setShowPopup({}));
+      }}
+    >
       <S.ClearIcon>
         <FontAwesomeIcon icon={faX} size="2x" />
       </S.ClearIcon>

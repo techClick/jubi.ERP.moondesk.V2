@@ -1,13 +1,14 @@
 import React from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Search } from 'types/types';
-import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
+import { selectSelectedSheet, selectSheets, selectShowSearch } from 'views/App/DataSheet/redux';
 import * as S from './TDEntryText.styled';
 
 const TDEntryText = function TDEntryText({ value }:{ value: any }) {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const { text: searchText }: Search = (useAppSelector(selectSheets)[selectedSheet]
     .search || {}).plainSearch || {};
+  const showSearch: boolean = useAppSelector(selectShowSearch);
 
   const index = value?.indexOf(searchText);
   let entryContainsSearch = false;
@@ -24,7 +25,7 @@ const TDEntryText = function TDEntryText({ value }:{ value: any }) {
   }
   return (
     <>
-      { entryContainsSearch ? (
+      { showSearch && entryContainsSearch ? (
         <>
           {entryText1}
           {entryText1[entryText1.length - 1] === ' ' && <span>&nbsp;</span>}

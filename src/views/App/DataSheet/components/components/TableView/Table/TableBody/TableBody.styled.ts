@@ -1,6 +1,6 @@
 import Color from 'color';
 import styled from 'styled-components';
-import { highlightColor, panelBorderColor, textColor } from 'views/App/styles';
+import { highlightColor2, panelBorderColor, textColor } from 'views/App/styles';
 
 const tableBorderColor = Color(panelBorderColor).lighten(0.1).toString();
 export const TR = styled.tr<any>`
@@ -28,13 +28,13 @@ export const TDText = styled.div<any>`
   margin-top: 0.5px;
 `;
 
-export const Highlight = styled.div`
+export const Highlight2 = styled.div`
   position: absolute;
-  right: 0;
+  right: 50%;
   bottom: 50%;
-  height: 100%;
-  width: 100%;
+  height: 105%;
+  width: 105%;
   z-index: 1;
-  transform: translateY(50%);
-  background: ${Color(highlightColor).lighten(0.4).toString()};
+  transform: translate(50%, 50%);
+  background: ${highlightColor2};
 `;
