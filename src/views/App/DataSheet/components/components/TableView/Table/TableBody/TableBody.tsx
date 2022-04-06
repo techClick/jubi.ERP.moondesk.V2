@@ -14,6 +14,7 @@ const TableBody = function TableBody() {
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const displaySheet: DisplaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
   const { text: searchText }: Search = sheet.search?.plainSearch || {};
+  const rowSearch = sheet.search?.rowSearch;
   const rowToHighlight: string = useAppSelector(selectRowToHighlight);
   const showSearch: boolean = useAppSelector(selectShowSearch);
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const TableBody = function TableBody() {
 
   useEffect(() => {
     dispatch(setDisplaySheetFromSearch());
-  }, [searchText, selectedSheet]);
+  }, [searchText, selectedSheet, rowSearch]);
 
   return (
     <tbody>

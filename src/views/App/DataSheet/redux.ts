@@ -18,7 +18,7 @@ export interface AppState {
 const initialState: AppState = {
   sheets: [
     ...JSON.parse(getStorageItem('sheets') || JSON.stringify([])).map((sheet: Sheet) => (
-      { ...sheet, search: {} }
+      { ...sheet }
     )),
   ],
   selectedSheet: Number(getStorageItem('selectedsheet') || 0),

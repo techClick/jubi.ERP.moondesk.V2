@@ -29,11 +29,10 @@ export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
   const { selectedSheet, sheets } = store.getState().dataSheet;
   const sheet: Sheet = sheets[selectedSheet];
   const { text: searchText }: Search = sheet.search?.plainSearch || {};
-  if (!searchText || [...searchText].length === 0) {
-    const displaySheet: DisplaySheet = getDisplaySheet(sheet);
-    dispatch(setDisplaySheet(displaySheet));
-  } else {
-    const sortedSheet: Sheet = {
+  const rowSearch = sheet.search?.rowSearch || [];
+  let sortedSheet: Sheet = sheet;
+  if (searchText && [...searchText].length > 0) {
+    sortedSheet = {
       name: sheet.name,
       data: sheet.data.filter((entry) => (
         // eslint-disable-next-line no-unused-vars
@@ -41,9 +40,18 @@ export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
           value?.includes(searchText)
         ))
       )),
-      date: new Date(),
+      date: sheet.date,
     };
-    const displaySheet: DisplaySheet = getDisplaySheet(sortedSheet);
-    dispatch(setDisplaySheet(displaySheet));
   }
+
+  Object.entries(rowSearch).map(([key, value]) => {
+    sortedSheet = { ...sortedSheet,
+      data: sortedSheet.data.filter((entry) => {
+        return Object.entries(entry).find(([key2, value2]) => (
+          key2 === key && value2?.includes(value)
+        ));
+      }),
+    };
+  });
+  dispatch(setDisplaySheet(getDisplaySheet(sortedSheet)));
 };

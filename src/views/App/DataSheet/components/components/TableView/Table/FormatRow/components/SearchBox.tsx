@@ -23,6 +23,7 @@ const SearchBox = function SearchBox() {
         value={searchText || ''}
         onChange={(e: any) => {
           dispatch(setSearch(['rowSearch', {
+            ...sheet.search?.rowSearch,
             [selectedRow]: e.target.value,
           }]));
         }}
