@@ -54,10 +54,13 @@ export const counterSlice = createSlice({
       state.showPopup = action.payload;
     },
     setSearch: (state, action: PayloadAction<[string, Search | RowSearch]>) => {
-      const thisSearch = state.sheets[state.selectedSheet].search;
-      state.sheets[state.selectedSheet].search = {
-        ...thisSearch,
-        [action.payload[0]]: action.payload[1],
+      const thisSearch = state.sheets[state.selectedSheet].edits?.search;
+      state.sheets[state.selectedSheet].edits = {
+        ...state.sheets[state.selectedSheet].edits,
+        search: {
+          ...thisSearch,
+          [action.payload[0]]: action.payload[1],
+        },
       };
       setStorageItem('sheets', JSON.stringify(state.sheets));
     },

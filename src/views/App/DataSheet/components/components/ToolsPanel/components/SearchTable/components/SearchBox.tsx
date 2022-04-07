@@ -11,7 +11,7 @@ import * as S from './SearchBox.styled';
 const SearchBox = function SearchBox() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
-  const { text: searchText }: Search = sheet.search?.plainSearch || {};
+  const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
   const dispatch = useDispatch();
 
   return (

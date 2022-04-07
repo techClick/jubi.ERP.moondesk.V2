@@ -5,6 +5,7 @@ import { Sheet } from 'types/types';
 import * as S from './SheetParts.styled';
 import ToolsPanel from './components/ToolsPanel/ToolsPanel';
 import TableView from './components/TableView/TableView';
+import FilterBox from './components/FilterBox/FilterBox';
 
 const SheetParts = function SheetParts() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
@@ -17,7 +18,7 @@ const SheetParts = function SheetParts() {
         { sheet && <TableView />}
       </S.DarkBG>
       <S.FilterBoxContainer>
-        {' '}
+        <FilterBox />
       </S.FilterBoxContainer>
     </S.Container>
   );

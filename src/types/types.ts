@@ -38,8 +38,17 @@ export type Search = {
   [key in keyof SearchKeys]: SearchKeys[key]
 }
 
+type RowSearchTypesKeys = {
+  text?: string,
+  isInvertSearch?: boolean,
+}
+
+export type RowSearchTypes = {
+  [key in keyof RowSearchTypesKeys]: RowSearchTypesKeys[key]
+}
+
 export type RowSearch = {
-  [key: string]: string,
+  [key: string]: RowSearchTypes,
 }
 
 type SearchTypesKeys = {
@@ -52,6 +61,14 @@ export type SearchTypes = {
   [key in keyof SearchTypesKeys]: SearchTypesKeys[key]
 }
 
+type EditsKeys = {
+  search?: SearchTypes,
+}
+
+export type Edits = {
+  [key in keyof EditsKeys]: EditsKeys[key]
+}
+
 export type SheetEntry = {
   [key: string]: string | null | undefined
 }
@@ -61,7 +78,7 @@ type SheetKeys = {
   data: Array<SheetEntry>,
   date: Date,
   isSortRow?: boolean,
-  search?: SearchTypes,
+  edits?: Edits,
 }
 
 export type Sheet = {

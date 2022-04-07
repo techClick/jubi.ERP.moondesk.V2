@@ -28,8 +28,8 @@ export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
 export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
   const { selectedSheet, sheets } = store.getState().dataSheet;
   const sheet: Sheet = sheets[selectedSheet];
-  const { text: searchText }: Search = sheet.search?.plainSearch || {};
-  const rowSearch = sheet.search?.rowSearch || [];
+  const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
+  const rowSearch = sheet.edits?.search?.rowSearch || [];
   let sortedSheet: Sheet = sheet;
   if (searchText && [...searchText].length > 0) {
     sortedSheet = {
@@ -43,13 +43,20 @@ export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
       date: sheet.date,
     };
   }
-
   Object.entries(rowSearch).map(([key, value]) => {
     sortedSheet = { ...sortedSheet,
       data: sortedSheet.data.filter((entry) => {
-        return Object.entries(entry).find(([key2, value2]) => (
-          key2 === key && value2?.includes(value)
-        ));
+        if (value.text && [...value.text].length > 0) {
+          if (value.isInvertSearch) {
+            return Object.entries(entry).find(([key2, value2]) => (
+              key2 === key && value.text && !value2?.includes(value.text)
+            ));
+          }
+          return Object.entries(entry).find(([key2, value2]) => (
+            key2 === key && value.text && value2?.includes(value.text)
+          ));
+        }
+        return true;
       }),
     };
   });

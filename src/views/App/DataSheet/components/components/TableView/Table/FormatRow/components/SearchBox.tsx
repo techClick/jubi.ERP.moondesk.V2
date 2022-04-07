@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { Search, Sheet } from 'types/types';
+import { Sheet } from 'types/types';
 import { useDispatch } from 'react-redux';
 import { selectSelectedRow, selectSelectedSheet, selectSheets, setSearch } from 'views/App/DataSheet/redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ const SearchBox = function SearchBox() {
   const selectedRow = useAppSelector(selectSelectedRow);
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
-  const searchText = sheet.search?.rowSearch?.[selectedRow] || '';
+  const searchText = sheet.edits?.search?.rowSearch?.[selectedRow]?.text || '';
   const dispatch = useDispatch();
 
   return (
@@ -23,8 +23,11 @@ const SearchBox = function SearchBox() {
         value={searchText || ''}
         onChange={(e: any) => {
           dispatch(setSearch(['rowSearch', {
-            ...sheet.search?.rowSearch,
-            [selectedRow]: e.target.value,
+            ...sheet.edits?.search?.rowSearch,
+            [selectedRow]: {
+              text: e.target.value,
+              isInvertSearch: sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch,
+            },
           }]));
         }}
       />
@@ -33,7 +36,14 @@ const SearchBox = function SearchBox() {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </S.SearchIcon>
       </S.SearchIconCont>
-      <S.ClearIconCont onClick={() => dispatch(setSearch(['plainSearch', {}]))}>
+      <S.ClearIconCont onClick={() => dispatch(setSearch(['rowSearch', {
+        ...sheet.edits?.search?.rowSearch,
+        [selectedRow]: {
+          text: '',
+          isInvertSearch: sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch,
+        },
+      }]))}
+      >
         <S.ClearIcon>
           <FontAwesomeIcon icon={faXmark} size="2x" />
         </S.ClearIcon>

@@ -38,6 +38,7 @@ export const FilterBoxContainer = styled.div<any>`
   animation-name: ${breatheAnimation};
   animation-duration: 0.1s;
   animation-iteration-count: 1;
+  display: flex;
   @media(max-width: ${`${minRes}px`}) {
     display: none;
   }
