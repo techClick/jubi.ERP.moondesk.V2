@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import { DisplaySheet, RowSearch, Search, Sheet, ShowPopup } from 'types/types';
+import { DisplaySheet, EditStep, RowSearch, Search, Sheet, ShowPopup } from 'types/types';
 import { getStorageItem, setStorageItem } from '../utils/utils';
 import { getDisplaySheets } from './utils/utils';
 
@@ -41,6 +41,10 @@ export const counterSlice = createSlice({
     setDisplaySheet: (state, action: PayloadAction<DisplaySheet>) => {
       state.displaySheets[state.selectedSheet] = action.payload;
     },
+    setSheet: (state, action: PayloadAction<Sheet>) => {
+      state.sheets[state.selectedSheet] = action.payload;
+      setStorageItem('sheets', JSON.stringify(state.sheets));
+    },
     setSheets: (state, action: PayloadAction<Sheet[]>) => {
       state.displaySheets = getDisplaySheets(action.payload);
       setStorageItem('sheets', JSON.stringify(action.payload));
@@ -50,18 +54,47 @@ export const counterSlice = createSlice({
       setStorageItem('selectedsheet', action.payload);
       state.selectedSheet = action.payload;
     },
+    setEditStep: (state, action: PayloadAction<number>) => {
+      const thisSheet = state.sheets[state.selectedSheet];
+      thisSheet.edits = thisSheet.editSteps[action.payload].edits;
+      setStorageItem('editstep', action.payload);
+      setStorageItem('sheets', JSON.stringify(state.sheets));
+      thisSheet.editStep = action.payload;
+    },
     setShowPopup: (state, action: PayloadAction<ShowPopup>) => {
       state.showPopup = action.payload;
     },
-    setSearch: (state, action: PayloadAction<[string, Search | RowSearch]>) => {
-      const thisSearch = state.sheets[state.selectedSheet].edits?.search;
-      state.sheets[state.selectedSheet].edits = {
-        ...state.sheets[state.selectedSheet].edits,
+    setSearch: (state, action: PayloadAction<[string, Search | RowSearch, EditStep]>) => {
+      const thisSheet = state.sheets[state.selectedSheet];
+      const thisSearch = thisSheet.edits?.search;
+      thisSheet.edits = {
+        ...thisSheet.edits,
         search: {
           ...thisSearch,
           [action.payload[0]]: action.payload[1],
         },
       };
+      const lengthOfEditSteps = thisSheet.editSteps.length - 1;
+      if (thisSheet.editStep < lengthOfEditSteps) {
+        thisSheet.editSteps.splice(thisSheet.editStep + 1, lengthOfEditSteps - thisSheet.editStep);
+      }
+      if (action.payload[2].isSearch && thisSheet.editSteps[thisSheet.editStep]) {
+        if (thisSheet.editSteps[thisSheet.editStep].name === action.payload[2].name) {
+          thisSheet.editSteps.splice(thisSheet.editStep, 1);
+        }
+      }
+      if (action.payload[2].saveThis) {
+        action.payload[2] = {
+          ...action.payload[2],
+          edits: thisSheet.edits,
+        };
+        thisSheet.editSteps = [
+          ...thisSheet.editSteps,
+          action.payload[2],
+        ];
+      }
+      thisSheet.editStep = thisSheet.editSteps.length - 1;
+      thisSheet.edits = thisSheet.editSteps[thisSheet.editStep].edits;
       setStorageItem('sheets', JSON.stringify(state.sheets));
     },
     setIsSelectingCell: (state, action: PayloadAction<boolean>) => {
@@ -80,8 +113,8 @@ export const counterSlice = createSlice({
 });
 
 export const {
-  setSheets, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch, setIsSortRow,
-  setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow,
+  setSheets, setSheet, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch, setIsSortRow,
+  setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow, setEditStep,
 } = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;

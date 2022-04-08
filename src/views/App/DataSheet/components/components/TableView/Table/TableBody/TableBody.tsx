@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Search, DisplaySheet, Sheet } from 'types/types';
 import { useAppSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
-import { setDisplaySheetFromSearch } from 'views/App/DataSheet/utils/utils';
+import { setDisplaySheetFromEdits } from 'views/App/DataSheet/utils/utils';
 import {
   selectDisplaySheets, selectRowToHighlight, selectSelectedSheet, selectSheets, selectShowSearch,
 } from 'views/App/DataSheet/redux';
@@ -24,7 +24,7 @@ const TableBody = function TableBody() {
     : headersType1;
 
   useEffect(() => {
-    dispatch(setDisplaySheetFromSearch());
+    dispatch(setDisplaySheetFromEdits());
   }, [searchText, selectedSheet, rowSearch]);
 
   return (

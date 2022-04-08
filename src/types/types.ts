@@ -73,12 +73,26 @@ export type SheetEntry = {
   [key: string]: string | null | undefined
 }
 
+type EditStepKeys = {
+  name: string,
+  description: string,
+  edits: Edits,
+  saveThis: boolean,
+  isSearch?: boolean,
+}
+
+export type EditStep = {
+  [key in keyof EditStepKeys]: EditStepKeys[key]
+}
+
 type SheetKeys = {
   name: string,
-  data: Array<SheetEntry>,
+  data: SheetEntry[],
   date: Date,
   isSortRow?: boolean,
-  edits?: Edits,
+  edits: Edits,
+  editSteps: EditStep[],
+  editStep: number,
 }
 
 export type Sheet = {

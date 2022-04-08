@@ -29,7 +29,7 @@ export const DarkBG = styled.div`
 `;
 
 export const FilterBoxContainer = styled.div<any>`
-  background: ${Color(panelBorderColor).darken(0.4).toString()};
+  background: ${Color(panelBorderColor).darken(0.5).toString()};
   width: 21%;
   min-width: 210px;
   height: 100%;

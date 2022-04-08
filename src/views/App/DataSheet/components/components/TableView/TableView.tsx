@@ -4,7 +4,7 @@ import { bigRes, minRes } from 'views/styles';
 import * as S from './TableView.styled';
 import Table from './Table/Table';
 
-const BottomPart = function BottomPart() {
+const TableView = function TableView() {
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const BottomPart = function BottomPart() {
   );
 };
 
-export default BottomPart;
+export default TableView;

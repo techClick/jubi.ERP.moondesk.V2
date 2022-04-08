@@ -10,6 +10,7 @@ const FormatRow = function FormatRow() {
   const selectedRow = useAppSelector(selectSelectedRow);
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
+  const currentEditStep = sheet.editStep;
   const isInvertSearch = sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch || false;
   const dispatch = useDispatch();
 
@@ -23,15 +24,26 @@ const FormatRow = function FormatRow() {
         <S.CheckBoxDiv>
           <S.CheckBox
             checked={isInvertSearch}
-            onChange={() => dispatch(setSearch(['rowSearch',
-              {
-                ...sheet.edits?.search?.rowSearch,
-                [selectedRow]: {
-                  text: sheet.edits?.search?.rowSearch?.[selectedRow].text || '',
-                  isInvertSearch: !isInvertSearch,
+            onChange={() => {
+              dispatch(setSearch([
+                'rowSearch',
+                {
+                  ...sheet.edits?.search?.rowSearch,
+                  [selectedRow]: {
+                    text: sheet.edits?.search?.rowSearch?.[selectedRow].text || '',
+                    isInvertSearch: !isInvertSearch,
+                  },
                 },
-              },
-            ]))}
+                {
+                  name: `Invert search on row(${selectedRow})`,
+                  description: `${isInvertSearch ? 'Do not use' : 'Use'} invert`,
+                  edits: {},
+                  saveThis: !sheet.editSteps[currentEditStep].name
+                    .includes(`Invert search on row(${selectedRow})`),
+                  isSearch: true,
+                },
+              ]));
+            }}
             type="checkbox"
           />
         </S.CheckBoxDiv>

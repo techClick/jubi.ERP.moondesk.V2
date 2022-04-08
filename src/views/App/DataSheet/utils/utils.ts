@@ -25,7 +25,7 @@ export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
   return displaySheets;
 };
 
-export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
+export const getSheetFromEdits = () => {
   const { selectedSheet, sheets } = store.getState().dataSheet;
   const sheet: Sheet = sheets[selectedSheet];
   const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
@@ -41,6 +41,9 @@ export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
         ))
       )),
       date: sheet.date,
+      edits: sheet.edits,
+      editSteps: sheet.editSteps,
+      editStep: sheet.editStep,
     };
   }
   Object.entries(rowSearch).map(([key, value]) => {
@@ -60,5 +63,9 @@ export const setDisplaySheetFromSearch = () => (dispatch: Function) => {
       }),
     };
   });
-  dispatch(setDisplaySheet(getDisplaySheet(sortedSheet)));
+  return sortedSheet;
+};
+
+export const setDisplaySheetFromEdits = () => (dispatch: Function) => {
+  dispatch(setDisplaySheet(getDisplaySheet(getSheetFromEdits())));
 };
