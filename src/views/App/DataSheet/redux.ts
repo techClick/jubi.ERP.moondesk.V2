@@ -57,12 +57,37 @@ export const counterSlice = createSlice({
     setEditStep: (state, action: PayloadAction<number>) => {
       const thisSheet = state.sheets[state.selectedSheet];
       thisSheet.edits = thisSheet.editSteps[action.payload].edits;
+      thisSheet.editStep = action.payload;
       setStorageItem('editstep', action.payload);
       setStorageItem('sheets', JSON.stringify(state.sheets));
-      thisSheet.editStep = action.payload;
+    },
+    removeEditSteps: (state, action: PayloadAction<number>) => {
+      const thisSheet = state.sheets[state.selectedSheet];
+      const lengthOfEditSteps = thisSheet.editSteps.length - 1;
+      thisSheet.editSteps.splice(action.payload, lengthOfEditSteps - (action.payload - 1));
+      thisSheet.editStep = thisSheet.editSteps.length - 1;
+      thisSheet.edits = thisSheet.editSteps[thisSheet.editStep].edits;
+      setStorageItem('editstep', action.payload);
+      setStorageItem('sheets', JSON.stringify(state.sheets));
     },
     setShowPopup: (state, action: PayloadAction<ShowPopup>) => {
       state.showPopup = action.payload;
+    },
+    setHeaderEdit: (state, action: PayloadAction<[string, string]>) => {
+      const sheet = state.sheets[state.selectedSheet];
+      const headersEdit = sheet.edits.headers;
+      if (Object.entries(headersEdit || {}).find(([, value]) => value === action.payload[0])) {
+        const thisKey = Object.entries(headersEdit || {})
+          .find(([, value]) => value === action.payload[0])?.[0];
+        if (!sheet.edits.headers) sheet.edits.headers = {};
+        // eslint-disable-next-line prefer-destructuring
+        sheet.edits.headers[thisKey || ''] = action.payload[1];
+      } else {
+        if (!sheet.edits.headers) sheet.edits.headers = {};
+        // eslint-disable-next-line prefer-destructuring
+        sheet.edits.headers[action.payload[0]] = action.payload[1];
+      }
+      setStorageItem('sheets', JSON.stringify(state.sheets));
     },
     setSearch: (state, action: PayloadAction<[string, Search | RowSearch, EditStep]>) => {
       const thisSheet = state.sheets[state.selectedSheet];
@@ -113,8 +138,9 @@ export const counterSlice = createSlice({
 });
 
 export const {
-  setSheets, setSheet, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch, setIsSortRow,
+  setSheets, setSheet, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch,
   setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow, setEditStep,
+  removeEditSteps, setIsSortRow, setHeaderEdit,
 } = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;

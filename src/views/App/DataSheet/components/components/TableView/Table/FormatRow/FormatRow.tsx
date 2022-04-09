@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { selectSelectedRow, selectSelectedSheet, selectSheets, setSearch } from 'views/App/DataSheet/redux';
+import {
+  selectSelectedRow, selectSelectedSheet, selectSheets, setHeaderEdit, setSearch, setShowPopup,
+} from 'views/App/DataSheet/redux';
+import EscapeButton from 'views/App/components/EscapeButton/EscapeButton';
+import { MainButton } from 'views/App/styles';
 import { useDispatch } from 'react-redux';
 import { Sheet } from 'types/types';
 import * as S from './FormatRow.styled';
@@ -12,13 +16,65 @@ const FormatRow = function FormatRow() {
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const currentEditStep = sheet.editStep;
   const isInvertSearch = sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch || false;
+  const [rowName, setRowName] = useState<string>(selectedRow);
+  const [inputError, setInputError] = useState<string | false>(false);
   const dispatch = useDispatch();
 
   return (
     <S.Container id="formatrowcontainer">
       <S.Header>
-        SEARCH BY ROW
+        EDIT ROW NAME
+        <EscapeButton setShowPopup={setShowPopup} />
       </S.Header>
+      <S.SheetName>Row name *</S.SheetName>
+      <S.InputDiv>
+        <S.Input
+          value={rowName}
+          onChange={(e: any) => {
+            setInputError(false);
+            setRowName(e.target.value);
+          }}
+          isError={Boolean(inputError)}
+        />
+        { inputError
+          && <S.Required>{inputError}</S.Required>}
+      </S.InputDiv>
+      <S.MainButtonDiv onClick={() => {
+        if (rowName) {
+          dispatch(setHeaderEdit([selectedRow, rowName]));
+          return;
+        }
+        setInputError('Required');
+      }}
+      >
+        <MainButton>
+          Save name
+        </MainButton>
+      </S.MainButtonDiv>
+      <S.Header2>
+        SET DEFAULT VALUE
+        <EscapeButton setShowPopup={setShowPopup} />
+      </S.Header2>
+      <S.SheetName>Default value</S.SheetName>
+      <S.InputDiv>
+        <S.Input
+          value={rowName}
+          onChange={(e: any) => {
+            setRowName(e.target.value);
+          }}
+          isError={Boolean(inputError)}
+        />
+        { inputError
+          && <S.Required>{inputError}</S.Required>}
+      </S.InputDiv>
+      <S.MainButtonDiv onClick={() => {}}>
+        <MainButton>
+          Save value
+        </MainButton>
+      </S.MainButtonDiv>
+      <S.Header2>
+        SEARCH ROW
+      </S.Header2>
       <SearchBox />
       <S.SelectInvert>
         <S.CheckBoxDiv>
@@ -47,7 +103,7 @@ const FormatRow = function FormatRow() {
             type="checkbox"
           />
         </S.CheckBoxDiv>
-        Select invert
+        Invert search
       </S.SelectInvert>
     </S.Container>
   );

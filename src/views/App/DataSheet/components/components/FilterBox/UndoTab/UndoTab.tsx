@@ -9,8 +9,10 @@ import * as S from './UndoTab.styled';
 const UndoTab = function UndoTab() {
   const selectedSheet = useAppSelector(selectSelectedSheet);
   const sheet = useAppSelector(selectSheets)[selectedSheet];
-  const currentEditStep = sheet.editStep;
+  const currentEditStep = sheet?.editStep;
   const dispatch = useDispatch();
+
+  if (!sheet) return null;
   const lengthOfEditSteps = sheet.editSteps.length - 1;
 
   return (

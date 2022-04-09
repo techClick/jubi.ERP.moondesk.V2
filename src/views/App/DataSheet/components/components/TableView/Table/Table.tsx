@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
-import { Sheet, ShowPopup } from 'types/types';
+import { DisplaySheet, Sheet, ShowPopup } from 'types/types';
 import {
+  selectDisplaySheets,
   selectIsSelectingCell, selectRowToHighlight, selectSelectedSheet,
   selectSheets, selectShowPopup, setRowToHighlight, setSelectedRow, setShowPopup, setShowSearch,
 } from 'views/App/DataSheet/redux';
@@ -13,13 +14,15 @@ import TableBody from './TableBody/TableBody';
 const Table = function Table() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
+  const displaySheet: DisplaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
   const rowToHighlight: string = useAppSelector(selectRowToHighlight);
   const showPopup: ShowPopup = useAppSelector(selectShowPopup);
   const isSelectingCell: boolean = useAppSelector(selectIsSelectingCell);
   const dispatch = useDispatch();
 
-  const headers = sheet.isSortRow ? Object.keys(sheet.data[0]).sort()
-    : Object.keys(sheet.data[0]);
+  const headersType1 = displaySheet[0] ? Object.keys(displaySheet[0]) : [];
+  const headers = (displaySheet[0] && sheet.isSortRow) ? Object.keys(displaySheet[0]).sort()
+    : headersType1;
 
   return (
     <S.Container id="tableCont">

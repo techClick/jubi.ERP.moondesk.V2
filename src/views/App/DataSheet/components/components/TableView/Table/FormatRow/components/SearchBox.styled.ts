@@ -6,13 +6,13 @@ export const Container = styled.div<any>`
   position: relative;
   margin-left: 12px;
   right: 0;
-  margin-top: 20px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
 `;
 
 export const Search = styled.input<any>`
-  width: calc(100% - 12px);
+  width: calc(80% - 12px);
   height: 27px;
   margin-top: 0px;
   border-radius: 4px;
@@ -23,6 +23,7 @@ export const Search = styled.input<any>`
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   border: 1px solid ${Color(panelBorderColor).darken(0).toString()};
+  position: relative;
   &:focus{
     border: 1px solid ${Color('grey').darken(0.4).toString()};
   }
@@ -42,7 +43,7 @@ export const SearchIcon = styled.div<any>`
 
 export const ClearIconCont = styled.div`
   position: absolute;
-  right: 16px;
+  right: 62px;
   height: 24px;
   width: 18px;
   border-radius: 50%;

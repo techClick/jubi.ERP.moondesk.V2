@@ -61,8 +61,13 @@ export type SearchTypes = {
   [key in keyof SearchTypesKeys]: SearchTypesKeys[key]
 }
 
+export type Headers = {
+  [key: string]: string
+}
+
 type EditsKeys = {
   search?: SearchTypes,
+  headers?: Headers,
 }
 
 export type Edits = {
@@ -87,7 +92,7 @@ export type EditStep = {
 
 type SheetKeys = {
   name: string,
-  data: SheetEntry[],
+  data: Array<SheetEntry>,
   date: Date,
   isSortRow?: boolean,
   edits: Edits,

@@ -11,5 +11,7 @@ export const saveEditedSheet = () => (dispatch: Function) => {
     edits: {},
     saveThis: true,
   }];
+  sheet.editStep = 0;
+  console.log(sheet);
   dispatch(setSheet(sheet));
 };

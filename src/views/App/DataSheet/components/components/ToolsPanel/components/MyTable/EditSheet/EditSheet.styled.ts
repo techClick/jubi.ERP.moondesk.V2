@@ -49,13 +49,6 @@ export const InputDiv = styled.div<any>`
   position: relative;
 `;
 
-export const MainButtonDiv = styled.div<any>`
-  height: 100%;
-  width: max-content;
-  margin-left: 12px;
-  margin-top: 8px;
-`;
-
 export const Input = styled.input<any>`
   width: 70%;
   height: 28.5px;
@@ -68,6 +61,13 @@ export const Input = styled.input<any>`
   box-sizing: border-box;
   border: 1px solid ${Color(panelBorderColor).darken(0.05).toString()};
   border: ${(props) => props.isError && '1px solid red'};
+`;
+
+export const MainButtonDiv = styled.div<any>`
+  height: 100%;
+  width: max-content;
+  margin-left: 12px;
+  margin-top: 8px;
 `;
 
 export const Required = styled.div`

@@ -3,12 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
-import { selectSelectedSheet, selectSheets, setEditStep } from 'views/App/DataSheet/redux';
+import { selectSelectedSheet, selectSheets, setEditStep, setShowPopup } from 'views/App/DataSheet/redux';
+import ApplyChanges from './ApplyChanges/ApplyChanges';
+import DeleteStep from './DeleteStep/DeleteStep';
 import * as S from './FilterSteps.styled';
 
 const FilterSteps = function FilterSteps() {
   const selectedSheet = useAppSelector(selectSelectedSheet);
   const sheet = useAppSelector(selectSheets)[selectedSheet];
+
+  if (!sheet) return null;
+
   const currentEditStep = sheet.editStep;
   const dispatch = useDispatch();
 
@@ -22,7 +27,11 @@ const FilterSteps = function FilterSteps() {
         <S.Header>
           Steps taken
         </S.Header>
-        <S.ApplyPart onClick={() => {}}>
+        <S.ApplyPart onClick={() => dispatch(setShowPopup({
+          component: <ApplyChanges />,
+          exitOnBgClick: true,
+        }))}
+        >
           <S.Icon>
             <FontAwesomeIcon icon={faDiagramPredecessor} size="2x" />
           </S.Icon>
@@ -45,11 +54,17 @@ const FilterSteps = function FilterSteps() {
                     <i>{step.description}</i>
                   </S.StepDesc>
                 </S.LabelContainer>
-                <S.DeleteContainer>
-                  <S.DeleteIcon>
-                    <FontAwesomeIcon icon={faXmark} />
-                  </S.DeleteIcon>
-                </S.DeleteContainer>
+                { i > 0 && (
+                  <S.DeleteContainer onClick={() => dispatch(setShowPopup({
+                    component: <DeleteStep stepToDelete={i} />,
+                    exitOnBgClick: true,
+                  }))}
+                  >
+                    <S.DeleteIcon>
+                      <FontAwesomeIcon icon={faXmark} />
+                    </S.DeleteIcon>
+                  </S.DeleteContainer>
+                )}
               </S.PartsContainer>
             </S.Step>
           ))}
