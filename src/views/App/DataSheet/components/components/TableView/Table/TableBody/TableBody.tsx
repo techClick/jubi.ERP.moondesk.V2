@@ -12,6 +12,7 @@ import TDEntryText from './TDEntryText/TDEntryText';
 const TableBody = function TableBody() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
+  const headerEdit = useAppSelector(selectSheets)[selectedSheet].edits.headers || {};
   const displaySheet: DisplaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
   const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch;
@@ -22,6 +23,15 @@ const TableBody = function TableBody() {
   const headersType1 = displaySheet[0] ? Object.keys(displaySheet[0]) : [];
   const headers = (displaySheet[0] && sheet.isSortRow) ? Object.keys(displaySheet[0]).sort()
     : headersType1;
+  const editedHeaderkeys: any = {};
+  // eslint-disable-next-line consistent-return
+  Object.entries(displaySheet[0] || {}).map(([key]) => {
+    if (headerEdit[key]) {
+      editedHeaderkeys[key] = headerEdit[key];
+    } else {
+      editedHeaderkeys[key] = key;
+    }
+  });
 
   useEffect(() => {
     dispatch(setDisplaySheetFromEdits());
@@ -37,7 +47,7 @@ const TableBody = function TableBody() {
                 <TDEntryText value={entry[header]} />
               </S.TDText>
               {((searchText && searchText !== '' && entry[header]?.toString().includes(searchText || '') && showSearch)
-                || rowToHighlight === header)
+                || rowToHighlight === editedHeaderkeys[header])
                 && <S.Highlight2 />}
             </S.TD>
           ))}

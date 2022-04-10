@@ -14,7 +14,6 @@ const SearchBox = function SearchBox() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const currentEditStep = sheet.editStep;
-  const searchText = sheet.edits?.search?.rowSearch?.[selectedRow]?.text || '';
   const dispatch = useDispatch();
 
   const getIsSaveClear = (editStepName: string) => {
@@ -28,6 +27,15 @@ const SearchBox = function SearchBox() {
     return isSaveClear;
   };
 
+  let rowNameForSaveEdit = selectedRow;
+  for (const [key, value] of Object.entries(sheet.edits.headers || {})) {
+    if (value === selectedRow) {
+      rowNameForSaveEdit = key;
+      break;
+    }
+  }
+  const searchText = sheet.edits?.search?.rowSearch?.[rowNameForSaveEdit]?.text || '';
+
   return (
     <S.Container>
       <S.Search
@@ -40,9 +48,10 @@ const SearchBox = function SearchBox() {
             'rowSearch',
             {
               ...sheet.edits?.search?.rowSearch,
-              [selectedRow]: {
+              [rowNameForSaveEdit]: {
                 text: e.target.value,
-                isInvertSearch: sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch,
+                isInvertSearch: sheet
+                  .edits?.search?.rowSearch?.[rowNameForSaveEdit]?.isInvertSearch,
               },
             },
             {
@@ -68,9 +77,10 @@ const SearchBox = function SearchBox() {
             'rowSearch',
             {
               ...sheet.edits?.search?.rowSearch,
-              [selectedRow]: {
+              [rowNameForSaveEdit]: {
                 text: '',
-                isInvertSearch: sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch,
+                isInvertSearch: sheet
+                  .edits?.search?.rowSearch?.[rowNameForSaveEdit]?.isInvertSearch,
               },
             },
             {

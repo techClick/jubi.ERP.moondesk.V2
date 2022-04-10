@@ -25,19 +25,9 @@ export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
   return displaySheets;
 };
 
-export const getSheetFromEdits = () => {
+export const getSortedSheet = () => {
   const { selectedSheet, sheets } = store.getState().dataSheet;
-  let sheet: Sheet = sheets[selectedSheet];
-  const headerEdits = sheet.edits.headers;
-  const sheetData = [...sheet.data];
-  sheet = { ...sheet, data: [] };
-  sheetData.map((entry) => {
-    for (const [key, value] of Object.entries(headerEdits || {})) {
-      entry = { ...entry, [value]: entry[key] };
-      delete entry[key];
-    }
-    sheet.data.push(entry);
-  });
+  const sheet: Sheet = sheets[selectedSheet];
   const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch || [];
   let sortedSheet: Sheet = sheet;
@@ -76,6 +66,21 @@ export const getSheetFromEdits = () => {
   return sortedSheet;
 };
 
+export const getSheetFromEdits = () => {
+  let sheet: Sheet = getSortedSheet();
+  const headerEdits = sheet.edits.headers;
+  const sheetData = [...sheet.data];
+  sheet = { ...sheet, data: [] };
+  sheetData.map((entry) => {
+    for (const [key, value] of Object.entries(headerEdits || {})) {
+      entry = { ...entry, [value]: entry[key] };
+      delete entry[key];
+    }
+    sheet.data.push(entry);
+  });
+  return sheet;
+};
+
 export const setDisplaySheetFromEdits = () => (dispatch: Function) => {
-  dispatch(setDisplaySheet(getDisplaySheet(getSheetFromEdits())));
+  dispatch(setDisplaySheet(getDisplaySheet(getSortedSheet())));
 };

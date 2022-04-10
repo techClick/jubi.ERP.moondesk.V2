@@ -26,6 +26,14 @@ const FormatRow = function FormatRow() {
   const rowNames = (displaySheet[0] && sheet.isSortRow) ? Object.keys(displaySheet[0]).sort()
     : headersType1;
 
+  let rowNameForSaveEdit = selectedRow;
+  for (const [key, value] of Object.entries(sheet.edits.headers || {})) {
+    if (value === selectedRow) {
+      rowNameForSaveEdit = key;
+      break;
+    }
+  }
+
   return (
     <S.Container id="formatrowcontainer">
       <S.Header>
@@ -96,8 +104,8 @@ const FormatRow = function FormatRow() {
                 'rowSearch',
                 {
                   ...sheet.edits?.search?.rowSearch,
-                  [selectedRow]: {
-                    text: sheet.edits?.search?.rowSearch?.[selectedRow].text || '',
+                  [rowNameForSaveEdit]: {
+                    text: sheet.edits?.search?.rowSearch?.[rowNameForSaveEdit].text || '',
                     isInvertSearch: !isInvertSearch,
                   },
                 },

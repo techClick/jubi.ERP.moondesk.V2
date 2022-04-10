@@ -93,6 +93,10 @@ export const counterSlice = createSlice({
         // eslint-disable-next-line prefer-destructuring
         sheet.edits.headers[action.payload[0]] = action.payload[1];
       }
+      const lengthOfEditSteps = sheet.editSteps.length - 1;
+      if (sheet.editStep < lengthOfEditSteps) {
+        sheet.editSteps.splice(sheet.editStep + 1, lengthOfEditSteps - sheet.editStep);
+      }
       sheet.editSteps.push(
         {
           name: `Change row name (${action.payload[0]})`,

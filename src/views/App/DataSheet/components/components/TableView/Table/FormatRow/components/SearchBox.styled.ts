@@ -13,7 +13,7 @@ export const Container = styled.div<any>`
 
 export const Search = styled.input<any>`
   width: calc(80% - 12px);
-  height: 27px;
+  height: 31px;
   margin-top: 0px;
   border-radius: 4px;
   padding-left: 24px;
