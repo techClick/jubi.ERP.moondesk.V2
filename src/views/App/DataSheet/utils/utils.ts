@@ -47,7 +47,7 @@ export const getSheetFromEdits = () => {
       data: sheet.data.filter((entry) => (
         // eslint-disable-next-line no-unused-vars
         Object.entries(entry).find(([key, value]) => (
-          value?.includes(searchText)
+          value?.toString().includes(searchText)
         ))
       )),
       date: sheet.date,

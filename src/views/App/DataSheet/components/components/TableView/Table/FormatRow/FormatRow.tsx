@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import {
+  selectDisplaySheets,
   selectSelectedRow, selectSelectedSheet, selectSheets, setHeaderEdit, setSearch, setShowPopup,
 } from 'views/App/DataSheet/redux';
 import EscapeButton from 'views/App/components/EscapeButton/EscapeButton';
@@ -14,11 +15,16 @@ const FormatRow = function FormatRow() {
   const selectedRow = useAppSelector(selectSelectedRow);
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
+  const displaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
   const currentEditStep = sheet.editStep;
   const isInvertSearch = sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch || false;
   const [rowName, setRowName] = useState<string>(selectedRow);
   const [inputError, setInputError] = useState<string | false>(false);
   const dispatch = useDispatch();
+
+  const headersType1 = displaySheet[0] ? Object.keys(displaySheet[0]) : [];
+  const rowNames = (displaySheet[0] && sheet.isSortRow) ? Object.keys(displaySheet[0]).sort()
+    : headersType1;
 
   return (
     <S.Container id="formatrowcontainer">
@@ -41,7 +47,12 @@ const FormatRow = function FormatRow() {
       </S.InputDiv>
       <S.MainButtonDiv onClick={() => {
         if (rowName) {
+          if (rowName !== selectedRow && rowNames.includes(rowName)) {
+            setInputError('Row with this name already exists');
+            return;
+          }
           dispatch(setHeaderEdit([selectedRow, rowName]));
+          dispatch(setShowPopup({}));
           return;
         }
         setInputError('Required');
@@ -52,10 +63,10 @@ const FormatRow = function FormatRow() {
         </MainButton>
       </S.MainButtonDiv>
       <S.Header2>
-        SET DEFAULT VALUE
+        SET GLOBAL VALUE
         <EscapeButton setShowPopup={setShowPopup} />
       </S.Header2>
-      <S.SheetName>Default value</S.SheetName>
+      <S.SheetName>Global value</S.SheetName>
       <S.InputDiv>
         <S.Input
           value={rowName}
@@ -69,7 +80,7 @@ const FormatRow = function FormatRow() {
       </S.InputDiv>
       <S.MainButtonDiv onClick={() => {}}>
         <MainButton>
-          Save value
+          Set global value
         </MainButton>
       </S.MainButtonDiv>
       <S.Header2>

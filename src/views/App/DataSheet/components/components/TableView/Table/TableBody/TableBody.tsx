@@ -25,7 +25,7 @@ const TableBody = function TableBody() {
 
   useEffect(() => {
     dispatch(setDisplaySheetFromEdits());
-  }, [searchText, selectedSheet, rowSearch]);
+  }, [searchText, selectedSheet, rowSearch, sheet]);
 
   return (
     <tbody>
@@ -36,7 +36,7 @@ const TableBody = function TableBody() {
               <S.TDText>
                 <TDEntryText value={entry[header]} />
               </S.TDText>
-              {((searchText && searchText !== '' && entry[header]?.includes(searchText || '') && showSearch)
+              {((searchText && searchText !== '' && entry[header]?.toString().includes(searchText || '') && showSearch)
                 || rowToHighlight === header)
                 && <S.Highlight2 />}
             </S.TD>

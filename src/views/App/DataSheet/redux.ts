@@ -74,19 +74,34 @@ export const counterSlice = createSlice({
       state.showPopup = action.payload;
     },
     setHeaderEdit: (state, action: PayloadAction<[string, string]>) => {
+      if (action.payload[0] === action.payload[1]) {
+        return;
+      }
       const sheet = state.sheets[state.selectedSheet];
+      if (!sheet.edits.headers) sheet.edits.headers = {};
       const headersEdit = sheet.edits.headers;
       if (Object.entries(headersEdit || {}).find(([, value]) => value === action.payload[0])) {
         const thisKey = Object.entries(headersEdit || {})
           .find(([, value]) => value === action.payload[0])?.[0];
-        if (!sheet.edits.headers) sheet.edits.headers = {};
-        // eslint-disable-next-line prefer-destructuring
-        sheet.edits.headers[thisKey || ''] = action.payload[1];
+        if (thisKey === action.payload[1]) {
+          delete sheet.edits.headers[thisKey];
+        } else {
+          // eslint-disable-next-line prefer-destructuring
+          sheet.edits.headers[thisKey || ''] = action.payload[1];
+        }
       } else {
-        if (!sheet.edits.headers) sheet.edits.headers = {};
         // eslint-disable-next-line prefer-destructuring
         sheet.edits.headers[action.payload[0]] = action.payload[1];
       }
+      sheet.editSteps.push(
+        {
+          name: `Change row name (${action.payload[0]})`,
+          description: `Change to ${action.payload[1]}`,
+          edits: sheet.edits,
+          saveThis: true,
+        },
+      );
+      sheet.editStep = sheet.editSteps.length - 1;
       setStorageItem('sheets', JSON.stringify(state.sheets));
     },
     setSearch: (state, action: PayloadAction<[string, Search | RowSearch, EditStep]>) => {
@@ -113,10 +128,9 @@ export const counterSlice = createSlice({
           ...action.payload[2],
           edits: thisSheet.edits,
         };
-        thisSheet.editSteps = [
-          ...thisSheet.editSteps,
+        thisSheet.editSteps.push(
           action.payload[2],
-        ];
+        );
       }
       thisSheet.editStep = thisSheet.editSteps.length - 1;
       thisSheet.edits = thisSheet.editSteps[thisSheet.editStep].edits;

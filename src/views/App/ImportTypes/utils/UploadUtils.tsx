@@ -48,6 +48,15 @@ const saveUploadDatatoSheet = () => (dispatch: Function) => {
   sendToast();
 };
 
+const addIndexToData = () => {
+  const parserData2: any = [];
+  parserData.map((entry: any, i: any) => {
+    entry = { md_id_4y4: i, ...entry };
+    parserData2.push(entry);
+  });
+  parserData = [...parserData2];
+};
+
 export const getDataFromCSV = (
   newSheetName: string,
   historyHere: any,
@@ -59,6 +68,7 @@ export const getDataFromCSV = (
   Papa.parse(files[0], {
     complete: (result) => {
       parserData = result.data;
+      addIndexToData();
       dispatch(saveUploadDatatoSheet());
     },
     header: true,

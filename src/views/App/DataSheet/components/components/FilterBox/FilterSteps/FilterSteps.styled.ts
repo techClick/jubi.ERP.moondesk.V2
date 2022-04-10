@@ -75,7 +75,7 @@ export const PartsContainer = styled.div<any>`
   width: 100%;
   height: 70%;
   text-align: left;
-  padding-left: 8px;
+  padding-left: 0px;
   display: flex;
 `;
 

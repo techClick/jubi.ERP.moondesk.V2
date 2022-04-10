@@ -10,16 +10,16 @@ const TDEntryText = function TDEntryText({ value }:{ value: any }) {
     .edits?.search || {}).plainSearch || {};
   const showSearch: boolean = useAppSelector(selectShowSearch);
 
-  const index = value?.indexOf(searchText);
+  const index = value?.toString().indexOf(searchText);
   let entryContainsSearch = false;
   let entryText1 = '';
   let entryTextSearch = '';
   let entryText2 = '';
   if (searchText && searchText.length > 0 && index > -1) {
-    entryText1 = [...value].splice(0, index).join('');
-    entryTextSearch = [...value].splice(index, searchText.length).join('');
-    entryText2 = [...value]
-      .splice(index + searchText.length, value.length - searchText.length)
+    entryText1 = [...value.toString()].splice(0, index).join('');
+    entryTextSearch = [...value.toString()].splice(index, searchText.length).join('');
+    entryText2 = [...value.toString()]
+      .splice(index + searchText.length, value.toString().length - searchText.length)
       .join('');
     entryContainsSearch = true;
   }

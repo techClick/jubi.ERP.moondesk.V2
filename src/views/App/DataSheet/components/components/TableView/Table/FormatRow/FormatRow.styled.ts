@@ -9,7 +9,7 @@ export const Container = styled.div`
   transform: translate(50%, 50%);
   z-index: 5;
   background: white;
-  width: 250px;
+  width: 270px;
   height: max-content;
   border-radius: 3px;
   padding-bottom: 12px;

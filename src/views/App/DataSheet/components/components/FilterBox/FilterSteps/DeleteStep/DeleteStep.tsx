@@ -13,7 +13,7 @@ const DeleteStep = function DeleteStep({ stepToDelete }:{ stepToDelete: number})
         DELETE STEPS TAKEN
         <EscapeButton setShowPopup={setShowPopup} />
       </S.Header>
-      <S.SheetName>Are you sure you want to delete these step(s)?</S.SheetName>
+      <S.SheetName>Are you sure you want to delete this step(s)?</S.SheetName>
       <S.ButtonContainer>
         <S.MainButtonDiv>
           <S.Button onClick={() => dispatch(setShowPopup({}))}>
