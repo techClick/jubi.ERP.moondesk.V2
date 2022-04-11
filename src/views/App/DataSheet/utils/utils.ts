@@ -1,4 +1,4 @@
-import { DisplaySheet, Search, Sheet } from 'types/types';
+import { DisplaySheet, Search, Sheet, SheetEntry } from 'types/types';
 import { store } from 'redux/store';
 import { maxValuesinTable } from 'views/App/utils/GlobalUtils';
 import { setDisplaySheet } from '../redux';
@@ -27,9 +27,21 @@ export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
 
 export const getSortedSheet = () => {
   const { selectedSheet, sheets } = store.getState().dataSheet;
-  const sheet: Sheet = sheets[selectedSheet];
+  let sheet: Sheet = sheets[selectedSheet];
   const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch || [];
+  const valueEdits = sheet.edits?.globalValues || [];
+  const sheetData: SheetEntry[] = [...sheet.data];
+  // console.log(valueEdits, sheet.data[0]);
+  valueEdits.map((edit) => {
+    sheetData.map((entry, i) => {
+      if (edit.ids.includes(Number(entry.md_id_4y4))) {
+        sheetData[i] = { ...sheetData[i], [edit.row]: edit.value };
+      }
+    });
+  });
+  sheet = { ...sheet, data: sheetData };
+  // console.log(sheet.data[0]);
   let sortedSheet: Sheet = sheet;
   if (searchText && [...searchText].length > 0) {
     sortedSheet = {

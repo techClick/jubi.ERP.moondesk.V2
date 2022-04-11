@@ -21,8 +21,10 @@ const TableBody = function TableBody() {
   const dispatch = useDispatch();
 
   const headersType1 = displaySheet[0] ? Object.keys(displaySheet[0]) : [];
-  const headers = (displaySheet[0] && sheet.isSortRow) ? Object.keys(displaySheet[0]).sort()
+  let headers = (displaySheet[0] && sheet.isSortRow) ? Object.keys(displaySheet[0]).sort()
     : headersType1;
+  headers = headers.filter((key: any) => key !== 'md_id_4y4');
+
   const editedHeaderkeys: any = {};
   // eslint-disable-next-line consistent-return
   Object.entries(displaySheet[0] || {}).map(([key]) => {

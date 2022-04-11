@@ -65,9 +65,20 @@ export type Headers = {
   [key: string]: string
 }
 
+type GlobalValuesKeys = {
+  ids: number[],
+  row: string,
+  value: string,
+}
+
+export type GlobalValues = {
+  [key in keyof GlobalValuesKeys]: GlobalValuesKeys[key]
+}
+
 type EditsKeys = {
   search?: SearchTypes,
   headers?: Headers,
+  globalValues?: GlobalValues[],
 }
 
 export type Edits = {

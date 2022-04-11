@@ -43,8 +43,28 @@ export const TH = styled.th<any>`
 `;
 
 export const THText = styled.div<any>`
-  z-index: 1;
+  z-index: 2;
   position: relative;
+  width: 100%;
+`;
+
+export const IconContainer = styled.div<any>`
+  width: 12px;
+  height: 100%;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  margin-left: 1px;
+  cursor: pointer;
+  &:hover {
+    color: ${Color('red').lighten(0.3).toString()};
+  }
+`;
+
+export const SearchIcon = styled.div<any>`
+  transform: scale(0.8);
 `;
 
 export const TR = styled.tr`
@@ -53,8 +73,8 @@ export const TR = styled.tr`
 `;
 
 export const TouchSensor = styled.div<any>`
-  width: 100%;
-  height: 100%;
+  width: 120%;
+  height: 120%;
   position: absolute;
   right: 50%;
   bottom: 50%;

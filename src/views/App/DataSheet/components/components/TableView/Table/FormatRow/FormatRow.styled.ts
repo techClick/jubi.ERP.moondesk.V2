@@ -29,7 +29,7 @@ export const Header = styled.div<any>`
 `;
 
 export const SheetName = styled.div<any>`
-  margin-top: 13px;
+  margin-top: 5px;
   margin-left: 12px;
   font-size: 11.5px;
   font-weight: 500;
@@ -79,7 +79,7 @@ export const Required = styled.div`
 `;
 
 export const Header2 = styled.div<any>`
-  margin-top: 15px;
+  margin-top: 20px;
   padding: 12px;
   padding-top: 8px;
   padding-bottom: 6px;
