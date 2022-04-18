@@ -110,7 +110,6 @@ const Table = function Table() {
                       )
                     }
                     <S.TouchSensor
-                      id={`tableHead${i}`}
                       isSelectingCell={isSelectingCell}
                       onMouseOver={() => {
                         if (isSelectingCell) dispatch(setRowToHighlight(key));

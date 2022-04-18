@@ -3,6 +3,7 @@ import viewsReducer from 'views/redux';
 import navigationReducer from 'views/App/Navigation/redux';
 import appReducer from 'views/App/redux';
 import dataSheetReducer from 'views/App/DataSheet/redux';
+import importTypesReducer from 'views/App/ImportTypes/redux';
 
 export interface AppState {
   loggedIn: boolean,
@@ -41,6 +42,7 @@ export const store = configureStore({
     navigation: navigationReducer,
     app: appReducer,
     dataSheet: dataSheetReducer,
+    importTypes: importTypesReducer,
   },
 });
 

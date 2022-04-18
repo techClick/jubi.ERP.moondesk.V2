@@ -3,7 +3,7 @@ import { setSheet } from 'views/App/DataSheet/redux';
 import { getSheetFromEdits } from 'views/App/DataSheet/utils/utils';
 
 export const saveEditedSheet = () => (dispatch: Function) => {
-  const sheet: Sheet = getSheetFromEdits();
+  const sheet: Sheet = dispatch(getSheetFromEdits());
   sheet.edits = {};
   sheet.editSteps = [{
     name: 'Original',
@@ -12,6 +12,5 @@ export const saveEditedSheet = () => (dispatch: Function) => {
     saveThis: true,
   }];
   sheet.editStep = 0;
-  console.log(sheet);
   dispatch(setSheet(sheet));
 };

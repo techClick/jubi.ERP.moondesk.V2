@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import { DisplaySheet, EditStep, GlobalValues, RowSearch, Search, Sheet, ShowPopup } from 'types/types';
+import { DisplaySheet, EditStep, SetValues, RowSearch, Search, Sheet, ShowPopup } from 'types/types';
 import { getStorageItem, setStorageItem } from '../utils/utils';
-import { getDisplaySheets } from './utils/utils';
+import { getAllDisplaySheets, getDisplaySheets } from './utils/utils';
 
 export interface AppState {
   sheets: Sheet[],
   selectedSheet: number,
   showPopup: ShowPopup,
   displaySheets: DisplaySheet[],
+  allDisplaySheets: DisplaySheet[],
   isSelectingCell: boolean,
   rowToHighlight: string,
   showSearch: boolean,
   selectedRow: string,
+  toChangeIds: number[],
 }
 
 const initialState: AppState = {
@@ -24,16 +26,21 @@ const initialState: AppState = {
   selectedSheet: Number(getStorageItem('selectedsheet') || 0),
   showPopup: {},
   displaySheets: getDisplaySheets(JSON.parse(getStorageItem('sheets') || JSON.stringify([]))),
+  allDisplaySheets: getAllDisplaySheets(JSON.parse(getStorageItem('sheets') || JSON.stringify([]))),
   isSelectingCell: false,
   rowToHighlight: '',
   showSearch: true,
   selectedRow: '',
+  toChangeIds: [],
 };
 
 export const counterSlice = createSlice({
   name: 'dataSheet',
   initialState,
   reducers: {
+    setToChangeIds: (state, action: PayloadAction<number[]>) => {
+      state.toChangeIds = action.payload;
+    },
     setIsSortRow: (state, action: PayloadAction<boolean>) => {
       state.sheets[state.selectedSheet].isSortRow = action.payload;
       setStorageItem('sheets', JSON.stringify(state.sheets));
@@ -54,10 +61,43 @@ export const counterSlice = createSlice({
       setStorageItem('selectedsheet', action.payload);
       state.selectedSheet = action.payload;
     },
-    setGlobalValues: (state, action: PayloadAction<GlobalValues>) => {
+    setIsSelectAllColRaw: (state, action: PayloadAction<boolean>) => {
       const sheet = state.sheets[state.selectedSheet];
-      if (!sheet.edits.globalValues) sheet.edits.globalValues = [];
-      sheet.edits.globalValues?.push(action.payload);
+      // eslint-disable-next-line prefer-destructuring
+      sheet.edits.isSelectAllColumns = action.payload;
+      sheet.editSteps[0].edits = sheet.edits;
+      setStorageItem('sheets', JSON.stringify(state.sheets));
+    },
+    setIsSelectAllCol: (state, action: PayloadAction<[string, boolean]>) => {
+      const sheet = state.sheets[state.selectedSheet];
+      // eslint-disable-next-line prefer-destructuring
+      sheet.edits.isSelectAllColumns = action.payload[1];
+      const lengthOfEditSteps = sheet.editSteps.length - 1;
+      let saveThis = true;
+      if (sheet.editSteps[sheet.editStep].name.includes('Set select similar')) {
+        sheet.editStep -= 1;
+        saveThis = false;
+      }
+      if (sheet.editStep < lengthOfEditSteps) {
+        sheet.editSteps.splice(sheet.editStep + 1, lengthOfEditSteps - sheet.editStep);
+      }
+      if (saveThis) {
+        sheet.editSteps.push(
+          {
+            name: `Set select similar values (${action.payload[0]})`,
+            description: `Set to ${action.payload[1]}`,
+            edits: sheet.edits,
+            saveThis: true,
+          },
+        );
+      }
+      sheet.editStep = sheet.editSteps.length - 1;
+      setStorageItem('sheets', JSON.stringify(state.sheets));
+    },
+    setRowValues: (state, action: PayloadAction<SetValues>) => {
+      const sheet = state.sheets[state.selectedSheet];
+      if (!sheet.edits.rowValues) sheet.edits.rowValues = [];
+      sheet.edits.rowValues?.push(action.payload);
       const lengthOfEditSteps = sheet.editSteps.length - 1;
       if (sheet.editStep < lengthOfEditSteps) {
         sheet.editSteps.splice(sheet.editStep + 1, lengthOfEditSteps - sheet.editStep);
@@ -177,11 +217,13 @@ export const counterSlice = createSlice({
 export const {
   setSheets, setSheet, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch,
   setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow, setEditStep,
-  removeEditSteps, setIsSortRow, setHeaderEdit, setGlobalValues,
+  removeEditSteps, setIsSortRow, setHeaderEdit, setRowValues, setIsSelectAllCol,
+  setIsSelectAllColRaw, setToChangeIds,
 } = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;
 export const selectSelectedSheet = (state: RootState) => state.dataSheet.selectedSheet;
+export const selectToChangeIds = (state: RootState) => state.dataSheet.toChangeIds;
 export const selectShowPopup = (state: RootState) => state.dataSheet.showPopup;
 export const selectDisplaySheets = (state: RootState) => state.dataSheet.displaySheets;
 export const selectIsSelectingCell = (state: RootState) => state.dataSheet.isSelectingCell;

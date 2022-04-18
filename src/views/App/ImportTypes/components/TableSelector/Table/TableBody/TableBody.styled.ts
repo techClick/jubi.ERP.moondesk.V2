@@ -1,6 +1,6 @@
 import Color from 'color';
 import styled from 'styled-components';
-import { highlightColor, highlightColor2, panelBorderColor, textColor } from 'views/App/styles';
+import { highlightColor2, panelBorderColor, textColor } from 'views/App/styles';
 
 const tableBorderColor = Color(panelBorderColor).lighten(0.1).toString();
 export const TR = styled.tr<any>`
@@ -26,37 +26,16 @@ export const TDText = styled.div<any>`
   display: flex;
   align-items: center;
   margin-top: 0.5px;
+  width: max-content;
 `;
 
-export const Highlight = styled.div`
+export const Highlight2 = styled.div`
   position: absolute;
   right: 50%;
   bottom: 50%;
   height: 105%;
-  width: 100%;
+  width: 105%;
   z-index: 1;
   transform: translate(50%, 50%);
   background: ${highlightColor2};
-`;
-
-export const Highlight2 = styled.div`
-  background: ${highlightColor};
-  width: 100%;
-  height: 103%;
-  position: absolute;
-  right: 50%;
-  bottom: 50%;
-  transform: translate(50%, 50%);
-  z-index: 0;
-`;
-
-export const TouchSensor = styled.div<any>`
-  width: 120%;
-  height: 120%;
-  position: absolute;
-  right: 50%;
-  bottom: 50%;
-  transform: translate(50%, 50%);
-  z-index: 2;
-  cursor: ${(props) => props.isSelectingCell && 'pointer'};
 `;

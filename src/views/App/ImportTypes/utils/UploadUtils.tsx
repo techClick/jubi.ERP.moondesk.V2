@@ -3,8 +3,16 @@ import Papa from 'papaparse';
 import { toast } from 'react-toastify';
 import { Sheet } from 'types/types';
 import { getStorageItem } from 'views/App/utils/utils';
-import { setSelectedSheet, setSheets, setShowPopup } from 'views/App/DataSheet/redux';
+import { store } from 'redux/store';
+import { setSelectedSheet, setSheets } from 'views/App/DataSheet/redux';
 import LoadingDialogue from 'views/App/components/LoadingDialogue/Loading';
+import * as XLSX from 'xlsx';
+import { formatExcelData } from './ExcelUtils';
+import TableSelector from '../components/TableSelector/TableSelector';
+import {
+  setActualImportedNames, setImportedNames, setImportedSheets, setSelectedImports,
+  setShowPopup,
+} from '../redux';
 
 export const importType: any = {
   csv: 'CSV',
@@ -25,6 +33,8 @@ const sendToast = function sendToast(): void {
 
 let sheetName = '';
 let history;
+let sheetAmount = 1;
+let uploadAmount = 0;
 const saveUploadDatatoSheet = () => (dispatch: Function) => {
   const sheets: Sheet[] = JSON.parse(getStorageItem('sheets') || '[]');
   const sheet: Sheet = {
@@ -42,10 +52,13 @@ const saveUploadDatatoSheet = () => (dispatch: Function) => {
   };
   sheets.push(sheet);
   dispatch(setSheets(sheets));
-  dispatch(setSelectedSheet(sheets.length - 1));
-  dispatch(setShowPopup({}));
-  history.push('/app/datasheets');
   sendToast();
+  uploadAmount += 1;
+  if (uploadAmount === sheetAmount) {
+    dispatch(setSelectedSheet(sheets.length - 1));
+    dispatch(setShowPopup({}));
+    history.push('/app/datasheets');
+  }
 };
 
 const addIndexToData = () => {
@@ -62,6 +75,8 @@ export const getDataFromCSV = (
   historyHere: any,
   files: any,
 ) => (dispatch: Function) => {
+  sheetAmount = 1;
+  uploadAmount = 0;
   sheetName = newSheetName;
   history = historyHere;
   dispatch(setShowPopup({ component: <LoadingDialogue text="Parsing CSV" /> }));
@@ -74,4 +89,57 @@ export const getDataFromCSV = (
     header: true,
     skipEmptyLines: true,
   });
+};
+
+export const getDataFromExcel = (
+  historyHere: any,
+  files: any,
+) => (dispatch: Function) => {
+  uploadAmount = 0;
+  sheetName = 'Excel Sheet';
+  history = historyHere;
+  dispatch(setShowPopup({ component: <LoadingDialogue text="Parsing Excel" /> }));
+  const reader = new FileReader();
+  reader.readAsArrayBuffer(files[0]);
+  reader.onload = () => {
+    const excelData = new Uint8Array(reader.result as ArrayBufferLike);
+    const workBook = XLSX.read(excelData, { type: 'array' });
+    const sheetNames = workBook.SheetNames;
+    const sheetData = sheetNames.map((name) => (
+      XLSX.utils.sheet_to_json(workBook.Sheets[name], { header: 1 })
+    ));
+    const proceedWithSave = () => {
+      // eslint-disable-next-line no-shadow
+      const { actualImportedNames, importedSheets, selectedImports } = store.getState().importTypes;
+      const selectedSheets = selectedImports.map((imp) => importedSheets[imp]);
+      const selectedNames = selectedImports.map((imp) => actualImportedNames[imp]);
+      sheetAmount = selectedSheets.length;
+      selectedSheets.map((sheet, i) => {
+        sheetName = selectedNames[i];
+        parserData = sheet;
+        addIndexToData();
+        dispatch(saveUploadDatatoSheet());
+      });
+    };
+    const formattedSheetData = sheetData.map((data) => formatExcelData(data));
+    dispatch(setImportedNames(sheetNames));
+    dispatch(setActualImportedNames(sheetNames));
+    dispatch(setImportedSheets(formattedSheetData));
+    dispatch(setSelectedImports([]));
+    dispatch(setShowPopup({ component: <TableSelector proceedCall={proceedWithSave} /> }));
+  };
+};
+
+export const getDataManually = (
+  newSheetName: string,
+  historyHere: any,
+) => (dispatch: Function) => {
+  sheetAmount = 1;
+  uploadAmount = 0;
+  sheetName = newSheetName;
+  history = historyHere;
+  dispatch(setShowPopup({ component: <LoadingDialogue text="Parsing CSV" /> }));
+  parserData = [[]];
+  addIndexToData();
+  dispatch(saveUploadDatatoSheet());
 };

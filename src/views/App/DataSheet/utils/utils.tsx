@@ -1,7 +1,9 @@
+import React from 'react';
+import LoadingDialogue from 'views/App/components/LoadingDialogue/Loading';
 import { DisplaySheet, Search, Sheet, SheetEntry } from 'types/types';
 import { store } from 'redux/store';
 import { maxValuesinTable } from 'views/App/utils/GlobalUtils';
-import { setDisplaySheet } from '../redux';
+import { setDisplaySheet, setShowPopup } from '../redux';
 
 export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
   const displaySheet: DisplaySheet = [];
@@ -10,6 +12,14 @@ export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
     displaySheet.push(sheet.data[i]);
   }
   return displaySheet;
+};
+
+export const getAllDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
+  const displaySheets: DisplaySheet[] = [];
+  sheets.map((sheet) => {
+    displaySheets.push(sheet.data);
+  });
+  return displaySheets;
 };
 
 export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
@@ -30,10 +40,9 @@ export const getSortedSheet = () => {
   let sheet: Sheet = sheets[selectedSheet];
   const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch || [];
-  const valueEdits = sheet.edits?.globalValues || [];
+  const rowValueEdits = sheet.edits?.rowValues || [];
   const sheetData: SheetEntry[] = [...sheet.data];
-  // console.log(valueEdits, sheet.data[0]);
-  valueEdits.map((edit) => {
+  rowValueEdits.map((edit) => {
     sheetData.map((entry, i) => {
       if (edit.ids.includes(Number(entry.md_id_4y4))) {
         sheetData[i] = { ...sheetData[i], [edit.row]: edit.value };
@@ -41,7 +50,6 @@ export const getSortedSheet = () => {
     });
   });
   sheet = { ...sheet, data: sheetData };
-  // console.log(sheet.data[0]);
   let sortedSheet: Sheet = sheet;
   if (searchText && [...searchText].length > 0) {
     sortedSheet = {
@@ -78,18 +86,28 @@ export const getSortedSheet = () => {
   return sortedSheet;
 };
 
-export const getSheetFromEdits = () => {
+export const getSheetFromEdits = () => (dispatch: Function) => {
+  dispatch(setShowPopup({ component: <LoadingDialogue text="Applying Filters" /> }));
   let sheet: Sheet = getSortedSheet();
   const headerEdits = sheet.edits.headers;
-  const sheetData = [...sheet.data];
-  sheet = { ...sheet, data: [] };
-  sheetData.map((entry) => {
-    for (const [key, value] of Object.entries(headerEdits || {})) {
-      entry = { ...entry, [value]: entry[key] };
-      delete entry[key];
-    }
-    sheet.data.push(entry);
-  });
+  if (Object.entries(headerEdits || {}).length > 0) {
+    const sheetData = [...sheet.data];
+    sheet = { ...sheet, data: [] };
+    sheetData.map((entry) => {
+      const newEntry: any = {};
+      for (const [key, value] of Object.entries(headerEdits || {})) {
+        for (const [key2] of Object.entries(entry)) {
+          if (key2 === key) {
+            newEntry[value] = entry[key];
+          } else {
+            newEntry[key2] = entry[key2];
+          }
+        }
+      }
+      sheet.data.push(newEntry);
+    });
+  }
+  dispatch(setShowPopup({}));
   return sheet;
 };
 

@@ -3,25 +3,57 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
 import { Background } from 'views/styles';
-import { selectSheets, selectShowPopup, setShowPopup } from '../DataSheet/redux';
 import * as S from './ImportTypes.styled';
-import { getDataFromCSV } from './utils/UploadUtils';
-import { ImportInput, startUpload } from './utils/utils';
+import NameDialogue from './components/NameDialogue/NameDialogue';
+import { selectShowPopup, setShowPopup, selectCSVInput } from './redux';
+import { getDataFromCSV, getDataFromExcel } from './utils/UploadUtils';
 import { importOptions } from './utils/VarUtils';
 
 const ImportTypes = function ImportTypes() {
   const showPopup = useAppSelector(selectShowPopup);
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
-  const [inputError, setInputError] = useState<ImportInput>({});
-  const [input, setInput] = useState<ImportInput>({ name: '' });
+  const input = useAppSelector(selectCSVInput);
   const history = useHistory();
-  const sheets = useAppSelector(selectSheets);
   const dispatch = useDispatch();
+  let uploadType = 'CSV';
 
   useEffect(() => {
     dispatch(setShowPopup({}));
     setInitialLoad(false);
   }, []);
+
+  const dialogues: any = {
+    CSV: () => {
+      uploadType = 'CSV';
+      dispatch(setShowPopup({
+        component: <NameDialogue />,
+        exitOnBgClick: true,
+      }));
+    },
+    Excel: () => {
+      uploadType = 'Excel';
+      const fileUploader = document.getElementById('uploadSheet');
+      if (fileUploader) {
+        fileUploader.click();
+      }
+    },
+    Manual: () => {
+      uploadType = 'Manual';
+      dispatch(setShowPopup({
+        component: <NameDialogue isShowEmptySheet />,
+        exitOnBgClick: true,
+      }));
+    },
+  };
+
+  const afterSelectFileAction: any = {
+    CSV: (files?: any) => {
+      dispatch(getDataFromCSV(input.name || '', history, files));
+    },
+    Excel: (files?: any) => {
+      dispatch(getDataFromExcel(history, files));
+    },
+  };
 
   return (
     <>
@@ -38,50 +70,34 @@ const ImportTypes = function ImportTypes() {
       <S.Container>
         <S.WhiteCard>
           <S.Header>
-            IMPORT NEW DATA SHEET
+            SELECT IMPORT TYPE
           </S.Header>
-          <S.Line />
-          <S.NamePart>
-            <S.InputDiv isError={Boolean(inputError.name)}>
-              <S.Input1
-                placeholder="Enter sheet name *"
-                value={input.name}
-                onChange={(e: any) => {
-                  setInputError({});
-                  setInput({ name: e.target.value });
-                }}
-                isError={Boolean(inputError.name)}
-              />
-              { inputError.name && <S.Required>{inputError.name}</S.Required>}
-            </S.InputDiv>
-          </S.NamePart>
-          <S.Header1>
-            Import method *
-          </S.Header1>
+          <S.Input
+            type="file"
+            id="uploadSheet"
+            onChange={(e) => {
+              afterSelectFileAction[uploadType](e.target.files);
+              e.target.value = '';
+            }}
+          />
           <S.IconCont>
             {
               importOptions.map((option, index) => (
                 <S.IconCont2
-                  onClick={() => startUpload(input, setInputError)}
-                  key={`importoptions${index}`}
+                  onClick={() => {
+                    dialogues[option.uploadType]();
+                  }}
+                  key={`importoption_${index}`}
                 >
                   <S.IconContMain>
-                    <S.Input
-                      type="file"
-                      id="uploadSheet"
-                      onChange={(e) => {
-                        dispatch(getDataFromCSV(input.name || '', history, e.target.files));
-                        e.target.value = '';
-                      }}
-                    />
                     <S.IconDiv color={option.color} biggerX={index < 2}>
                       {option.icon}
                     </S.IconDiv>
+                    <S.IconDesc>{option.uploadType}</S.IconDesc>
                   </S.IconContMain>
-                  <S.IconDesc>{option.uploadType}</S.IconDesc>
                 </S.IconCont2>
               ))
-            }
+              }
           </S.IconCont>
         </S.WhiteCard>
       </S.Container>

@@ -14,22 +14,22 @@ type Options = {
 export const importOptions: Array<Options> = [
   {
     uploadType: 'CSV',
-    icon: <FontAwesomeIcon icon={faFileCsv} size="3x" />,
+    icon: <FontAwesomeIcon icon={faFileCsv} size="2x" />,
     color: '#1ba13d',
   },
   {
     uploadType: 'Excel',
-    icon: <FontAwesomeIcon icon={faFileExcel} size="3x" />,
+    icon: <FontAwesomeIcon icon={faFileExcel} size="2x" />,
     color: '#1ba13d',
   },
-  {
-    uploadType: 'Database',
-    icon: <FontAwesomeIcon icon={faServer} size="3x" />,
-    color: '#6488ec',
-  },
+  // {
+  //   uploadType: 'Database',
+  //   icon: <FontAwesomeIcon icon={faServer} size="3x" />,
+  //   color: '#6488ec',
+  // },
   {
     uploadType: 'Manual',
-    icon: <FontAwesomeIcon icon={faPenClip} size="3x" />,
+    icon: <FontAwesomeIcon icon={faPenClip} size="2x" />,
     color: textColor,
   },
 ];

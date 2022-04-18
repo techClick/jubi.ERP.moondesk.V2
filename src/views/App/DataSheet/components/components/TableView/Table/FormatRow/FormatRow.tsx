@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import {
-  selectSelectedRow, selectSelectedSheet, selectSheets, setGlobalValues, setHeaderEdit,
+  selectSelectedRow, selectSelectedSheet, selectSheets, setRowValues, setHeaderEdit,
   setSearch, setShowPopup,
 } from 'views/App/DataSheet/redux';
 import EscapeButton from 'views/App/components/EscapeButton/EscapeButton';
@@ -113,7 +113,7 @@ const FormatRow = function FormatRow() {
               },
             ]));
           }
-          dispatch(setGlobalValues({
+          dispatch(setRowValues({
             ids: getAllSheetIds(),
             row: rowNameForSaveEdit,
             value: globalValue,

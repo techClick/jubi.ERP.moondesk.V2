@@ -6,7 +6,7 @@ export const Container = styled.div<any>`
   position: relative;
   margin-left: 12px;
   right: 0;
-  margin-top: 16px;
+  margin-top: 9px;
   display: flex;
   align-items: center;
 `;
