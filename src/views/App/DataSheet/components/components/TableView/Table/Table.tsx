@@ -9,6 +9,7 @@ import {
   selectSheets, selectShowPopup, setRowToHighlight, setSearch, setSelectedRow, setShowPopup,
   setShowSearch,
 } from 'views/App/DataSheet/redux';
+import { getRowNames } from 'views/App/DataSheet/utils/utils';
 import FormatRow from './FormatRow/FormatRow';
 import * as S from './Table.styled';
 import TableBody from './TableBody/TableBody';

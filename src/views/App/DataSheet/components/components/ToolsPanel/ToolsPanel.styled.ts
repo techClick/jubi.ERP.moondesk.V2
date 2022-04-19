@@ -47,7 +47,7 @@ export const Line = styled.div`
   right: 0px;
   bottom: 50%;
   transform: translateY(calc(50% - 1px));
-  background: ${Color(textColor).lighten(1.8).toString()};// ${Color(textColor).lighten(1.6).toString()};
+  background: ${Color(textColor).lighten(1.6).toString()};// ${Color(textColor).lighten(1.6).toString()};
 `;
 
 export const Line2 = styled.div`
@@ -57,5 +57,5 @@ export const Line2 = styled.div`
   left: 0px;
   bottom: 50%;
   transform: translateY(calc(50% - 9px));
-  background: ${Color(textColor).lighten(1.8).toString()};// ${Color(textColor).lighten(1.6).toString()};
+  background: ${Color(textColor).lighten(1.6).toString()};// ${Color(textColor).lighten(1.6).toString()};
 `;

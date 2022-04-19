@@ -17,19 +17,6 @@ const FormatRow = function FormatRow() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const currentEditStep = sheet.editStep;
-  const isInvertSearch = sheet.edits?.search?.rowSearch?.[selectedRow]?.isInvertSearch || false;
-  const [rowName, setRowName] = useState<string>(selectedRow);
-  const [inputError, setInputError] = useState<string | false>(false);
-  const [globalValue, setGlobalValue] = useState<string>('');
-  const [inputError2, setInputError2] = useState<string | false>(false);
-  const headerEdit = useAppSelector(selectSheets)[selectedSheet].edits.headers || {};
-  const dispatch = useDispatch();
-
-  const rowNames = Object.entries(sheet?.data[0] || {}).map(([key]) => {
-    if (headerEdit[key]) return headerEdit[key];
-    return key;
-  });
-
   let rowNameForSaveEdit = selectedRow;
   for (const [key, value] of Object.entries(sheet.edits.headers || {})) {
     if (value === selectedRow) {
@@ -37,6 +24,19 @@ const FormatRow = function FormatRow() {
       break;
     }
   }
+  const isInvertSearch = sheet
+    .edits?.search?.rowSearch?.[rowNameForSaveEdit]?.isInvertSearch || false;
+  const [rowName, setRowName] = useState<string>(selectedRow);
+  const [inputError, setInputError] = useState<string | false>(false);
+  const [globalValue, setGlobalValue] = useState<string>('');
+  const [inputError2, setInputError2] = useState<string | false>(false);
+  const headerEdit = useAppSelector(selectSheets)[selectedSheet].edits.headers || {};
+  const dispatch = useDispatch();
+  const rowNames = Object.entries(sheet?.data[0] || {}).map(([key]) => {
+    if (headerEdit[key]) return headerEdit[key];
+    return key;
+  });
+
 
   return (
     <S.Container id="formatrowcontainer">

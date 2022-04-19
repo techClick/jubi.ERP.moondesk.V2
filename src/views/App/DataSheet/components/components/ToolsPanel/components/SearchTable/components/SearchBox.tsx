@@ -14,7 +14,7 @@ const SearchBox = function SearchBox() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const currentEditStep = sheet.editStep;
-  const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
+  const { text: searchText }: Search = sheet.edits?.search?.globalSearch || {};
   const dispatch = useDispatch();
 
   let isSaveClear = false;
@@ -39,7 +39,7 @@ const SearchBox = function SearchBox() {
         value={searchText || ''}
         onChange={(e: any) => {
           dispatch(setSearch([
-            'plainSearch',
+            'globalSearch',
             {
               text: e.target.value,
               showResult: true,
@@ -64,7 +64,7 @@ const SearchBox = function SearchBox() {
         // eslint-disable-next-line no-extra-boolean-cast
         if (Boolean(searchText)) {
           dispatch(setSearch([
-            'plainSearch',
+            'globalSearch',
             {},
             {
               name: 'Search all',

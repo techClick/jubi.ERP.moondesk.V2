@@ -11,7 +11,7 @@ export const textColor = Color(panelBorderColor).darken(0.6).toString();
 export const sideBarColor = '#1c3f5f';
 export const sheetViewerRes = 1099.9999;
 export const highlightColor = '#e7c157';
-export const highlightColor2 = Color(highlightColor).lighten(0.45).toString();
+export const highlightColor2 = Color(highlightColor).lighten(0.4).toString();
 
 export const MainButton = styled.div`
   color: ${topBarColor};

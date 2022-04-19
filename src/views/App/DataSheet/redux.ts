@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'redux/store';
-import { DisplaySheet, EditStep, SetValues, RowSearch, Search, Sheet, ShowPopup } from 'types/types';
+import {
+  DisplaySheet, EditStep, SetValues, RowSearch, Search, Sheet, ShowPopup,
+} from 'types/types';
 import { getStorageItem, setStorageItem } from '../utils/utils';
+import { getRowNames } from './utils/utils';
 
 export interface AppState {
   sheets: Sheet[],
@@ -22,7 +25,7 @@ const initialState: AppState = {
   ],
   selectedSheet: Number(getStorageItem('selectedsheet') || 0),
   showPopup: {},
-  isSelectingCell: false,
+  isSelectingCell: true,
   rowToHighlight: '',
   showSearch: true,
   selectedRow: '',
@@ -78,16 +81,37 @@ export const counterSlice = createSlice({
       if (sheet.editStep < lengthOfEditSteps) {
         sheet.editSteps.splice(sheet.editStep + 1, lengthOfEditSteps - sheet.editStep);
       }
+      const rowNames = getRowNames(state);
       if (saveThis) {
         sheet.editSteps.push(
           {
-            name: `Set select similar values (${action.payload[0]})`,
+            name: `Set select similar values (${rowNames[action.payload[0]]})`,
             description: `Set to ${action.payload[1]}`,
             edits: sheet.edits,
             saveThis: true,
           },
         );
       }
+      sheet.editStep = sheet.editSteps.length - 1;
+      setStorageItem('sheets', JSON.stringify(state.sheets));
+    },
+    setDeleteValues: (state, action: PayloadAction<SetValues>) => {
+      const sheet = state.sheets[state.selectedSheet];
+      if (!sheet.edits.deleteValues) sheet.edits.deleteValues = [];
+      sheet.edits.deleteValues?.push(action.payload);
+      const lengthOfEditSteps = sheet.editSteps.length - 1;
+      if (sheet.editStep < lengthOfEditSteps) {
+        sheet.editSteps.splice(sheet.editStep + 1, lengthOfEditSteps - sheet.editStep);
+      }
+      const rowNames = getRowNames(state);
+      sheet.editSteps.push(
+        {
+          name: `Delete columns (${rowNames[action.payload.row]})`,
+          description: `Delete ${action.payload.ids.length} columns(s) with value '${action.payload.value}'`,
+          edits: sheet.edits,
+          saveThis: true,
+        },
+      );
       sheet.editStep = sheet.editSteps.length - 1;
       setStorageItem('sheets', JSON.stringify(state.sheets));
     },
@@ -99,9 +123,10 @@ export const counterSlice = createSlice({
       if (sheet.editStep < lengthOfEditSteps) {
         sheet.editSteps.splice(sheet.editStep + 1, lengthOfEditSteps - sheet.editStep);
       }
+      const rowNames = getRowNames(state);
       sheet.editSteps.push(
         {
-          name: `Set global value (${action.payload.row})`,
+          name: `Set value (${rowNames[action.payload.row]})`,
           description: `Set ${action.payload.ids.length} item(s) to ${action.payload.value}`,
           edits: sheet.edits,
           saveThis: true,
@@ -215,7 +240,7 @@ export const {
   setSheets, setSheet, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch,
   setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow, setEditStep,
   removeEditSteps, setIsSortRow, setHeaderEdit, setRowValues, setIsSelectAllCol,
-  setIsSelectAllColRaw, setToChangeIds,
+  setIsSelectAllColRaw, setToChangeIds, setDeleteValues,
 } = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;

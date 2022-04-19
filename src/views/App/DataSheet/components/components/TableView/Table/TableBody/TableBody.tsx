@@ -18,7 +18,7 @@ const TableBody = function TableBody() {
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const headerEdit = useAppSelector(selectSheets)[selectedSheet].edits.headers || {};
   const { displaySheet, allDisplaySheet } = sheet;
-  const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
+  const { text: searchText }: Search = sheet.edits?.search?.globalSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch;
   const rowToHighlight: string = useAppSelector(selectRowToHighlight);
   const showSearch: boolean = useAppSelector(selectShowSearch);
@@ -64,55 +64,59 @@ const TableBody = function TableBody() {
   useEffect(() => {
     dispatch(setDisplaySheetFromEdits());
   }, [searchText, selectedSheet, rowSearch, sheet.edits]);
-
   return (
     <tbody>
-      { displaySheet?.map((entry, i) => (
-        <S.TR key={`tablebody${i}`}>
-          { headers.map((header) => (
-            <S.TD key={`sheettd${header}${i}`}>
-              <S.TDText>
-                <TDEntryText value={entry[header]} />
-              </S.TDText>
-              {((searchText && searchText !== '' && entry[header]?.toString().includes(searchText || '') && showSearch)
-                || rowToHighlight === editedHeaderkeys[header])
-                && <S.Highlight />}
-              {((valueToHighlight === entry[header] && header === currentRow && isSelectAllColumns)
-                || (header === currentRow && selectedColumn === Number(entry.md_id_4y4)))
-                && <S.Highlight2 />}
-              <S.TouchSensor
-                isSelectingCell={isSelectingCell}
-                onMouseOver={() => {
-                  if (isSelectingCell) {
-                    dispatch(setRowToHighlight(''));
-                    setSelectedColumn(Number(entry.md_id_4y4));
-                    setCurrentRow(header);
-                    setValueToHighlight(entry[header] || '');
-                  }
-                }}
-                onMouseLeave={() => {
-                  if (isSelectingCell && !showPopup.component) {
-                    setSelectedColumn(null);
-                    setCurrentRow('');
-                    setValueToHighlight('');
-                  }
-                }}
-                onClick={() => {
-                  if (isSelectingCell) {
-                    dispatch(setShowPopup({
-                      component: <FormatColumn
-                        currentRow={currentRow || ''}
-                        value={valueToHighlight || ''}
-                      />,
-                      exitOnBgClick: true,
-                    }));
-                  }
-                }}
-              />
-            </S.TD>
-          ))}
-        </S.TR>
-      ))}
+      { displaySheet?.map((entry, i) => {
+        return (
+          <S.TR key={`tablebody${i}`}>
+            { headers.map((header) => {
+              return (
+                <S.TD key={`sheettd${header}${i}`}>
+                  <S.TDText>
+                    <TDEntryText value={entry[header]} />
+                  </S.TDText>
+                  {((searchText && searchText !== '' && entry[header]?.toString().includes(searchText || '') && showSearch)
+                    || rowToHighlight === editedHeaderkeys[header])
+                    && <S.Highlight />}
+                  {((valueToHighlight === entry[header]
+                      && header === currentRow && isSelectAllColumns)
+                      || (header === currentRow && selectedColumn === Number(entry.md_id_4y4)))
+                    && <S.Highlight2 />}
+                  <S.TouchSensor
+                    isSelectingCell={isSelectingCell}
+                    onMouseOver={() => {
+                      if (isSelectingCell) {
+                        dispatch(setRowToHighlight(''));
+                        setSelectedColumn(Number(entry.md_id_4y4));
+                        setCurrentRow(header);
+                        setValueToHighlight(entry[header] || '');
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (isSelectingCell && !showPopup.component) {
+                        setSelectedColumn(null);
+                        setCurrentRow('');
+                        setValueToHighlight('');
+                      }
+                    }}
+                    onClick={() => {
+                      if (isSelectingCell) {
+                        dispatch(setShowPopup({
+                          component: <FormatColumn
+                            currentRow={currentRow || ''}
+                            value={valueToHighlight || ''}
+                          />,
+                          exitOnBgClick: true,
+                        }));
+                      }
+                    }}
+                  />
+                </S.TD>
+              );
+            })}
+          </S.TR>
+        );
+      })}
     </tbody>
   );
 };

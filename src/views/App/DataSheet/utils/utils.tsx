@@ -5,6 +5,21 @@ import { store } from 'redux/store';
 import { maxValuesinTable } from 'views/App/utils/GlobalUtils';
 import { setDisplaySheet, setShowPopup } from '../redux';
 
+export const getRowNames = (state?: any) => {
+  const { selectedSheet, sheets } = state || store.getState().dataSheet;
+  const sheet: Sheet = sheets[selectedSheet];
+  const headerEdit = sheet.edits.headers || {};
+  const rowNames: any = {};
+  Object.entries(sheet?.data[0] || {}).map(([key]) => {
+    if (headerEdit[key]) {
+      rowNames[key] = headerEdit[key];
+    } else {
+      rowNames[key] = key;
+    }
+  });
+  return rowNames;
+};
+
 export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
   const displaySheet: DisplaySheet = [];
   for (let i = 0; i < sheet.data.length; i += 1) {
@@ -17,16 +32,20 @@ export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
 export const getSortedSheet = () => {
   const { selectedSheet, sheets } = store.getState().dataSheet;
   let sheet: Sheet = sheets[selectedSheet];
-  const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
+  const { text: searchText }: Search = sheet.edits?.search?.globalSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch || [];
   const rowValueEdits = sheet.edits?.rowValues || [];
-  const sheetData: SheetEntry[] = [...sheet.data];
+  let sheetData: SheetEntry[] = [...sheet.data];
   rowValueEdits.map((edit) => {
     sheetData.map((entry, i) => {
       if (edit.ids.includes(Number(entry.md_id_4y4))) {
         sheetData[i] = { ...sheetData[i], [edit.row]: edit.value };
       }
     });
+  });
+  const deleteValueEdits = sheet.edits?.deleteValues || [];
+  deleteValueEdits.map((edit) => {
+    sheetData = sheetData.filter((entry) => !edit.ids.includes(Number(entry.md_id_4y4)));
   });
   sheet = { ...sheet, data: sheetData };
   let sortedSheet: Sheet = sheet;

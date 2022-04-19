@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
+import Dialogue from 'views/App/components/Dialogue/Dialogue';
 import EscapeButton from 'views/App/components/EscapeButton/EscapeButton';
 import {
-  selectSelectedSheet, selectSheets, selectToChangeIds, setIsSelectAllCol,
+  selectSelectedSheet, selectSheets, selectToChangeIds, setDeleteValues, setIsSelectAllCol,
   setRowValues, setShowPopup,
 } from 'views/App/DataSheet/redux';
 import { MainButton } from 'views/App/styles';
@@ -65,6 +66,23 @@ const FormatColumn = function FormatColumn(
       <S.MainButtonDiv>
         <MainButton
           onClick={() => {
+            dispatch(setShowPopup({
+              component: <Dialogue
+                setShowPopup={setShowPopup}
+                proceedAction={() => {
+                  dispatch(setDeleteValues({
+                    ids: toChangeIds,
+                    row: currentRow,
+                    value,
+                  }));
+                  dispatch(setShowPopup({}));
+                }}
+                proceedText="Yes, Delete"
+                header="DELETE COLUMNS"
+                text="Are you sure you want to delete the selected column(s)?"
+              />,
+              exitOnBgClick: true,
+            }));
           }}
         >
           Delete

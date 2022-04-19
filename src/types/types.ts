@@ -52,7 +52,7 @@ export type RowSearch = {
 }
 
 type SearchTypesKeys = {
-  plainSearch?: Search,
+  globalSearch?: Search,
   dateSearch?: Search,
   rowSearch?: RowSearch,
 }
@@ -80,7 +80,7 @@ type EditsKeys = {
   headers?: Headers,
   rowValues?: SetValues[],
   isSelectAllColumns?: boolean;
-  columnValues?: SetValues[],
+  deleteValues?: SetValues[],
 }
 
 export type Edits = {

@@ -23,7 +23,7 @@ export const ToolsContainer = styled.div<any>`
   -webkit-box-sizing: border-box; 
   box-sizing: border-box;
   cursor: pointer;
-  box-shadow: 0px 0px 2px 0.220px ${Color('white').darken(0.18).toString()};
+  box-shadow: 0px 0px 2px 0.220px ${Color('white').darken(0.28).toString()};
   color: ${Color(textColor).lighten(0.3).toString()};
   display: inline-block;
   background: ${(props) => props.isSelected && Color('white').darken(0.08).toString()};

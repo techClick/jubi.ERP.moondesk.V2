@@ -7,7 +7,7 @@ import * as S from './TDEntryText.styled';
 const TDEntryText = function TDEntryText({ value }:{ value: any }) {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const { text: searchText }: Search = (useAppSelector(selectSheets)[selectedSheet]
-    .edits?.search || {}).plainSearch || {};
+    .edits?.search || {}).globalSearch || {};
   const showSearch: boolean = useAppSelector(selectShowSearch);
 
   const index = value?.toString().indexOf(searchText);
