@@ -8,31 +8,10 @@ import { setDisplaySheet, setShowPopup } from '../redux';
 export const getDisplaySheet = (sheet: Sheet): DisplaySheet => {
   const displaySheet: DisplaySheet = [];
   for (let i = 0; i < sheet.data.length; i += 1) {
-    if (i > maxValuesinTable - 1) break;
+    if (i > maxValuesinTable) break;
     displaySheet.push(sheet.data[i]);
   }
   return displaySheet;
-};
-
-export const getAllDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
-  const displaySheets: DisplaySheet[] = [];
-  sheets.map((sheet) => {
-    displaySheets.push(sheet.data);
-  });
-  return displaySheets;
-};
-
-export const getDisplaySheets = (sheets: Sheet[]): DisplaySheet[] => {
-  const displaySheets: DisplaySheet[] = [];
-  sheets.map((sheet) => {
-    const displaySheet: DisplaySheet = [];
-    for (let i = 0; i < sheet.data.length; i += 1) {
-      if (i > maxValuesinTable - 1) break;
-      displaySheet.push(sheet.data[i]);
-    }
-    displaySheets.push(displaySheet);
-  });
-  return displaySheets;
 };
 
 export const getSortedSheet = () => {
@@ -52,14 +31,17 @@ export const getSortedSheet = () => {
   sheet = { ...sheet, data: sheetData };
   let sortedSheet: Sheet = sheet;
   if (searchText && [...searchText].length > 0) {
+    const sheetData2 = sheet.data.filter((entry) => (
+      // eslint-disable-next-line no-unused-vars
+      Object.entries(entry).find(([key, value]) => (
+        value?.toString().includes(searchText)
+      ))
+    ));
     sortedSheet = {
       name: sheet.name,
-      data: sheet.data.filter((entry) => (
-        // eslint-disable-next-line no-unused-vars
-        Object.entries(entry).find(([key, value]) => (
-          value?.toString().includes(searchText)
-        ))
-      )),
+      data: sheetData2,
+      displaySheet: sheetData2.filter((entry: any, i: any) => i <= maxValuesinTable),
+      allDisplaySheet: sheetData2,
       date: sheet.date,
       edits: sheet.edits,
       editSteps: sheet.editSteps,
@@ -112,5 +94,6 @@ export const getSheetFromEdits = () => (dispatch: Function) => {
 };
 
 export const setDisplaySheetFromEdits = () => (dispatch: Function) => {
-  dispatch(setDisplaySheet(getDisplaySheet(getSortedSheet())));
+  const sortedSheet = getSortedSheet();
+  dispatch(setDisplaySheet([getDisplaySheet(sortedSheet), sortedSheet.data]));
 };

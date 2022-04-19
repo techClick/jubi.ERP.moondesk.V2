@@ -94,3 +94,17 @@ export const MainButtonDiv = styled.div<any>`
   margin-left: 12px;
   margin-top: 8px;
 `;
+
+export const Header2 = styled.div<any>`
+  margin-top: 35px;
+  padding: 12px;
+  padding-top: 0px;
+  padding-bottom: 6px;
+  padding-left: 12px;
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+  border-bottom: 1px solid ${Color(panelBorderColor).lighten(0.1).toString()};
+  font-size: 14px;
+  font-weight: 600;
+`;

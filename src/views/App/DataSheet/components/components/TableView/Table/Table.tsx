@@ -72,65 +72,65 @@ const Table = function Table() {
         >
           <thead>
             <tr>
-              { headers.map((key, i) => (
-                <S.TH key={`tableheader_${key}`}>
-                  {rowToHighlight === key && <S.Highlight />}
-                  <S.THText>
-                    {key}
-                    {
-                      sheet.edits.search?.rowSearch?.[key]?.text && (
-                      <S.IconContainer
-                        onClick={() => {
-                          dispatch(setSearch([
-                            'rowSearch',
-                            {
-                              ...sheet.edits?.search?.rowSearch,
-                              [getRowNameForSaveSearch(key)]: {
-                                text: '',
-                                isInvertSearch: sheet
-                                  .edits?.search?.rowSearch?.[getRowNameForSaveSearch(
-                                    key,
-                                  )]?.isInvertSearch,
+              { headers.map((key) => {
+                const rowNameForSaveSearch = getRowNameForSaveSearch(key);
+                return (
+                  <S.TH key={`tableheader_${key}`}>
+                    {rowToHighlight === key && <S.Highlight />}
+                    <S.THText>
+                      {key}
+                      {
+                        sheet.edits.search?.rowSearch?.[rowNameForSaveSearch]?.text && (
+                        <S.IconContainer
+                          onClick={() => {
+                            dispatch(setSearch([
+                              'rowSearch',
+                              {
+                                ...sheet.edits?.search?.rowSearch,
+                                [rowNameForSaveSearch]: {
+                                  text: '',
+                                  isInvertSearch: false,
+                                },
                               },
-                            },
-                            {
-                              name: `Search on row (${key})`,
-                              description: 'Clear search',
-                              edits: {},
-                              saveThis: getIsSaveClear(`Search on row (${key})`),
-                              isSearch: true,
-                            },
-                          ]));
+                              {
+                                name: `Search on row (${key})`,
+                                description: 'Clear search',
+                                edits: {},
+                                saveThis: getIsSaveClear(`Search on row (${key})`),
+                                isSearch: true,
+                              },
+                            ]));
+                          }}
+                        >
+                          <S.SearchIcon>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                          </S.SearchIcon>
+                        </S.IconContainer>
+                        )
+                      }
+                      <S.TouchSensor
+                        isSelectingCell={isSelectingCell}
+                        onMouseOver={() => {
+                          if (isSelectingCell) dispatch(setRowToHighlight(key));
                         }}
-                      >
-                        <S.SearchIcon>
-                          <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </S.SearchIcon>
-                      </S.IconContainer>
-                      )
-                    }
-                    <S.TouchSensor
-                      isSelectingCell={isSelectingCell}
-                      onMouseOver={() => {
-                        if (isSelectingCell) dispatch(setRowToHighlight(key));
-                      }}
-                      onMouseLeave={() => {
-                        if (isSelectingCell && !showPopup.component) dispatch(setRowToHighlight(''));
-                      }}
-                      onClick={() => {
-                        if (isSelectingCell) {
-                          dispatch(setShowPopup({
-                            component: <FormatRow />,
-                            exitOnBgClick: true,
-                            action: () => dispatch(setRowToHighlight('')),
-                          }));
-                          dispatch(setSelectedRow(key));
-                        }
-                      }}
-                    />
-                  </S.THText>
-                </S.TH>
-              ))}
+                        onMouseLeave={() => {
+                          if (isSelectingCell && !showPopup.component) dispatch(setRowToHighlight(''));
+                        }}
+                        onClick={() => {
+                          if (isSelectingCell) {
+                            dispatch(setShowPopup({
+                              component: <FormatRow />,
+                              exitOnBgClick: true,
+                              action: () => dispatch(setRowToHighlight('')),
+                            }));
+                            dispatch(setSelectedRow(key));
+                          }
+                        }}
+                      />
+                    </S.THText>
+                  </S.TH>
+                );
+              })}
             </tr>
           </thead>
           <TableBody />

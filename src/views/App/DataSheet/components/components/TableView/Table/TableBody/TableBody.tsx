@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Search, DisplaySheet, Sheet } from 'types/types';
+import { Search, Sheet } from 'types/types';
 import { useAppSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
 import { setDisplaySheetFromEdits } from 'views/App/DataSheet/utils/utils';
 import {
-  selectDisplaySheets, selectIsSelectingCell, selectRowToHighlight, selectSelectedSheet,
+  selectIsSelectingCell, selectRowToHighlight, selectSelectedSheet,
   selectSheets, selectShowPopup, selectShowSearch, setIsSelectAllColRaw,
+  setRowToHighlight,
   setShowPopup, setToChangeIds,
 } from 'views/App/DataSheet/redux';
 import * as S from './TableBody.styled';
@@ -16,7 +17,7 @@ const TableBody = function TableBody() {
   const selectedSheet: number = useAppSelector(selectSelectedSheet);
   const sheet: Sheet = useAppSelector(selectSheets)[selectedSheet];
   const headerEdit = useAppSelector(selectSheets)[selectedSheet].edits.headers || {};
-  const displaySheet: DisplaySheet = useAppSelector(selectDisplaySheets)[selectedSheet];
+  const { displaySheet, allDisplaySheet } = sheet;
   const { text: searchText }: Search = sheet.edits?.search?.plainSearch || {};
   const rowSearch = sheet.edits?.search?.rowSearch;
   const rowToHighlight: string = useAppSelector(selectRowToHighlight);
@@ -45,7 +46,7 @@ const TableBody = function TableBody() {
 
   useEffect(() => {
     const toChangeIdsTmp: number[] = [];
-    displaySheet.map((entry) => {
+    allDisplaySheet.map((entry) => {
       if (entry[currentRow || ''] && ((entry[currentRow || ''] === valueToHighlight && isSelectAllColumns)
         || Number(entry.md_id_4y4) === selectedColumn)) {
         toChangeIdsTmp.push(Number(entry.md_id_4y4));
@@ -62,7 +63,7 @@ const TableBody = function TableBody() {
 
   useEffect(() => {
     dispatch(setDisplaySheetFromEdits());
-  }, [searchText, selectedSheet, rowSearch, sheet]);
+  }, [searchText, selectedSheet, rowSearch, sheet.edits]);
 
   return (
     <tbody>
@@ -83,6 +84,7 @@ const TableBody = function TableBody() {
                 isSelectingCell={isSelectingCell}
                 onMouseOver={() => {
                   if (isSelectingCell) {
+                    dispatch(setRowToHighlight(''));
                     setSelectedColumn(Number(entry.md_id_4y4));
                     setCurrentRow(header);
                     setValueToHighlight(entry[header] || '');

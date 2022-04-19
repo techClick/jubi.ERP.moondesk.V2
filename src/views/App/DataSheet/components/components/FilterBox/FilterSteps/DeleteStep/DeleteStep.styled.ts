@@ -32,6 +32,7 @@ export const Header = styled.div<any>`
 export const SheetName = styled.div<any>`
   margin-top: 13px;
   margin-left: 12px;
+  margin-right: 12px;
   font-size: 11.5px;
   font-weight: 500;
 `;

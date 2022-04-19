@@ -44,6 +44,7 @@ const FilterSteps = function FilterSteps() {
               isSelected={currentEditStep === i}
               onClick={() => dispatch(setEditStep(i))}
               isTransparent={i > currentEditStep}
+              key={`editStep_${i}`}
             >
               <S.PartsContainer>
                 <S.LabelContainer>

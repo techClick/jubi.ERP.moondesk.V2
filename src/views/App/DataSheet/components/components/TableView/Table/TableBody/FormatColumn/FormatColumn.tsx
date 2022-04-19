@@ -23,7 +23,7 @@ const FormatColumn = function FormatColumn(
   return (
     <S.Container>
       <S.Header>
-        EDIT COLUMN
+        EDIT COLUMNS
         <EscapeButton setShowPopup={setShowPopup} />
       </S.Header>
       <S.SelectionContainer>
@@ -57,6 +57,17 @@ const FormatColumn = function FormatColumn(
           }}
         >
           Save value
+        </MainButton>
+      </S.MainButtonDiv>
+      <S.Header2>
+        DELETE COLUMNS
+      </S.Header2>
+      <S.MainButtonDiv>
+        <MainButton
+          onClick={() => {
+          }}
+        >
+          Delete
         </MainButton>
       </S.MainButtonDiv>
     </S.Container>

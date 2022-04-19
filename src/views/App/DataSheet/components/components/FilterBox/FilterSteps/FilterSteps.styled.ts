@@ -90,6 +90,10 @@ export const StepName = styled.div<any>`
   margin-top: 1px;
   color: ${Color('white').darken(0.3).toString()};// #3720b9;
   font-size: 9px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
 `;
 
 export const StepDesc = styled.div<any>`
@@ -97,6 +101,10 @@ export const StepDesc = styled.div<any>`
   color: ${Color('white').darken(0.4).toString()};// #3720b9;
   font-size: 8px;
   text-decoration: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
 `;
 
 export const DeleteContainer = styled.div<any>`

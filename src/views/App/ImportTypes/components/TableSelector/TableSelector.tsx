@@ -100,7 +100,8 @@ const TableSelector = function TableSelector({ proceedCall }:{ proceedCall: Func
                 key={`tsselected_${header}`}
               >
                 <S.RowName2>{tableNames[headers[selectedImports[i]]]}</S.RowName2>
-                <S.ActualName>{`as ${headers[selectedImports[i]]}`}</S.ActualName>
+                { tableNames[headers[selectedImports[i]]] !== headers[selectedImports[i]]
+                  && <S.ActualName>{`as ${headers[selectedImports[i]]}`}</S.ActualName>}
               </S.RowCont2>
             ))}
           </S.RowsContainer2>

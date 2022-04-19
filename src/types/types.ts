@@ -106,6 +106,8 @@ export type EditStep = {
 type SheetKeys = {
   name: string,
   data: Array<SheetEntry>,
+  displaySheet: Array<SheetEntry>,
+  allDisplaySheet: Array<SheetEntry>,
   date: Date,
   isSortRow?: boolean,
   edits: Edits,

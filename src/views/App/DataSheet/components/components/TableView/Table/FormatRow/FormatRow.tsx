@@ -100,13 +100,12 @@ const FormatRow = function FormatRow() {
                 ...sheet.edits?.search?.rowSearch,
                 [rowNameForSaveEdit]: {
                   text: globalValue,
-                  isInvertSearch: sheet
-                    .edits?.search?.rowSearch?.[rowNameForSaveEdit]?.isInvertSearch,
+                  isInvertSearch: false,
                 },
               },
               {
                 name: `Search on row (${selectedRow})`,
-                description: `Search for ${globalValue}`,
+                description: `AUTO: Search for ${globalValue}`,
                 edits: {},
                 saveThis: true,
                 isSearch: true,

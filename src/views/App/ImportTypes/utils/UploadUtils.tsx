@@ -5,6 +5,7 @@ import { Sheet } from 'types/types';
 import { getStorageItem } from 'views/App/utils/utils';
 import { store } from 'redux/store';
 import { setSelectedSheet, setSheets } from 'views/App/DataSheet/redux';
+import { maxValuesinTable } from 'views/App/utils/GlobalUtils';
 import LoadingDialogue from 'views/App/components/LoadingDialogue/Loading';
 import * as XLSX from 'xlsx';
 import { formatExcelData } from './ExcelUtils';
@@ -40,6 +41,8 @@ const saveUploadDatatoSheet = () => (dispatch: Function) => {
   const sheet: Sheet = {
     name: sheetName,
     data: parserData,
+    displaySheet: parserData.filter((entry: any, i: any) => i < maxValuesinTable),
+    allDisplaySheet: parserData,
     date: new Date(),
     edits: {},
     editSteps: [{
