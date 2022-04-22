@@ -4,6 +4,8 @@ import navigationReducer from 'views/App/Navigation/redux';
 import appReducer from 'views/App/redux';
 import dataSheetReducer from 'views/App/DataSheet/redux';
 import importTypesReducer from 'views/App/ImportTypes/redux';
+import analyticsReducer from 'views/App/Analytics/redux';
+import createChartReducer from 'views/App/CreateChart/redux';
 
 export interface AppState {
   loggedIn: boolean,
@@ -43,6 +45,8 @@ export const store = configureStore({
     app: appReducer,
     dataSheet: dataSheetReducer,
     importTypes: importTypesReducer,
+    analytics: analyticsReducer,
+    createChart: createChartReducer,
   },
 });
 

@@ -15,6 +15,7 @@ const ImportTypes = lazy(() => import('views/App/ImportTypes/ImportTypes'));
 const DataSheet = lazy(() => import('views/App/DataSheet/DataSheet'));
 const SelectSheet = lazy(() => import('views/App/SelectSheet/SelectSheet'));
 const Analytics = lazy(() => import('views/App/Analytics/Analytics'));
+const CreateChart = lazy(() => import('views/App/CreateChart/CreateChart'));
 // localStorage.clear();
 localStorage.setItem('projectId', '1');
 (document.body.style as any).zoom = '100%';
@@ -49,6 +50,9 @@ const Routing = function Routing() {
             </Route>
             <Route exact path="/app/analytics">
               <Analytics />
+            </Route>
+            <Route exact path="/app/analytics/createchart/:chartType">
+              <CreateChart />
             </Route>
           </Switch>
         </Suspense>
