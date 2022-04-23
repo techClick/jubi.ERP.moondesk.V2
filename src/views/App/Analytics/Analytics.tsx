@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
 import { Background } from 'views/styles';
@@ -9,6 +9,10 @@ import { selectShowPopup, setShowPopup } from './redux';
 const Analytics = function Analytics() {
   const showPopup = useAppSelector(selectShowPopup);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setShowPopup({}));
+  }, []);
 
   return (
     <S.Container>

@@ -10,11 +10,12 @@ const SingleCharts = function SingleCharts() {
   return (
     <S.Conatiner>
       {
-        charts.map((chart) => {
+        charts.map((chart, i) => {
           return (
             <S.ChartContainer
+              key={`singlecharts_${i}`}
               onClick={() => {
-                history.push(`/app/analytics/createchart/${chart.name}`)
+                history.push(`/app/analytics/createchart/${chart.name}`);
               }}
             >
               <S.IconConatiner>

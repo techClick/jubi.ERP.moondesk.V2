@@ -9,7 +9,7 @@ import {
   selectSheets, selectShowPopup, setRowToHighlight, setSearch, setSelectedRow, setShowPopup,
   setShowSearch,
 } from 'views/App/DataSheet/redux';
-import { getRowNames } from 'views/App/DataSheet/utils/utils';
+import { getActualRowName } from 'views/App/DataSheet/utils/utils';
 import FormatRow from './FormatRow/FormatRow';
 import * as S from './Table.styled';
 import TableBody from './TableBody/TableBody';
@@ -49,17 +49,6 @@ const Table = function Table() {
   const headersType1 = sheet?.data[0] ? headerKeys : [];
   const headers = (sheet && sheet.isSortRow) ? headerKeys.sort() : headersType1;
 
-  const getRowNameForSaveSearch = (selectedRow: string) => {
-    let rowNameForSaveSearch = selectedRow;
-    for (const [key, value] of Object.entries(sheet.edits.headers || {})) {
-      if (value === selectedRow) {
-        rowNameForSaveSearch = key;
-        break;
-      }
-    }
-    return rowNameForSaveSearch;
-  };
-
   return (
     <S.Container id="tableCont">
       <S.TableDiv>
@@ -74,7 +63,7 @@ const Table = function Table() {
           <thead>
             <tr>
               { headers.map((key) => {
-                const rowNameForSaveSearch = getRowNameForSaveSearch(key);
+                const rowNameForSaveSearch = getActualRowName(key);
                 return (
                   <S.TH key={`tableheader_${key}`}>
                     {rowToHighlight === key && <S.Highlight />}

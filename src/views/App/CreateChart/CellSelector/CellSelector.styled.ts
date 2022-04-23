@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const SheetContCont = styled.div<any>`
-  width: 100%;
+  width: auto;
   height: 26px;
   padding: 5px;
   border-bottom: 1px solid ${Color('white').darken(0.3).toString()};
@@ -16,7 +16,6 @@ export const SheetContainer = styled.div<any>`
   width: max-content;
   float: right;
   height: 26px;
-  transform: translateX(-10px);
   padding: 0 5px;
   padding-top: 1px;
   border: 1px solid ${Color('white').darken(0.6).toString()};
@@ -26,7 +25,8 @@ export const SheetContainer = styled.div<any>`
   box-sizing: border-box;
   position: relative;
   background: ${Color('white').darken(0.08).toString()};
-  cursor: pointer;
+  opacity: ${(props) => !props.isChangeable && '0.3'};
+  cursor: ${(props) => { return props.isChangeable ? 'pointer' : 'not-allowed'; }};
   color: ${Color(textColor).lighten(0.3).toString()};
   &:hover {
     color: ${textColor};
@@ -57,7 +57,7 @@ export const SheetName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 91px;
+  max-width: 96px;
 `;
 
 export const IconContainer0 = styled.div`

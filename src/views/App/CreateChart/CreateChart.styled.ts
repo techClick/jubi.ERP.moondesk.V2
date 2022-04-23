@@ -26,8 +26,8 @@ export const ChartBuilderCont = styled.div`
 
 export const CellSelectorCont = styled.div`
   width: 20%;
-  max-width: 250px;
-  min-width: 200px;
+  max-width: 150px;
+  min-width: 150px;
   height: 100%;
   max-height: 100%;
   background: ${Color('white').darken(0.2).toString()};

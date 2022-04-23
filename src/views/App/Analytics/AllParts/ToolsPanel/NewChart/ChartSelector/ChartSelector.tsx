@@ -30,9 +30,10 @@ const ChartSelector = function ChartSelector() {
         <EscapeButton setShowPopup={setShowPopup} />
       </S.Header>
       {
-        chartGroups.map((group: any) => (
+        chartGroups.map((group: any, i: any) => (
           <>
             <S.ChartGroup
+              key={`chartgroup_${i}`}
               onClick={() => {
                 setShowGroupCharts({ ...showGroupCharts, [group]: !showGroupCharts[group] });
               }}

@@ -44,11 +44,11 @@ const saveUploadDatatoSheet = () => (dispatch: Function) => {
     displaySheet: parserData.filter((entry: any, i: any) => i < maxValuesinTable),
     allDisplaySheet: parserData,
     date: new Date(),
-    edits: {},
+    edits: { isSelectAllColumns: true },
     editSteps: [{
       name: 'Original',
       description: 'Initial state',
-      edits: {},
+      edits: { isSelectAllColumns: true },
       saveThis: true,
     }],
     editStep: 0,

@@ -3,21 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
-import SelectSheetMini
-  from 'views/App/DataSheet/components/components/ToolsPanel/components/MyTable/SelectSheetMini/SelectSheetMini';
 import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
-import { setShowPopup } from '../redux';
+import { selectChartSheetName1, setShowPopup } from '../redux';
 import * as S from './CellSelector.styled';
+import RowPicker from './RowPicker/RowPicker';
+import SelectSheetMini from './SelectSheetMini/SelectSheetMini';
 
 const CellSelector = function CellSelector() {
+  const chartSheetName1 = useAppSelector(selectChartSheetName1);
   const selectedSheet = useAppSelector(selectSelectedSheet);
   const sheet = useAppSelector(selectSheets)[selectedSheet];
   const dispatch = useDispatch();
 
+  if (!sheet) return null;
+
   return (
     <S.Container>
       <S.SheetContCont>
-        <S.SheetContainer>
+        <S.SheetContainer
+          isChangeable={!chartSheetName1}
+        >
           <S.SheetPart onClick={() => dispatch(setShowPopup({
             component: <SelectSheetMini />,
             exitOnBgClick: true,
@@ -39,6 +44,7 @@ const CellSelector = function CellSelector() {
           </S.SheetPart>
         </S.SheetContainer>
       </S.SheetContCont>
+      <RowPicker />
     </S.Container>
   );
 };

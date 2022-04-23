@@ -48,6 +48,7 @@ export const counterSlice = createSlice({
       state.sheets[state.selectedSheet].displaySheet = action.payload[0];
       // eslint-disable-next-line prefer-destructuring
       state.sheets[state.selectedSheet].allDisplaySheet = action.payload[1];
+      setStorageItem('sheets', JSON.stringify(state.sheets));
     },
     setSheet: (state, action: PayloadAction<Sheet>) => {
       state.sheets[state.selectedSheet] = action.payload;
@@ -60,13 +61,6 @@ export const counterSlice = createSlice({
     setSelectedSheet: (state, action: PayloadAction<number>) => {
       setStorageItem('selectedsheet', action.payload);
       state.selectedSheet = action.payload;
-    },
-    setIsSelectAllColRaw: (state, action: PayloadAction<boolean>) => {
-      const sheet = state.sheets[state.selectedSheet];
-      // eslint-disable-next-line prefer-destructuring
-      sheet.edits.isSelectAllColumns = action.payload;
-      sheet.editSteps[0].edits = sheet.edits;
-      setStorageItem('sheets', JSON.stringify(state.sheets));
     },
     setIsSelectAllCol: (state, action: PayloadAction<[string, boolean]>) => {
       const sheet = state.sheets[state.selectedSheet];
@@ -240,7 +234,7 @@ export const {
   setSheets, setSheet, setSelectedSheet, setShowPopup, setDisplaySheet, setSearch,
   setIsSelectingCell, setRowToHighlight, setShowSearch, setSelectedRow, setEditStep,
   removeEditSteps, setIsSortRow, setHeaderEdit, setRowValues, setIsSelectAllCol,
-  setIsSelectAllColRaw, setToChangeIds, setDeleteValues,
+  setToChangeIds, setDeleteValues,
 } = counterSlice.actions;
 
 export const selectSheets = (state: RootState) => state.dataSheet.sheets;

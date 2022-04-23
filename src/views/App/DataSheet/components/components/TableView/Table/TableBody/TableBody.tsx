@@ -5,8 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setDisplaySheetFromEdits } from 'views/App/DataSheet/utils/utils';
 import {
   selectIsSelectingCell, selectRowToHighlight, selectSelectedSheet,
-  selectSheets, selectShowPopup, selectShowSearch, setIsSelectAllColRaw,
-  setRowToHighlight,
+  selectSheets, selectShowPopup, selectShowSearch, setRowToHighlight,
   setShowPopup, setToChangeIds,
 } from 'views/App/DataSheet/redux';
 import * as S from './TableBody.styled';
@@ -54,12 +53,6 @@ const TableBody = function TableBody() {
     });
     dispatch(setToChangeIds(toChangeIdsTmp));
   }, [isSelectAllColumns, currentRow]);
-
-  useEffect(() => {
-    if (isSelectAllColumns === undefined) {
-      dispatch(setIsSelectAllColRaw(true));
-    }
-  }, []);
 
   useEffect(() => {
     dispatch(setDisplaySheetFromEdits());

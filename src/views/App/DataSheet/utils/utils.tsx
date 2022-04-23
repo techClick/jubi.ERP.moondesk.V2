@@ -5,6 +5,19 @@ import { store } from 'redux/store';
 import { maxValuesinTable } from 'views/App/utils/GlobalUtils';
 import { setDisplaySheet, setShowPopup } from '../redux';
 
+export const getActualRowName = (selectedRow: string) => {
+  const { selectedSheet, sheets } = store.getState().dataSheet;
+  const sheet: Sheet = sheets[selectedSheet];
+  let rowName = selectedRow;
+  for (const [key, value] of Object.entries(sheet.edits.headers || {})) {
+    if (value === selectedRow) {
+      rowName = key;
+      break;
+    }
+  }
+  return rowName;
+};
+
 export const getRowNames = (state?: any) => {
   const { selectedSheet, sheets } = state || store.getState().dataSheet;
   const sheet: Sheet = sheets[selectedSheet];
@@ -59,8 +72,8 @@ export const getSortedSheet = () => {
     sortedSheet = {
       name: sheet.name,
       data: sheetData2,
-      displaySheet: sheetData2.filter((entry: any, i: any) => i <= maxValuesinTable),
-      allDisplaySheet: sheetData2,
+      displaySheet: [],
+      allDisplaySheet: [],
       date: sheet.date,
       edits: sheet.edits,
       editSteps: sheet.editSteps,

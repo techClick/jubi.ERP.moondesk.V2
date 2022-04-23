@@ -4,11 +4,11 @@ import { getSheetFromEdits } from 'views/App/DataSheet/utils/utils';
 
 export const saveEditedSheet = () => (dispatch: Function) => {
   const sheet: Sheet = dispatch(getSheetFromEdits());
-  sheet.edits = {};
+  sheet.edits = { isSelectAllColumns: true };
   sheet.editSteps = [{
     name: 'Original',
     description: 'Initial state',
-    edits: {},
+    edits: { isSelectAllColumns: true },
     saveThis: true,
   }];
   sheet.editStep = 0;

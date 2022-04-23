@@ -7,9 +7,9 @@ const GrowthCharts = function GrowthCharts() {
   return (
     <S.Conatiner>
       {
-        charts.map((chart) => {
+        charts.map((chart, i) => {
           return (
-            <S.ChartContainer>
+            <S.ChartContainer key={`growthcharts_${i}`}>
               <S.IconConatiner>
                 <S.Icon color={chart.color}>
                   <FontAwesomeIcon icon={chart.icon} />

@@ -128,3 +128,27 @@ type SettingsKeys = {
 export type Settings = {
   [key in keyof SettingsKeys]: SettingsKeys[key]
 };
+
+export type SelectedBuild = null | 'value' | 'item' | 'date';
+
+type ChartBuildKeys = {
+  item?: string,
+  value?: string,
+  date?: string,
+}
+
+export type ChartBuild = {
+  [key in keyof ChartBuildKeys]: ChartBuildKeys[key]
+};
+
+type ChartSheetKeys = {
+  date: Date,
+  data: SheetEntry[],
+  chartType: string,
+  prefix?: string,
+  suffix?: string,
+}
+
+export type ChartSheet = {
+  [key in keyof ChartSheetKeys]: ChartSheetKeys[key]
+};
