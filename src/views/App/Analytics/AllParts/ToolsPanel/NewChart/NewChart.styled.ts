@@ -14,7 +14,6 @@ export const Container = styled.div`
 export const ToolsContainer = styled.div<any>`
   display: flex;
   flex-direction: column;
-  background: white;
   width: 46px;
   height: 46px;
   padding-top: 1px;

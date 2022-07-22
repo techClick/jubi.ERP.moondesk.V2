@@ -141,10 +141,19 @@ export type ChartBuild = {
   [key in keyof ChartBuildKeys]: ChartBuildKeys[key]
 };
 
+type ChartSheetEntryKeys = {
+  name: string,
+  value: number,
+}
+export type ChartSheetEntry = {
+  [key in keyof ChartSheetEntryKeys]: ChartSheetEntryKeys[key]
+}
+
 type ChartSheetKeys = {
   date: Date,
-  data: SheetEntry[],
+  data: ChartSheetEntry[],
   chartType: string,
+  name: string,
   prefix?: string,
   suffix?: string,
 }

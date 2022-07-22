@@ -1,7 +1,8 @@
 import { toast } from 'react-toastify';
 import { store } from 'redux/store';
-import { Sheet, SheetEntry } from 'types/types';
-import { setAllBuild, setChartSheet1, setChartSheetName1, setShowPopup } from 'views/App/CreateChart/redux';
+import { ChartSheetEntry, Sheet } from 'types/types';
+import { setChartSheets } from 'views/App/Analytics/redux';
+import { setAllBuild, setChartSheetName1, setShowPopup } from 'views/App/CreateChart/redux';
 import { getActualRowName } from 'views/App/DataSheet/utils/utils';
 
 let emptyItemErrors = 0;
@@ -10,6 +11,7 @@ let numericalErrors = 0;
 let nonNumericalErrors = 0;
 let hasSelectedItem = false;
 let hasSelectedValue = false;
+let history;
 let sheet: Sheet;
 
 const sendToast = () => (dispatch: Function) => {
@@ -35,7 +37,8 @@ const sendToast = () => (dispatch: Function) => {
       }
     }
   } else {
-    toast('No data was collected for the ITEM field. Entries are empty or numerical', { type: 'error', autoClose: 5000 });
+    toast(`No data was collected for the ITEM field.
+    Entries from (${allBuild.item}) are empty or numerical`, { type: 'error', autoClose: 5000 });
     dispatch(setAllBuild({ ...allBuild, item: undefined }));
   }
   if (hasSelectedValue) {
@@ -60,7 +63,8 @@ const sendToast = () => (dispatch: Function) => {
       }
     }
   } else {
-    toast('No data was collected for the VALUE field. Entries are empty or non-numerical', { type: 'error', autoClose: 5000 });
+    toast(`No data was collected for the VALUE field.
+    Entries from (${allBuild.value}) are empty or non-numerical`, { type: 'error', autoClose: 5000 });
     dispatch(setAllBuild({ ...allBuild, value: undefined }));
   }
   if (!hasSelectedItem && !hasSelectedValue) dispatch(setChartSheetName1(null));
@@ -100,7 +104,7 @@ export const formatAllBuild = () => (dispatch: Function) => {
   const { chartType, allBuild } = store.getState().createChart;
   const { selectedSheet, sheets } = store.getState().dataSheet;
   sheet = sheets[selectedSheet];
-  const chartSheetData: SheetEntry[] = [];
+  const chartSheetData: ChartSheetEntry[] = [];
   const actualItemRowName = getActualRowName(allBuild.item || '');
   const actualValueRowName = getActualRowName(allBuild.value || '');
   sheet.allDisplaySheet.map((entry) => {
@@ -128,29 +132,35 @@ export const formatAllBuild = () => (dispatch: Function) => {
       });
       if (thisIndex === -1) {
         chartSheetData.push({
-          name: entry[actualItemRowName]?.trim(),
-          value: getNumberAtMiddle(entry[actualValueRowName] || ''),
+          name: entry[actualItemRowName]?.trim() || '',
+          value: Number(getNumberAtMiddle(entry[actualValueRowName] || '')),
         });
       } else {
         chartSheetData[thisIndex].value = (Number(chartSheetData[thisIndex].value)
-          + Number(getNumberAtMiddle(entry[actualValueRowName] || ''))).toString();
+          + Number(getNumberAtMiddle(entry[actualValueRowName] || '')));
       }
     }
   });
   dispatch(setShowPopup({}));
   dispatch(sendToast());
   const match = getSufPrefix(sheet.allDisplaySheet[0][actualValueRowName] || '');
+  const chartSheetsLength = store.getState().analytics.chartSheets.length;
   const chartSheet = {
     date: new Date(),
     data: chartSheetData,
+    name: `${chartType} ${chartSheetsLength + 1}`,
     chartType,
     prefix: match[0],
     suffix: match[1],
   };
-  if (hasSelectedItem && hasSelectedValue) dispatch(setChartSheet1(chartSheet));
+  if (hasSelectedItem && hasSelectedValue) {
+    dispatch(setChartSheets(chartSheet));
+    history.push('/app/analytics');
+  }
 };
 
-export const saveItemBuild = (rowName: string) => (dispatch: Function) => {
+export const saveItemBuild = (rowName: string, useHistory: any) => (dispatch: Function) => {
+  history = useHistory;
   const { allBuild } = store.getState().createChart;
   dispatch(setAllBuild({ ...allBuild, item: rowName }));
   if (allBuild.value) {
@@ -160,7 +170,8 @@ export const saveItemBuild = (rowName: string) => (dispatch: Function) => {
   }
 };
 
-export const saveValueBuild = (rowName: string) => (dispatch: Function) => {
+export const saveValueBuild = (rowName: string, useHistory: any) => (dispatch: Function) => {
+  history = useHistory;
   const { allBuild } = store.getState().createChart;
   dispatch(setAllBuild({ ...allBuild, value: rowName }));
   if (allBuild.item) {

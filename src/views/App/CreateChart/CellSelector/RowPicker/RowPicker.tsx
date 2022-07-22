@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
 import LoadingDialogue from 'views/App/components/LoadingDialogue/Loading';
 import { selectSelectedSheet, selectSheets } from 'views/App/DataSheet/redux';
@@ -17,6 +18,7 @@ const RowPicker = function RowPicker() {
   const sheet = useAppSelector(selectSheets)[selectedSheet];
   const headerEdit = useAppSelector(selectSheets)[selectedSheet].edits.headers || {};
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const getKeys = () => {
     // eslint-disable-next-line consistent-return
@@ -33,8 +35,8 @@ const RowPicker = function RowPicker() {
   const headers = (sheet && sheet.isSortRow) ? headerKeys.sort() : headersType1;
 
   const formatBuildSelection: any = {
-    item: (rowName: string) => dispatch(saveItemBuild(rowName)),
-    value: (rowName: string) => dispatch(saveValueBuild(rowName)),
+    item: (rowName: string) => dispatch(saveItemBuild(rowName, history)),
+    value: (rowName: string) => dispatch(saveValueBuild(rowName, history)),
   };
 
   return (

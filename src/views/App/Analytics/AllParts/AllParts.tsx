@@ -6,9 +6,7 @@ import ToolsPanel from './ToolsPanel/ToolsPanel';
 const AllParts = function AllParts() {
   return (
     <S.Container>
-      <S.DarkBG>
-        <ToolsPanel />
-      </S.DarkBG>
+      <ToolsPanel />
       <AnalyticsPanel />
     </S.Container>
   );

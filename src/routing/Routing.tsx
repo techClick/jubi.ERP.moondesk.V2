@@ -17,6 +17,7 @@ const SelectSheet = lazy(() => import('views/App/SelectSheet/SelectSheet'));
 const Analytics = lazy(() => import('views/App/Analytics/Analytics'));
 const CreateChart = lazy(() => import('views/App/CreateChart/CreateChart'));
 // localStorage.clear();
+// localStorage.setItem('chartSheets', JSON.stringify([]));
 localStorage.setItem('projectId', '1');
 (document.body.style as any).zoom = '100%';
 

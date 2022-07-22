@@ -21,6 +21,7 @@ const initialState: AppState = {
     date: new Date(),
     data: [],
     chartType: '',
+    name: '',
   },
 };
 

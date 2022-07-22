@@ -24,6 +24,6 @@ export const BottomRightPanel = styled.div`
   position: relative;
   flex: 1;
   z-index: 1;
-  background: ${Color(panelBorderColor).lighten(0.18).toString()};
+  background: ${Color(panelBorderColor).darken(0.3).toString()};
   overflow: hidden;
 `;

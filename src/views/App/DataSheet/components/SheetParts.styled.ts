@@ -21,7 +21,6 @@ export const ButtonDiv = styled.div`
 `;
 
 export const DarkBG = styled.div`
-  background: ${Color(panelBorderColor).darken(0.3).toString()};
   flex: 1;
   overflow: auto;
   display: flex;
